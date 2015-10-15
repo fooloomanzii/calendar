@@ -11,7 +11,7 @@ Kalender-Applikation in Java
   Installation
 
 ---
-  Vorraussetungen
+  Vorraussetzungen
 
 ---
   Bekannte Probleme
