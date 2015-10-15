@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<project name="accounting" default="archive">
+
+  <target name="init">
+    <mkdir dir="build/classes"/>
+    <!-- <mkdir dir="dist"/> -->
+  </target>
+
+  <target name="compile" depends="init">
+    <javac includeAntRuntime="false" srcdir="src" destdir="build/classes"/>
+  </target>
+
+  <target name="archive" depends="compile">
+    <jar destfile="src/project/main.jar"
+        basedir="build/classes"/>
+  </target>
+
+  <target name="clean" depends="init">
+    <delete dir="build"/>
+    <!-- <delete dir="dist"/> -->
+  </target>
+
+  <!-- <target name="execute" depends="compile">
+    <java classpath="build/classes" classname="application.accounting.Buchhaltung"/>
+  </target>
+
+  <target name="execute-jar" depends="compile">
+    <java classpath="build/classes" classname="application.accounting.Buchhaltung"/>
+  </target>
+
+  <target name="execute-input" depends="compile">
+    <java classpath="build/classes" classname="application.accounting.Buchhaltung" input="./accountin.in"/>
+  </target>   -->
+
+
+</project>
