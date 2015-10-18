@@ -3,10 +3,16 @@
 # *.war
 # *.ear
 *.class
+*.log
+*.gz
 
 # Build
 build/*
 !**/README.md
+
+# Latex
+*.toc
+*.aux
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
