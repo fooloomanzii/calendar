@@ -1,0 +1,80 @@
+\documentclass[a4paper]{article}
+
+% Packages/Variablen
+% #######################
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} % für Umlaute
+\usepackage{ngerman} % Deutsche Rechtschreibung + 'n' für neue Trennungsregeln
+% #######################
+
+\title{\begin{center}
+        \emph{{\Huge Lastenheft}} \\ {\large Funktionenplotter}
+       \end{center} }
+\author{{\normalsize Gruppe 3: Timo Kirfel, Johannes Brautzsch, Alexander Müller}}
+\date{14.10.2015}
+
+\pdfinfo{%
+  /Title    (Lastenheft: Funktionenplotter)
+  /Author   (Timo Kirfel, Johannes Brautzsch, Alexander Müller)
+  /Creator  ()
+  /Producer ()
+  /Subject  ()
+  /Keywords (Visualisierung, Funktionen, Lastenheft, Java)
+}
+
+\begin{document}
+  \maketitle
+  \newpage
+
+  \tableofcontents % immer 2! mal kompilieren um das inhaltsverz. zu aktualisieren.
+		   % beim 1. mal wird das dokument gescannt,
+		   % beim 2. mal das inhaltsverzeichnis dazu erstellt.
+  \newpage
+
+  \section{Zielbestimmung}
+    Es soll eine grafische Bedienoberfläche entwickelt werden, die grundlegende Aspekte einer Kurvendiskussion ermöglicht. 
+    Das Programm hat die Aufgabe der Hilfestellung zur Visualisierung mathematischer Funktionen sowie ihrer Ableitungen und ihrer Stammfunktion. So sollen auch die exakten Funktionsgleichungen, Ableitungen und Stammfunktionen erzeugt und angezeigt werden.
+
+  \section{Produkteinsatz}
+    Das Programm soll von Privatbenutzern bedient werden, die sich mit Mathematik privat, schulisch oder beruflich beschäftigen, aber eine gewisse mathematische Vorbildung besitzen.
+    Dem Benutzer soll es erleichtert werden durch die grafische Darstellung den Verlauf von Funktionen nachzuvollziehen und helfen spezifische Punkte, wie lokale Extrema, Schnittpunkte sowie Polstellen zu identifizieren.
+    Durch das exakte Berechnen der Funktionsgleichungen, Ableitungen und Stammfunktion, sollen die Benutzer Hilfestellung im täglichen Umgang mit Funktionen erhalten.
+
+  \section{Produktübersicht}
+    Die Anwendung wird in einem Desktopsystem (Linux, Windows,  OS X) durch einen Benutzer ausgeführt und bedient.
+
+  \section{Produktfunktionen}
+	  \begin{description}
+		\item[/LF010/] Das Programm läuft in einer grafischen Benutzeroberfläche und soll in einer möglichst intuitiv zu bedienenden, rahmenlosen Fensterdarstellungen stabil, zuverlässig und performant laufen. Die Menüs sollen sich nur öffnen und zeigen, wenn der Benutzer eine Markierung setzt bzw. Auswahl trifft.
+		\item[/LF020/] Die Perspektive der Darstellung soll durch den Benutzer verändert werden können. Die Navigation der Perspektive der grafischen Darstellung soll über Buttons, Sliders, Mausgesten und Cursortasten erfolgen sowie durch Textfelder eingegeben werden können.
+		\item[/LF030/] Die Eingabe der Funktionsgleichungen soll über Textfelder realisiert werden. Der Nutzer soll die Möglichkeit haben, bereits eingegebene Funktionsgleichungen zu speichern und zu laden.
+		\item[/LF040/] Es soll eine Möglichkeit geben eine Wertetabelle in eine auswählbare csv-Datei zu exportieren sowie die grafische Darstellung als Bilddatei zu speichern und zu drucken.
+		\item[/LF050/] Der Benutzer kann einen Graph durch Mauszeigerauswahl in der Achsendarstellung auswählen und in der Benutzeroberfläche soll ein Kontextmenü erscheinen, die es dem Benutzer ermöglichen, die genannten Programmfunktionen auszuführen. Ebenso sollen die Koordinaten des Punktes eines Graphen angezeigt werden, die der Benutzer auswählt.
+		\item[/LF060/] Es sollen mehrere Funktionen in der selben Darstellung abgebildet werden und Schnittpunkte durch Markierungen hervorgehoben werden. Der Benutzer soll die Möglichkeit haben, mittels eines eingebetteten Menüs auszuwählen, gewünschte Funktionen und Ableitungen entweder darstellen oder nicht darstellen zu lassen.
+		\item[/LF070/] Es sollen Funktionen mit bis zu drei Veränderlichen $(x,y,z)$ sowie in Zylinderkoordinaten $(\phi,r,z)$ dargestellt werden können. Die Achsendarstellung soll durch Auswahl entweder linear, logarithmisch oder exponentiell erfolgen.
+		\item[/LF080/] Das Programm soll Funktionen bis zur dritten Ableitung sowie die Stammfunktion in einer exakten Funktionsgleichung berechnen können. Diese Gleichungen sollen in der grafischen Darstellung angezeigt werden.
+		\item[/LF090/] Während der Laufzeit des Programms soll die letzte Perspektive und die letzten dargestellten Funktionen automatisch gespeichert und beim nächsten Programmstart automatisch wiederhergestellt und geladen werden.
+	  \end{description}
+
+  \section{Produktdaten}
+  
+	  \begin{description}
+	  	\item[/LD010/] Die Anwendung soll dem Benutzer ermöglichen, Funktionsgleichungen für die spätere Nutzung persistent abzuspeichern.
+	  	\item[/LD020/] Der Nutzer soll Wertetabellen im csv-Format exportieren können.
+	  	\item[/LD030/] Die grafische Darstellung soll der Benutzer als Bilddatei speichern und durch die Anwendung selbst drucken können.
+	  \end{description}
+
+  \section{Produktleistungen}
+  
+	  \begin{description}
+	  	\item[/LL010/] Die Funktionsgleichungen, Ableitungen und Stammfunktionen sollen exakt berechnet werden.
+	  	\item[/LL020/] Der Graph soll eine an die Perspektive angepasste hinreichend genaue Darstellung aufweisen.
+	  	\item[/LL030/] Die Schnittstellenmarkierungen sollen ebenso eine an die Perspektive angepasste hinreichend genaue Darstellung aufweisen.
+	  	\item[/LL040/] Die Laufzeit- und Bediengeschwindigkeit soll den Benutzer nicht einschränken - weder bei Eingaben und noch bei der Navigation in der grafischen Darstellung.
+	  \end{description}
+
+  \section{Qualitätsanforderungen}
+    Im Fokus zur Erstellung des Programms steht die flüssige grafische Darstellung sowie Navigation. Der Nutzer soll die Bedienung des Programms intuitiv verstehen, ohne dass er auf eine Hilfe zurückgreifen müsste, die auch zu erstellen ist.
+    Die Berechnungen der Funktionsgleichungen sollen exakt erfolgen und die Darstellung der Graphen hinreichend genau sein.
+
+\end{document}
