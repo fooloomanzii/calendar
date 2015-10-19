@@ -2,6 +2,13 @@
 
 ---
 
+## Mögliche Libraries
+
+GUI für Java
+http://qtjambi.org/
+
+----
+
 ## Produktfunktionen
 
 * /F010/ Kalanderansicht mit Hilfe einer GUI. Dabei werden Termine grafisch hervorgehoben, sowie und der Titel mit Uhrzeit angezeigt, sofern die aktuelle Ansicht letzteres zulässt.

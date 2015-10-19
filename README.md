@@ -9,7 +9,7 @@ https://de.wikipedia.org/wiki/ICalendar
 
 #### Frage:
 * Kompatibel/Gleich zu **.ics**, Google(?)
-> - ics ist die entsprechende Dateinamenserweiterung für andere Betriebssysteme. (Wikipedia)
+  > - ics ist die entsprechende Dateinamenserweiterung für andere Betriebssysteme. (Wikipedia)
 
 ### SQL <--> ICal
 http://stackoverflow.com/questions/1054201/ical-field-list-for-database-schema-based-on-ical-standard
