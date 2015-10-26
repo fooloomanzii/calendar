@@ -221,7 +221,7 @@
   \section{Ergänzungen}
   	\subsection{Fensterdarstellung}
   	\paragraph{}
-  	Ein Beispiel für eine Grafische Oberfläche
+  	Ein Beispiel für eine Grafische Oberfläche (siehe oben)
   	
   	
 	\begin{figure}
@@ -234,10 +234,18 @@
 
   	
   	\subsection{Andwendungsfalldiagramme}
-  	Bei den Darstellungen sind zwei Anwendungsfälle dargestellt. Der erste Anwendungsfall zeigt einen Anwender, der einen Termin hinzufügt, ändert oder löscht. Bei diesen Aktionen sind die Gruppenabhängigkeiten zu beachten. Auch impliziert diese Aktion, dass eine Synchronisation durchgeführt wird. In der zweiten Darstellung wird erörtert, wie sich die Abhängigkeiten bei einer Backupanfrage gestalten sollten.
+  	Es sind zwei Anwendungsfälle dargestellt. Der erste Anwendungsfall zeigt einen Akteur, der einen Termin hinzufügt, ändert oder löscht. Die zweite Abbildung wird hier genauer beschrieben: 
+  	    \begin{itemize}
+  	    	\item Geschaftprozess:
+		  	    	Backup anlegen
+  	    	\item Akteure:
+		  	    	Benutzer
+  	    	\item Beschreibung:
+		  	    	Der Benutzer hat die Möglichkeit ein Backup seiner Kalender anzulegen.Dies geschiet indem das Programm auf die interne Datenbank zugreift und die geforderten Daten ausliest, verschlüsselt und in eine Datei ausgibt. Des Weiteren kann der Benutzer direkt eine Verbindung zum Online Kalender herstellen und die Kalender auf diesem Weg sichern. Zu dem besteht die Möglichkeit einen Namen für das Backup festzulegen.
+  	    \end{itemize}
   	\begin{figure}
 		\centering
-		\includegraphics[width=0.9\linewidth]{Pflichtenheft - Anwendungsfalldiagramm.png}
+		\includegraphics[width=0.9\linewidth]{Anwendungsfalldiagramm.png}
 		\caption{}
 		\label{Anwendungsfalldiagramm}
 	\end{figure}
