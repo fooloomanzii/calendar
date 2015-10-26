@@ -3,16 +3,18 @@
 % Packages/Variablen
 % #######################
 \usepackage[T1]{fontenc}
+\usepackage{float}
+\usepackage{caption}
 \usepackage[utf8]{inputenc} % für Umlaute
-\usepackage{ngerman} % Deutsche Rechtschreibung + 'n' für neue Trennungsregeln
-% #######################
+\usepackage{ngerman} % Deutsche Rechtschreibung
+\usepackage{graphicx}
 
 
 \title{\begin{center}
 		\emph{{\Huge Pflichtenheft}} \\ {\large Kalender}
        \end{center} }
 \author{Gruppe 3: Timo Kirfel, Johannes Brautzsch, Alexander Müller}
-\date{18.10.2015}
+\date{26.10.2015}
 
 \pdfinfo{ %
   /Title    ()
@@ -216,5 +218,27 @@
 		  \item Import von Kalendern
 		  \item Synchronisation von Kalendern
     \end{itemize}
+  \section{Ergänzungen}
+  	\subsection{Fensterdarstellung}
+  	\paragraph{}
+  	Ein Beispiel für eine Grafische Oberfläche
+  	
+  	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.9\linewidth]{Fensterdarstellung}
+		\caption{}
+		\label{Fensterdarstellung}
+	\end{figure}
 
+
+  	
+  	\subsection{Andwendungsfalldiagramme}
+  	Bei den Darstellungen sind zwei Anwendungsfälle dargestellt. Der erste Anwendungsfall zeigt einen Anwender, der einen Termin hinzufügt, ändert oder löscht. Bei diesen Aktionen sind die Gruppenabhängigkeiten zu beachten. Auch impliziert diese Aktion, dass eine Synchronisation durchgeführt wird. In der zweiten Darstellung wird erörtert, wie sich die Abhängigkeiten bei einer Backupanfrage gestalten sollten.
+  	\begin{figure}
+		\centering
+		\includegraphics[width=0.9\linewidth]{Pflichtenheft - Anwendungsfalldiagramm.png}
+		\caption{}
+		\label{Anwendungsfalldiagramm}
+	\end{figure}
 \end{document}
