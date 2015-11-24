@@ -1,3 +1,5 @@
+package src.project;
+
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -103,9 +105,9 @@ public class KalenderWindow extends JFrame{
 
 		    int i = startTag-1;
 		    for(int tag=1; tag<=anzahlTage; tag++){
-						if(Calendar.DAY_OF_MONTH*Calendar.WEEK_OF_MONTH == tag){
-								table.getColumn(table.getColumnName()).setBackground(Color.Red);
-		    		}
+//						if(Calendar.DAY_OF_MONTH*Calendar.WEEK_OF_MONTH == tag){
+//								table.getColumn(table.getColumnName()).setBackground(Color.Red);
+//		    		}
 		      	model.setValueAt(tag, i/7 , i%7 );
 		      	i = i + 1;
 	  		}

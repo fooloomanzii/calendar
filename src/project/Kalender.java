@@ -1,3 +1,5 @@
+package src.project;
+
 public class Kalender{
 
 	public static void main(String[] args) {
