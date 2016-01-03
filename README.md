@@ -23,7 +23,7 @@ http://stackoverflow.com/questions/1054201/ical-field-list-for-database-schema-b
 
 ---
 ##  Funktionen
-
+Bei diesem Programm handelt es sich um ein Kalenderverwaltungsprogramm
 ---
 ##  Installation
 
