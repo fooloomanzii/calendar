@@ -1,19 +1,21 @@
-package src.project;
+package project;
 
-import java.util.Date
+import java.sql.Time;
+import java.util.Date;
 
-private String titel;
-private Date datum;
-private Time uhrzeit;
-private Time zeitspanne;
-private String ort;
-private String besitzer;
-private String wiederholung;
-private String beschreibung;
-private String sichtbarkeit;
 
-public Termin{
 
+public class Termin{
+	private String titel;
+	private Date datum;
+	private Time uhrzeit;
+	private Time zeitspanne;
+	private String ort;
+	private String besitzer;
+	private String wiederholung;
+	private String beschreibung;
+	private String sichtbarkeit;
+	
     public Termin(String titel, Date datum, Time uhrzeit, Time zeitspanne, String ort, String besitzer, String wiederholung,
     String beschreibung, String sichtbarkeit){
         this.titel = titel;
@@ -25,13 +27,14 @@ public Termin{
         this.wiederholung = wiederholung;
         this.beschreibung = beschreibung;
         this.sichtbarkeit = sichtbarkeit;
+        
     }
 
     public void terminLoesches(){
 
     }
 
-    public void terminAendern(String titel, date datum, time uhrzeit, time zeitspanne, String ort, String besitzer, String wiederholung,
+    public void terminAendern(String titel, Date datum, Time uhrzeit, Time zeitspanne, String ort, String besitzer, String wiederholung,
     String beschreibung, String sichtbarkeit){
         this.titel = titel;
         this.datum = datum;
