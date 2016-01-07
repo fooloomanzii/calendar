@@ -37,7 +37,7 @@ public class Termin{
 
 
 /**    public void terminLoesches()throws Exception {
-		String pathDb = System.getProperty("user.dir") + "/src/project/terminKalender.db";
+		String pathDb = System.getProperty("user.dir") + "/src/kalender/terminKalender.db";
 		try{
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
 			String sql = "select titel from termin where titel = '"+titel;
@@ -57,7 +57,7 @@ public class Termin{
 
     /*public void terminAendern(String titel, String datumVon, String datumBis, String uhrzeitVon, String uhrzeitBis, String ort, String wiederholung,
     	    String beschreibung, String sichtbarkeit){
-    	String pathDb = System.getProperty("user.dir") + "/src/project/terminKalender.db";
+    	String pathDb = System.getProperty("user.dir") + "/src/kalender/terminKalender.db";
 		try{
 		Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
 		if(!titel.equals("")){
@@ -88,7 +88,7 @@ public class Termin{
     } */
     public static void terminAendern(Termin termin, String titel, String datumVon, String datumBis, String uhrzeitVon, String uhrzeitBis, String ort, String wiederholung,
     	    String beschreibung, String sichtbarkeit){
-    	String pathDb = System.getProperty("user.dir") + "/src/project/terminKalender.db";
+    	String pathDb = System.getProperty("user.dir") + "/src/kalender/terminKalender.db";
 		try{
 			//System.out.println(sichtbarkeit);
 		Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
@@ -139,7 +139,7 @@ public String getSichtbarkeit() {
 
 	public static ArrayList<Termin> getTermine(String besitzer){
     	ArrayList<Termin> terminlist = new ArrayList<>();
-    	String pathDb = System.getProperty("user.dir") + "/src/project/terminKalender.db";
+    	String pathDb = System.getProperty("user.dir") + "/src/kalender/terminKalender.db";
 		try{
 		Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
 		//System.out.println(besitzer);
@@ -166,15 +166,17 @@ public String getSichtbarkeit() {
     }
     public static void terminAnlegen(String titel, String datumVon, String datumBis, String uhrzeitVon, String uhrzeitBis, String ort, String wiederholung,
     	    String beschreibung, String sichtbarkeit,Person besitzer){
-    	String pathDb = System.getProperty("user.dir") + "/src/project/terminKalender.db";
+    	String pathDb = System.getProperty("user.dir") + "/src/kalender/terminKalender.db";
 		try{
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
 			String sql;
-			if (sichtbarkeit.equals("Oeffentlich")){
+			System.out.println(besitzer.getEmail());
+			if (sichtbarkeit.equals("oeffentlich")){
 				sql = "insert into termin Values ('"+titel+"','"+datumVon+"','"+datumBis+"','"+uhrzeitVon+"','"+uhrzeitBis+"', '"+wiederholung+"', '"+ort+"', '"+beschreibung+"', '"+sichtbarkeit+"')";
 			}else{
 				sql = "insert into termin Values ('"+titel+"', '"+datumVon+"', '"+datumBis+"', '"+uhrzeitVon+"', '"+uhrzeitBis+"', '"+wiederholung+"', '"+ort+"', '"+beschreibung+"', '"+besitzer.getEmail()+"')";
 			}
+			System.out.println(sql);
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 			if ( conn != null )

@@ -31,7 +31,7 @@ public class Person {
 	public static void insertNewPerson(String nachname, String vorname, String email, String passwort, String sicherheitsfrage,
 			String antwort){
 		try{
-		String pathDb = System.getProperty("user.dir") + "/src/project/anmeldungKalender.db";
+		String pathDb = System.getProperty("user.dir") + "/src/kalender/anmeldungKalender.db";
 		// Connection zur Datenbank herstellen besteht die Moeglichkit zwei weitere Parameter 
 		// anzugeben für Benutzername und Passwort
 		// throwes sql Exception wenn kein Zugriff auf die Datenbank moeglich ist
@@ -63,7 +63,7 @@ public class Person {
 		return antwort;
 	}
 	public void personLoeschen(String email, String passwort) throws Exception {
-		String pathDb = System.getProperty("user.dir") + "/src/project/anmeldungKalender.db";
+		String pathDb = System.getProperty("user.dir") + "/src/kalender/anmeldungKalender.db";
 		try{
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
 			Statement stmt = conn.createStatement();
@@ -79,7 +79,7 @@ public class Person {
 
 	public void persoenlicheDatenAendern(String nachname, String vorname, String passwort, String email,
 			String sicherheitsfrage, String antwort) {
-		String pathDb = System.getProperty("user.dir") + "/src/project/anmeldungKalender.db";
+		String pathDb = System.getProperty("user.dir") + "/src/kalender/anmeldungKalender.db";
 		try{
 		Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
 		if(!nachname.equals("")){
@@ -107,7 +107,7 @@ public class Person {
 	}
 
 	public static boolean ueberpruefeDaten(String email, String passwort) {
-		String pathDb = System.getProperty("user.dir") + "/src/project/anmeldungKalender.db";
+		String pathDb = System.getProperty("user.dir") + "/src/kalender/anmeldungKalender.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			String sql = "select email, passwort from anmeldung where email = '" + email + "' and passwort='" + passwort
@@ -130,7 +130,7 @@ public class Person {
 	}
 
 	public static String passwortDaten(String email, String frage, String antwort) {
-		String pathDb = System.getProperty("user.dir") + "/src/project/anmeldungKalender.db";
+		String pathDb = System.getProperty("user.dir") + "/src/kalender/anmeldungKalender.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			String sql = "select email, passwort, sicherheitsfrage, antwort from anmeldung where email = '" + email + "' and sicherheitsfrage='" + 
@@ -156,7 +156,7 @@ public class Person {
 	}
 
 	public static boolean emailSchonDa(String email) {
-		String pathDb = System.getProperty("user.dir") + "/src/project/anmeldungKalender.db";
+		String pathDb = System.getProperty("user.dir") + "/src/kalender/anmeldungKalender.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			String sql = "select email from anmeldung where email = '"+email+"'";
@@ -180,7 +180,7 @@ public class Person {
 	}
 	public static ArrayList<String> getPersonenDaten(String email){
 		String sql = "select vorname,nachname,email,passwort,sicherheitsfrage,antwort from anmeldung where email = '"+email+"'";
-		String pathDb = System.getProperty("user.dir") + "/src/project/anmeldungKalender.db";
+		String pathDb = System.getProperty("user.dir") + "/src/kalender/anmeldungKalender.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			Statement stmt = conn.createStatement();

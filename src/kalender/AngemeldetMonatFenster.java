@@ -57,6 +57,7 @@ public class AngemeldetMonatFenster {
 	 * Create the application.
 	 */
 	public AngemeldetMonatFenster(Person angemeldet) {
+		//TODO
 		this.angemeldet=angemeldet;
 		initialize(angemeldet);
 		;
@@ -585,6 +586,10 @@ public class AngemeldetMonatFenster {
 			public void actionPerformed(ActionEvent e) {
 				TerminErstellenFenster fen = new TerminErstellenFenster(angemeldet);
 				fen.setVisible(true);
+				termine = Termin.getTermine("oeffentlich");
+				privateTermin = Termin.getTermine(angemeldet.getEmail());
+				tageErstellen();
+				frame.validate();
 			}
 		});
 		mnMen.add(mntmTerminErstellen);

@@ -197,7 +197,7 @@ public class TerminErstellenFenster extends JDialog {
 		getContentPane().add(lblSichtbarkeit, gbc_lblSichtbarkeit);
 		
 		final JComboBox SichtbarkeitComboBox = new JComboBox();
-		SichtbarkeitComboBox.setModel(new DefaultComboBoxModel(new String[] {"oeffentlich\t", "privat"}));
+		SichtbarkeitComboBox.setModel(new DefaultComboBoxModel(new String[] {"oeffentlich", "privat"}));
 		GridBagConstraints gbc_SichtbarkeitComboBox = new GridBagConstraints();
 		gbc_SichtbarkeitComboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_SichtbarkeitComboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -224,7 +224,7 @@ public class TerminErstellenFenster extends JDialog {
 					JOptionPane.showMessageDialog(frame, "Bitte fuellen Sie die notwendigen Fenster aus!");
 				}else{
 					if (wiederholung.equals("Einmalig")){
-						Termin.terminAnlegen(titel, datumVon, datumBis, uhrzeitVon, uhrzeitBis, ort, beschreibung, wiederholung, sichtbarkeit,angemeldet);
+						Termin.terminAnlegen(titel, datumVon, datumBis, uhrzeitVon, uhrzeitBis, ort, wiederholung, beschreibung, sichtbarkeit,angemeldet);
 						dispose();
 					}else{
 						JOptionPane.showMessageDialog(frame,"Work in Progress");
