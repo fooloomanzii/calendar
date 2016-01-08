@@ -29,7 +29,7 @@ public class RegistrationWindow extends JDialog {
 	 * Create the RegistrationWindow.
 	 */
 	public RegistrationWindow() {
-		getContentPane().setBackground(new Color(0, 102, 0));
+		getContentPane().setBackground(Color.WHITE);
 		setModal(true);
 		setAlwaysOnTop(true);
 		setTitle("Registration");
@@ -38,7 +38,7 @@ public class RegistrationWindow extends JDialog {
 
 		JLabel lblFirstName = new JLabel("First Name:");
 		lblFirstName.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblFirstName.setForeground(Color.RED);
+		lblFirstName.setForeground(Color.DARK_GRAY);
 		getContentPane().add(lblFirstName, "cell 0 0,alignx trailing");
 		textFirstName = new JTextField();
 		getContentPane().add(textFirstName, "cell 1 0,growx");
@@ -46,7 +46,7 @@ public class RegistrationWindow extends JDialog {
 
 		JLabel lblSurname = new JLabel("Surname:");
 		lblSurname.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblSurname.setForeground(Color.RED);
+		lblSurname.setForeground(Color.DARK_GRAY);
 		getContentPane().add(lblSurname, "cell 0 1,alignx trailing");
 		textSurname = new JTextField();
 		getContentPane().add(textSurname, "cell 1 1,growx");
@@ -54,7 +54,7 @@ public class RegistrationWindow extends JDialog {
 
 		JLabel lblEMail = new JLabel("E-Mail:");
 		lblEMail.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblEMail.setForeground(Color.RED);
+		lblEMail.setForeground(Color.DARK_GRAY);
 		getContentPane().add(lblEMail, "cell 0 2,alignx trailing");
 		textEMail = new JTextField();
 		getContentPane().add(textEMail, "cell 1 2,growx");
@@ -62,21 +62,21 @@ public class RegistrationWindow extends JDialog {
 
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblPassword.setForeground(Color.RED);
+		lblPassword.setForeground(Color.DARK_GRAY);
 		getContentPane().add(lblPassword, "cell 0 3,alignx trailing");
 		passwordField = new JPasswordField();
 		getContentPane().add(passwordField, "cell 1 3,growx");
 
 		JLabel lblRepeatPassword = new JLabel("Password (Repeat):");
 		lblRepeatPassword.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblRepeatPassword.setForeground(Color.RED);
+		lblRepeatPassword.setForeground(Color.DARK_GRAY);
 		getContentPane().add(lblRepeatPassword, "cell 0 4,alignx trailing");
 		repeatPasswordField = new JPasswordField();
 		getContentPane().add(repeatPasswordField, "cell 1 4,growx");
 
 		JLabel lblSecurityQuestion = new JLabel("Security Question:");
 		lblSecurityQuestion.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblSecurityQuestion.setForeground(Color.RED);
+		lblSecurityQuestion.setForeground(Color.DARK_GRAY);
 		getContentPane().add(lblSecurityQuestion, "cell 0 5,alignx trailing");
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Where were you born?", "What is the name of your pet?", "What is your mothers maiden name?"}));
@@ -84,7 +84,7 @@ public class RegistrationWindow extends JDialog {
 
 		JLabel lblAnswer = new JLabel("Answer:");
 		lblAnswer.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblAnswer.setForeground(Color.RED);
+		lblAnswer.setForeground(Color.DARK_GRAY);
 		getContentPane().add(lblAnswer, "cell 0 6,alignx trailing");
 		textAnswer = new JTextField();
 		getContentPane().add(textAnswer, "cell 1 6,growx");
@@ -115,10 +115,10 @@ public class RegistrationWindow extends JDialog {
 					JOptionPane.showMessageDialog(getContentPane(), "The password must have five characters at least.");
 				} else if (!password.equals(passwordRepeat)) {
 					JOptionPane.showMessageDialog(getContentPane(), "The entered passwords do not match");
-				} else if (Person.emailAlreadyExist(email)) {
+				} else if (Client.emailAlreadyExist(email)) {
 					JOptionPane.showMessageDialog(getContentPane(), "The E-Mail-Adress is already used!");
 				} else {
-					Person.insertNewPerson(firstName, surname, password, email, question, answer);
+					Client.insertNewPerson(firstName, surname, password, email, question, answer);
 					JOptionPane.showMessageDialog(getContentPane(), "Account has been created successfully!");
 					dispose();
 				}

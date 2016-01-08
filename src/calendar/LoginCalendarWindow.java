@@ -33,18 +33,18 @@ public class LoginCalendarWindow {
 	private int currentYear = _calendar.get(Calendar.YEAR); //Indicates current year
 	
 	private ArrayList<JPanel> listJPanel = new ArrayList<JPanel>();
-	private ArrayList<Meeting> publicMeeting = Meeting.getMeetingList("public");
-	private ArrayList<Meeting> privatMeeting = Meeting.getMeetingList("privat");
+	private ArrayList<Event> publicMeeting = Event.getMeetingList("public");
+	private ArrayList<Event> privatMeeting = Event.getMeetingList("privat");
 	
 	
-	private Person loginPerson;
+	private Client loginPerson;
 	
 	private int start;	
 
 	/**
 	 * Create the application
 	 */
-	public LoginCalendarWindow(Person loginPerson) {
+	public LoginCalendarWindow(Client loginPerson) {
 		this.loginPerson = loginPerson;
 		initialize();
 	}
@@ -53,7 +53,7 @@ public class LoginCalendarWindow {
 	 * Initialize Frame
 	 */
 	private void initialize(){
-		frame.getContentPane().setBackground(new Color(0, 102, 0));
+		frame.getContentPane().setBackground(Color.WHITE);
 		frame.getContentPane().setForeground(Color.RED);
 		frame.setBounds(300, 0, 800, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,7 +94,7 @@ public class LoginCalendarWindow {
 		 * JPanel Month + Year
 		 */
 		monthYear.setForeground(new Color(0, 0, 0));
-		monthYear.setBackground(new Color(0, 102, 0));
+		monthYear.setBackground(Color.WHITE);
 		GridBagConstraints gbc_monthYear = new GridBagConstraints();
 		gbc_monthYear.gridwidth = 3;
 		gbc_monthYear.insets = new Insets(0, 0, 5, 5);
@@ -638,7 +638,7 @@ public class LoginCalendarWindow {
 		mntmLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				LogoutCalendarWindow fen = new LogoutCalendarWindow();
+				CalendarWindow fen = new CalendarWindow();
 				fen.getFrame().setVisible(true);
 			}
 		});
@@ -663,7 +663,7 @@ public class LoginCalendarWindow {
 		JMenuItem mntmCreateMeeting = new JMenuItem("Create Meeting");
 		mntmCreateMeeting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CreateMeetingWindow win = new CreateMeetingWindow(loginPerson);
+				NewEventWindow win = new NewEventWindow(loginPerson);
 				win.setVisible(true);
 			}
 		});
@@ -755,7 +755,7 @@ public class LoginCalendarWindow {
 		String currentDate = day + "." + (_calendar.get(Calendar.MONTH)+1) + "." + _calendar.get(Calendar.YEAR);
 		
 		for(int i=0; i<publicMeeting.size(); i++){
-			final Meeting meeting = publicMeeting.get(i);
+			final Event meeting = publicMeeting.get(i);
 			final String email = publicMeeting.get(i).getOwner();
 			if(currentDate.equals(publicMeeting.get(i).getDateFrom())){
 				JLabel label = new JLabel(publicMeeting.get(i).getTitle());
@@ -765,7 +765,7 @@ public class LoginCalendarWindow {
 				label.addMouseListener(new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
 						if(loginPerson.getEmail().equals(email)){
-							ChangeRemoveMeetingWindow win = new ChangeRemoveMeetingWindow(meeting);
+							ChangeEventWindow win = new ChangeEventWindow(meeting);
 							win.setVisible(true);
 						}else{
 							ShowMeetingWindow win = new ShowMeetingWindow(meeting);
@@ -777,7 +777,7 @@ public class LoginCalendarWindow {
 		}
 			
 		for(int i=0; i<privatMeeting.size(); i++){
-			final Meeting meeting = privatMeeting.get(i);
+			final Event meeting = privatMeeting.get(i);
 			if(currentDate.equals(privatMeeting.get(i).getDateFrom()) && loginPerson.getEmail().equals(privatMeeting.get(i).getOwner())){
 				JLabel label = new JLabel(privatMeeting.get(i).getTitle());
 				label.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -785,7 +785,7 @@ public class LoginCalendarWindow {
 				listJPanel.get(jpanelNumber).add(label, "alignx center");
 				label.addMouseListener(new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
-						ChangeRemoveMeetingWindow win = new ChangeRemoveMeetingWindow(meeting);
+						ChangeEventWindow win = new ChangeEventWindow(meeting);
 						win.setVisible(true);
 					}
 				});

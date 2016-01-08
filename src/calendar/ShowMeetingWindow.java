@@ -18,8 +18,8 @@ public class ShowMeetingWindow extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ShowMeetingWindow(final Meeting meeting) {
-		getContentPane().setBackground(new Color(0, 102, 0));
+	public ShowMeetingWindow(final Event meeting) {
+		getContentPane().setBackground(Color.WHITE);
 		setTitle("Meeting");
 		setModal(true);
 		setAlwaysOnTop(true);
@@ -34,7 +34,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel lblOwner = new JLabel("Owner");
 		lblOwner.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblOwner.setForeground(Color.RED);
+		lblOwner.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lblOwner = new GridBagConstraints();
 		gbc_lblOwner.insets = new Insets(0, 0, 5, 5);
 		gbc_lblOwner.gridx = 2;
@@ -43,7 +43,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel ownerText = new JLabel(meeting.getOwner());
 		ownerText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		ownerText.setForeground(Color.RED);
+		ownerText.setForeground(Color.BLACK);
 		GridBagConstraints gbc_ownerText = new GridBagConstraints();
 		gbc_ownerText.insets = new Insets(0, 0, 5, 0);
 		gbc_ownerText.gridx = 6;
@@ -52,7 +52,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel lblTitle = new JLabel("Title");
 		lblTitle.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblTitle.setForeground(Color.RED);
+		lblTitle.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 		gbc_lblTitle.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTitle.gridx = 2;
@@ -61,7 +61,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel titleText = new JLabel(meeting.getTitle());
 		titleText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		titleText.setForeground(Color.RED);
+		titleText.setForeground(Color.BLACK);
 		GridBagConstraints gbc_titleText = new GridBagConstraints();
 		gbc_titleText.insets = new Insets(0, 0, 5, 0);
 		gbc_titleText.gridx = 6;
@@ -70,7 +70,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel lblDateFromText = new JLabel("Date (from)");
 		lblDateFromText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblDateFromText.setForeground(Color.RED);
+		lblDateFromText.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_DateFromText = new GridBagConstraints();
 		gbc_DateFromText.insets = new Insets(0, 0, 5, 5);
 		gbc_DateFromText.gridx = 2;
@@ -79,7 +79,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel dateFromText = new JLabel(meeting.getTitle());
 		dateFromText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		dateFromText.setForeground(Color.RED);
+		dateFromText.setForeground(Color.BLACK);
 		GridBagConstraints gbc_dateFromText = new GridBagConstraints();
 		gbc_dateFromText.insets = new Insets(0, 0, 5, 0);
 		gbc_dateFromText.gridx = 6;
@@ -88,7 +88,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel lbldateToText = new JLabel("Date (to)");
 		lbldateToText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lbldateToText.setForeground(Color.RED);
+		lbldateToText.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lbldateToText = new GridBagConstraints();
 		gbc_lbldateToText.insets = new Insets(0, 0, 5, 5);
 		gbc_lbldateToText.gridx = 2;
@@ -97,7 +97,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel dateToText = new JLabel(meeting.getTitle());
 		dateToText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		dateToText.setForeground(Color.RED);
+		dateToText.setForeground(Color.BLACK);
 		GridBagConstraints gbc_dateToText = new GridBagConstraints();
 		gbc_dateToText.insets = new Insets(0, 0, 5, 0);
 		gbc_dateToText.gridx = 6;
@@ -106,7 +106,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel lbltimeFromText = new JLabel("Time (from)");
 		lbltimeFromText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lbltimeFromText.setForeground(Color.RED);
+		lbltimeFromText.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lbltimeFromText = new GridBagConstraints();
 		gbc_lbltimeFromText.insets = new Insets(0, 0, 5, 5);
 		gbc_lbltimeFromText.gridx = 2;
@@ -115,7 +115,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel timeFromText = new JLabel(meeting.getTitle());
 		timeFromText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		timeFromText.setForeground(Color.RED);
+		timeFromText.setForeground(Color.BLACK);
 		GridBagConstraints gbc_timeFromText = new GridBagConstraints();
 		gbc_timeFromText.insets = new Insets(0, 0, 5, 0);
 		gbc_timeFromText.gridx = 6;
@@ -124,7 +124,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel lbltimeToText = new JLabel("Time (to)");
 		lbltimeToText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lbltimeToText.setForeground(Color.RED);
+		lbltimeToText.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lbltimeToText = new GridBagConstraints();
 		gbc_lbltimeToText.insets = new Insets(0, 0, 5, 5);
 		gbc_lbltimeToText.gridx = 2;
@@ -133,7 +133,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel timeToText = new JLabel(meeting.getTitle());
 		timeToText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		timeToText.setForeground(Color.RED);
+		timeToText.setForeground(Color.BLACK);
 		GridBagConstraints gbc_timeToText = new GridBagConstraints();
 		gbc_timeToText.insets = new Insets(0, 0, 5, 0);
 		gbc_timeToText.gridx = 6;
@@ -142,7 +142,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel lbllocationText = new JLabel("Location");
 		lbllocationText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lbllocationText.setForeground(Color.RED);
+		lbllocationText.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lbllocationText = new GridBagConstraints();
 		gbc_lbllocationText.insets = new Insets(0, 0, 5, 5);
 		gbc_lbllocationText.gridx = 2;
@@ -151,7 +151,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel locationText = new JLabel(meeting.getTitle());
 		locationText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		locationText.setForeground(Color.RED);
+		locationText.setForeground(Color.BLACK);
 		GridBagConstraints gbc_locationText = new GridBagConstraints();
 		gbc_locationText.insets = new Insets(0, 0, 5, 0);
 		gbc_locationText.gridx = 6;
@@ -160,7 +160,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel lblrepeatTextBox = new JLabel("Repeat");
 		lblrepeatTextBox.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblrepeatTextBox.setForeground(Color.RED);
+		lblrepeatTextBox.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lblrepeatTextBox = new GridBagConstraints();
 		gbc_lblrepeatTextBox.insets = new Insets(0, 0, 5, 5);
 		gbc_lblrepeatTextBox.gridx = 2;
@@ -169,7 +169,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel repeatTextBox = new JLabel(meeting.getRepeat());
 		repeatTextBox.setFont( new Font("ARIAL", Font.BOLD, 20));
-		repeatTextBox.setForeground(Color.RED);
+		repeatTextBox.setForeground(Color.BLACK);
 		GridBagConstraints gbc_repeatTextBox = new GridBagConstraints();
 		gbc_repeatTextBox.insets = new Insets(0, 0, 5, 0);
 		gbc_repeatTextBox.gridx = 6;
@@ -178,7 +178,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel lblrepeatToText = new JLabel("Repeat (to)");
 		lblrepeatToText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblrepeatToText.setForeground(Color.RED);
+		lblrepeatToText.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lblrepeatToText = new GridBagConstraints();
 		gbc_lblrepeatToText.insets = new Insets(0, 0, 5, 5);
 		gbc_lblrepeatToText.gridx = 2;
@@ -187,7 +187,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel repeatToText = new JLabel(meeting.getTitle());
 		repeatToText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		repeatToText.setForeground(Color.RED);
+		repeatToText.setForeground(Color.BLACK);
 		GridBagConstraints gbc_repeatToText = new GridBagConstraints();
 		gbc_repeatToText.insets = new Insets(0, 0, 5, 0);
 		gbc_repeatToText.gridx = 6;
@@ -196,7 +196,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel lbldescriptionText = new JLabel("Description");
 		lbldescriptionText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lbldescriptionText.setForeground(Color.RED);
+		lbldescriptionText.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lbldescriptionText = new GridBagConstraints();
 		gbc_lbldescriptionText.insets = new Insets(0, 0, 5, 5);
 		gbc_lbldescriptionText.gridx = 2;
@@ -205,7 +205,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel descriptionText = new JLabel(meeting.getTitle());
 		descriptionText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		descriptionText.setForeground(Color.RED);
+		descriptionText.setForeground(Color.BLACK);
 		GridBagConstraints gbc_descriptionText = new GridBagConstraints();
 		gbc_descriptionText.insets = new Insets(0, 0, 5, 0);
 		gbc_descriptionText.gridx = 6;
@@ -214,7 +214,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel lblvisibilityBox = new JLabel("Visibility");
 		lblvisibilityBox.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblvisibilityBox.setForeground(Color.RED);
+		lblvisibilityBox.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lblvisibilityBox = new GridBagConstraints();
 		gbc_lblvisibilityBox.insets = new Insets(0, 0, 5, 5);
 		gbc_lblvisibilityBox.gridx = 2;
@@ -223,7 +223,7 @@ public class ShowMeetingWindow extends JDialog {
 		
 		JLabel visibilityBox = new JLabel(meeting.getVisibility());
 		visibilityBox.setFont( new Font("ARIAL", Font.BOLD, 20));
-		visibilityBox.setForeground(Color.RED);
+		visibilityBox.setForeground(Color.BLACK);
 		GridBagConstraints gbc_visibilityBox = new GridBagConstraints();
 		gbc_visibilityBox.insets = new Insets(0, 0, 5, 0);
 		gbc_visibilityBox.gridx = 6;

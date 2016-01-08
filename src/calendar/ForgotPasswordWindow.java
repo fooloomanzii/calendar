@@ -62,7 +62,7 @@ public class ForgotPasswordWindow extends JDialog {
 				String email=textEMail.getText();
 				String answer=textAnswer.getText();
 				String question=comboBox.getSelectedItem().toString();
-				String password = Person.passwordData(email,answer,question);
+				String password = Client.passwordData(email,answer,question);
 				if (password.equals("")){
 					JOptionPane.showMessageDialog(getContentPane(), "Data not correct. Password could not be restored!");
 				}else{

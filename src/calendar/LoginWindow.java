@@ -25,7 +25,7 @@ public class LoginWindow extends JDialog {
 	 * Create the frame.
 	 */
 	public LoginWindow() {
-		getContentPane().setBackground(new Color(0, 102, 0));
+		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setForeground(new Color(0, 0, 0));
 		setModal(true);
 		setAlwaysOnTop(true);
@@ -36,7 +36,7 @@ public class LoginWindow extends JDialog {
 		
 		JLabel lblEmail = new JLabel("E-Mail: ");
 		lblEmail.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblEmail.setForeground(Color.RED);
+		lblEmail.setForeground(Color.DARK_GRAY);
 		getContentPane().add(lblEmail, "cell 0 1,alignx left,aligny center");
 		textEmail = new JTextField();
 		getContentPane().add(textEmail, "cell 2 1,growx,alignx left,aligny top");
@@ -44,7 +44,7 @@ public class LoginWindow extends JDialog {
 		
 		JLabel lblPassword = new JLabel("Password: ");
 		lblPassword.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblPassword.setForeground(Color.RED);
+		lblPassword.setForeground(Color.DARK_GRAY);
 		getContentPane().add(lblPassword, "cell 0 3,alignx left");
 		passwordField = new JPasswordField();
 		passwordField.setColumns(10);
@@ -75,12 +75,12 @@ public class LoginWindow extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				String email = textEmail.getText();
 				String password = passwordField.getText();
-				if (!Person.checkDataPerson(email,password)){
+				if (!Client.checkDataPerson(email,password)){
 					JOptionPane.showMessageDialog(getContentPane(), "Wrong Password or Wrong Username!");
 				}else{
-					ArrayList<String> data = Person.getPersonData(email);
+					ArrayList<String> data = Client.getPersonData(email);
 					dispose();
-					Person per = new Person(data.get(0),data.get(1),data.get(2),data.get(3),data.get(4),data.get(5));
+					Client per = new Client(data.get(0),data.get(1),data.get(2),data.get(3),data.get(4),data.get(5));
 					LoginCalendarWindow win = new LoginCalendarWindow(per);
 					win.getFrame().setVisible(true);
 				}
@@ -93,7 +93,7 @@ public class LoginWindow extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				dispose();
-				LogoutCalendarWindow win = new LogoutCalendarWindow();
+				CalendarWindow win = new CalendarWindow();
 				win.getFrame().setVisible(true);
 			}
 		});
