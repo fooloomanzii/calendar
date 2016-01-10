@@ -1,25 +1,19 @@
 package calendar;
 
-import java.time.LocalDate;
 import java.util.Locale;
 import javafx.application.Application;
-import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Slider;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
  
 public class NewEventWindow extends Application {
  
     private Stage stage;
-    private DatePicker StartDate;
-    private DatePicker EndDate;
-    private DateTimePicker d;
- 
+    private DateTimePicker StartDate;
+    private DateTimePicker EndDate;
+    
     public static void main(String[] args) {
         Locale.setDefault(Locale.getDefault());                  
         launch(args);
@@ -28,7 +22,7 @@ public class NewEventWindow extends Application {
     @Override
     public void start(Stage stage) {
         this.stage = stage;
-        stage.setTitle("Create a new Event");
+        stage.setTitle("new Event");
         initUI();
         stage.show();
     }
@@ -36,7 +30,7 @@ public class NewEventWindow extends Application {
     private void initUI() {
         VBox vBox = new VBox();
         Scene s =  new Scene(new ScrollPane(vBox), 600, 400);
-        d = new DateTimePicker();
+        StartDate = new DateTimePicker();
 
         // Date only
 //        d.valueProperty().addListener(t -> System.out.println(t));
@@ -45,9 +39,9 @@ public class NewEventWindow extends Application {
 //        d.timeValueProperty().addListener(t -> System.out.println(t));
 
         // DateAndTime
-        d.dateTimeValueProperty().addListener(t -> d.setValue(d.getConverter().fromString(d.getEditor().getText())));
+        StartDate.dateTimeValueProperty().addListener(t -> StartDate.setValue(StartDate.getConverter().fromString(StartDate.getEditor().getText())));
         
-        vBox.getChildren().add(d);
+        vBox.getChildren().add(StartDate);
 
         stage.setScene(s);
         stage.show();

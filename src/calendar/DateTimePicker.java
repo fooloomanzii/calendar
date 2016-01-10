@@ -13,6 +13,12 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Skin;
 import javafx.util.StringConverter;
 
+/**
+ * 
+ * @author Rima
+ * @reference http://stackoverflow.com/questions/20369447/datepicker-in-javafx-8
+ *
+ */
 
 public class DateTimePicker extends DatePicker{
 
