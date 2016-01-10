@@ -726,7 +726,7 @@ public class CalendarWindow {
 				showMeetingMonth(day, i);
 				day++;
 			}else{
-				listJPanel.get(i).setBackground(new Color(250, 250, 250));
+				listJPanel.get(i).setBackground(Color.WHITE);
 			}
 		}
 		
@@ -734,6 +734,7 @@ public class CalendarWindow {
 		 * Output current year + month
 		 */
 		JLabel label = new JLabel(_calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + " " + _calendar.get(Calendar.YEAR));
+		label.setBackground(Color.ORANGE);
 		label.setFont(new Font("Fira Sans Hair", Font.PLAIN, 24));
 		label.setForeground(Color.BLACK);
 		monthYear.removeAll();
