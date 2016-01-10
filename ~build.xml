@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<project name="kalender" default="archive">
+
+	<target name="init">
+		<mkdir dir="build/classes" />
+		<mkdir dir="dist" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac includeAntRuntime="false" srcdir="src" destdir="build/classes" >	
+			<classpath>
+				<pathelement location="./lib/miglayout15-swing.jar"/>
+				<pathelement location="./lib/sqlite-jdbc-3.8.11.2.jar"/>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="archive" depends="compile">
+		<jar destfile="dist/kalender.jar" basedir="build/classes" />
+	</target>
+
+	<target name="clean" depends="init">
+		<delete dir="build" />
+		<delete dir="dist" />
+	</target>
+
+	<target name="execute" depends="compile">
+		<java classpathref="kalender.class.path" classname="kalender.WindowManager" />
+	</target>
+	<path id="kalender.class.path">
+		<pathelement path="/build/classes"/>
+		<pathelement path="/src/lib"/>
+	</path>
+	<!-- 
+  <target name="execute-jar" depends="compile">
+    <java classpath="build/classes" classname="application.accounting.Buchhaltung"/>
+  </target>
+
+  <target name="execute-input" depends="compile">
+    <java classpath="build/classes" classname="application.accounting.Buchhaltung" input="./accountin.in"/>
+  </target>   -->
+
+
+</project>
