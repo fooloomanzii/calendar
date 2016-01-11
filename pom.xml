@@ -24,15 +24,6 @@
 		</resources>
 		<plugins>
 			<plugin>
-				<groupId>com.zenjava</groupId>
-				<artifactId>javafx-maven-plugin</artifactId>
-				<version>8.2.0</version>
-				<configuration>
-					<vendor>Software Engeneering 1 (WS 15/16)</vendor>
-					<mainClass>calender.CalendarWindow</mainClass>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.3</version>
@@ -55,6 +46,12 @@
 			<groupId>com.google.apis</groupId>
 			<artifactId>google-api-services-calendar</artifactId>
 			<version>v3-rev157-1.21.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>net.sourceforge.jdatepicker</groupId>
+			<artifactId>jdatepicker</artifactId>
+			<version>1.3.2</version>
 		</dependency>
 
 		<dependency>
