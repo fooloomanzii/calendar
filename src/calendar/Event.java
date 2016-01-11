@@ -140,12 +140,12 @@ public class Event{
     /**
      * create MeetingList where the Meeting is "a"
      */
-	public static ArrayList<Event> getMeetingList(String a){
+	public static ArrayList<Event> getMeetingList(String mail){
     	ArrayList<Event> meetingList = new ArrayList<>();
     	String pathDb = System.getProperty("user.dir") + "/src/calendar/calendar.db";
 		try{
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
-			String sql = "select owner, title, dateFrom, dateTo, timeFrom, timeTo, location, repeat, repeatTo, description, visibility from meetingTable where visibility = '"+a+"'";
+			String sql = "select owner, title, dateFrom, dateTo, timeFrom, timeTo, location, repeat, repeatTo, description, visibility from meetingTable where visibility = '"+mail+"'";
 			Statement stmt = conn.createStatement();
 		    ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()){

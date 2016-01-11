@@ -13,6 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOError;
+import java.io.IOException;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -35,10 +39,13 @@ public class CalendarWindow {
 	private final int currentYear = _calendar.get(Calendar.YEAR); //Indicates current year
 	
 	private ArrayList<JPanel> listJPanel = new ArrayList<JPanel>();
-	private ArrayList<Event> publicMeeting = Event.getMeetingList("public");
 	
 	private int start;
 
+	public static void main(String [] args ){
+		CalendarWindow win = new CalendarWindow();
+		win.getFrame().setVisible(true);
+	}
 	/**
 	 * Create the application
 	 */
@@ -723,7 +730,6 @@ public class CalendarWindow {
 					listJPanel.get(i).setBackground(new Color(245, 245, 245));
 					listJPanel.get(i).add(label);
 				}
-				showMeetingMonth(day, i);
 				day++;
 			}else{
 				listJPanel.get(i).setBackground(Color.WHITE);
@@ -745,7 +751,7 @@ public class CalendarWindow {
 	/**
 	 * Output Meeting
 	 */
-	private void showMeetingMonth(int day, int jpanelNumber){
+	/*private void showMeetingMonth(int day, int jpanelNumber){
 		String currentDate = day + "." + (_calendar.get(Calendar.MONTH)+1) + "." + _calendar.get(Calendar.YEAR);
 		for(int i=0; i<publicMeeting.size(); i++){
 			final Event meeting = publicMeeting.get(i);
@@ -762,7 +768,7 @@ public class CalendarWindow {
 				});
 			}
 		}
-	}
+	}*/
 	
 	public Window getFrame() {
 		return frame;

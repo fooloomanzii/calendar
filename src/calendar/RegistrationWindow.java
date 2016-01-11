@@ -120,6 +120,7 @@ public class RegistrationWindow extends JDialog {
 				} else {
 					Client.insertNewPerson(firstName, surname, password, email, question, answer);
 					JOptionPane.showMessageDialog(getContentPane(), "Account has been created successfully!");
+					DatabaseCalendar.createDatabase("random", email);
 					dispose();
 				}
 			}

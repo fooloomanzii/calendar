@@ -667,6 +667,15 @@ public class LoginCalendarWindow {
 				win.setVisible(true);
 			}
 		});
+		
+		JMenuItem mntmCreateCalendar = new JMenuItem("Create Calendar");
+		mntmCreateCalendar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				NewCalendarWindow nCWindow = new NewCalendarWindow(loginPerson);
+				nCWindow.setVisible(true);
+			}
+		});
+		mnMen.add(mntmCreateCalendar);
 		mnMen.add(mntmCreateMeeting);
 		
 		

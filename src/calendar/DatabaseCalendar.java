@@ -7,12 +7,13 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.sql.*;
+import java.util.ArrayList;
 import java.io.*;
 
 public class DatabaseCalendar extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private static File f = new File("DatabaseNames.txt");
+	
 
 	/**
 	 * Launch the application.
@@ -54,15 +55,13 @@ public class DatabaseCalendar extends JDialog {
 		}
 	}
 	
-	public static void createDatabase(String calendarName, Client client){
+	public static void createDatabase(String calendarName, String email){
 		Connection c = null;
 	    Statement stmt = null;
 	    try {
-	    	  String databaseName = calendarName + client.getEmail();
-	    	  FileWriter fw = new FileWriter(f);
-	    	  fw.write(databaseName+".db");
+	    	  String databaseName = calendarName + email;
 		      Class.forName("org.sqlite.JDBC");
-		      c = DriverManager.getConnection("jdbc:sqlite:"+databaseName+".db");
+		      c = DriverManager.getConnection("jdbc:sqlite:./src/calendar/database/"+databaseName+".db");
 		      stmt = c.createStatement();
 		      String sql = "CREATE TABLE COMPANY " +
 		                   "(ID INT PRIMARY KEY     NOT NULL," +
@@ -81,34 +80,53 @@ public class DatabaseCalendar extends JDialog {
 		      stmt.executeUpdate(sql);
 		      stmt.close();
 		      c.close();
-	    } catch (IOException e) {
-	        e.printStackTrace();
 	    }catch ( Exception e ) {
 		      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 		      System.exit(0);
 	   }
 	}
 	
-	public boolean checkDatabase(String calendarName, Client client){
-		try{
-			FileReader fr = new FileReader(f);
-			BufferedReader br = new BufferedReader(fr);
-			String line = br.readLine();
-			String name = calendarName + client.getEmail() + ".db";
-			while(line != null){
-				if(line.equals(name)){
-					br.close();
+	public static boolean checkDatabase(String calendarName, String email){
+		String pathDb ="./src/calendar/database/databaseNames.db";
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
+			String sql = "select CalendarName, EMail from COMPANY where calendarName = '" + calendarName + "' and email='" + email+ "'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			if (!rs.next()) {
+				return false;
+			} else {
+				if (rs.getString("CalendarName").equals(calendarName) && rs.getString("email").equals(email)) {
 					return true;
-				}else{
-					br.readLine();
+				} else {
+					return false;
 				}
 			}
-			br.close();
+		}catch(SQLException e){
 			return false;
-		}catch(IOException e){
-			System.out.println(e.getMessage());
-			return true;
 		}
 	}
-	
+	public ArrayList<String> getEntrie(String mail){
+		ArrayList<String> list = new ArrayList<>();
+    	String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
+		try{
+			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
+			String sql = "select CalendarName from COMPANY where EMail = '"+mail+"'";
+			Statement stmt = conn.createStatement();
+		    ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()){
+				list.add(rs.getString("CalendarName"));
+			}
+			if ( conn != null )
+			    try{ 
+			    	conn.close(); 
+			    }catch(SQLException e){ 
+			    	e.printStackTrace(); 
+			    }
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
+	
