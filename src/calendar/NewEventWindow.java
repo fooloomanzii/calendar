@@ -2,8 +2,6 @@ package calendar;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.SwingUtilities;
 
@@ -13,10 +11,12 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
-import java.awt.Window.Type;
 import java.beans.PropertyChangeListener;
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,7 +25,12 @@ import java.util.Date;
 import java.beans.PropertyChangeEvent;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.InputMethodListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.InputMethodEvent;
+import java.awt.Window.Type;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class NewEventWindow extends JDialog {
 
@@ -47,23 +52,21 @@ public class NewEventWindow extends JDialog {
 	private JTextArea descriptionTextArea;
 	private JLabel repeatLabel;
 
-	Format timeFormat = new SimpleDateFormat("HH:mm");
+	SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 	private JScrollPane scrollPane;
 
 	/**
 	 * Create the dialog.
 	 */
-	public NewEventWindow(final Client loginPerson) {
+	public NewEventWindow(final Client client, Event event) {
 		setResizable(false);
-		setFont(UIManager.getFont("Button.font"));
-		setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(NewEventWindow.class.getResource("/com/sun/java/swing/plaf/windows/icons/NewFolder.gif")));
 		setBackground(Color.WHITE);
 		setBounds(500, 0, 332, 476);
-		
+
+		// Set Actual Date to DatePicker
 		ZonedDateTime today = ZonedDateTime.now();
 		Date day = new Date(today.toEpochSecond() * 1000);
-		
+
 		UtilDateModel startDateModel = new UtilDateModel(day);
 		startDateModel.setSelected(true);
 		JDatePanelImpl startDatePanel = new JDatePanelImpl(startDateModel);
@@ -71,7 +74,8 @@ public class NewEventWindow extends JDialog {
 		UtilDateModel endDateModel = new UtilDateModel(day);
 		endDateModel.setSelected(true);
 		JDatePanelImpl endDatePanel = new JDatePanelImpl(endDateModel);
-		
+
+		// GUI
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBackground(Color.WHITE);
 		FlowLayout flowLayout = (FlowLayout) buttonPanel.getLayout();
@@ -85,68 +89,6 @@ public class NewEventWindow extends JDialog {
 		JButton btnExit = new JButton("Exit");
 		buttonPanel.add(btnExit);
 
-		btnCreate.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent arg0) {
-				// String title = titleText.getText();
-				// String dateFrom = dateFromText.getText();
-				// String dateTo = dateToText.getText();
-				// String timeFrom = timeFromText.getText();
-				// String timeTo = timeToText.getText();
-				// String location = locationText.getText();
-				// String description = descriptionText.getText();
-				// String repeat = repeatTextBox.getSelectedItem().toString();
-				// String repeatTo = repeatToText.getText();
-				// String visibility =
-				// visibilityBox.getSelectedItem().toString();
-
-				// if (title.equals("") || dateFrom.equals("") ||
-				// dateTo.equals("") || timeFrom.equals("")
-				// || timeTo.equals("")) {
-				// new JFrame("Please fill out the necessary
-				// window!").setVisible(true);
-				// JOptionPane.showMessageDialog(frame, "Please fill out the
-				// necessary window!");
-				// } else {
-				// if (repeat.equals("Unique")) {
-				// Event.createMeeting(loginPerson, title, dateFrom, dateTo,
-				// timeFrom, timeTo, location,
-				// description, repeat, repeatTo, visibility);
-				// dispose();
-				// }
-				// if (repeat.equals("Daily")) {
-				// Event.createMeeting(loginPerson, title, dateFrom, dateTo,
-				// timeFrom, timeTo, location,
-				// description, repeat, repeatTo, visibility);
-				// dispose();
-				// }
-				// if (repeat.equals("Weekly")) {
-				// Event.createMeeting(loginPerson, title, dateFrom, dateTo,
-				// timeFrom, timeTo, location,
-				// description, repeat, repeatTo, visibility);
-				// dispose();
-				// }
-				// if (repeat.equals("Monthly")) {
-				// Event.createMeeting(loginPerson, title, dateFrom, dateTo,
-				// timeFrom, timeTo, location,
-				// description, repeat, repeatTo, visibility);
-				// dispose();
-				// }
-				// if (repeat.equals("Yearly")) {
-				// Event.createMeeting(loginPerson, title, dateFrom, dateTo,
-				// timeFrom, timeTo, location,
-				// description, repeat, repeatTo, visibility);
-				// dispose();
-				// }
-				// }
-			}
-		});
-
-		btnExit.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent arg0) {
-				dispose();
-			}
-		});
-
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("New Event");
 		setModal(true);
@@ -158,9 +100,9 @@ public class NewEventWindow extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(8, 8, 0, 8));
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[] { 30 };
-		gbl_contentPanel.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 30 };
+		gbl_contentPanel.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 0, 30 };
 		gbl_contentPanel.columnWeights = new double[] { 0.0, 1.0 };
-		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0 };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0 };
 		contentPanel.setLayout(gbl_contentPanel);
 
 		titleLabel = new JLabel("title");
@@ -248,13 +190,6 @@ public class NewEventWindow extends JDialog {
 		startTimePanel.add(startTimeSlider, gbc_startTimeSlider);
 
 		JFormattedTextField startTimeTextField = new JFormattedTextField(timeFormat);
-		startTimeTextField.addInputMethodListener(new InputMethodListener() {
-			public void caretPositionChanged(InputMethodEvent event) {
-			}
-
-			public void inputMethodTextChanged(InputMethodEvent event) {
-			}
-		});
 		startTimeTextField.setBackground(SystemColor.control);
 		startTimeTextField.setMargin(new Insets(4, 4, 4, 4));
 		startTimeTextField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -339,62 +274,6 @@ public class NewEventWindow extends JDialog {
 		gbc_endTimeTextField.gridy = 0;
 		endTimePanel.add(endTimeTextField, gbc_endTimeTextField);
 
-		endTimeSlider.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent event) {
-				int endvalue = endTimeSlider.getValue();
-				int startvalue = startTimeSlider.getValue();
-				if (endvalue < startvalue && (endDateModel.getValue().compareTo(startDateModel.getValue()) <= 0)) {
-					endTimeSlider.setValue(startvalue);
-					endvalue = startvalue;
-//					endDateModel.setValue(startDateModel.getValue());
-//					endDateModel.setSelected(true);
-				}
-				endTimeTextField.setText(
-						String.format("%02d", endvalue / 60) + ":" + String.format("%02d", endvalue % 60) + " ");
-			}
-		});
-		startTimeSlider.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent event) {
-				int startvalue = startTimeSlider.getValue();
-				int endvalue = endTimeSlider.getValue();
-				if (endvalue < startvalue && (endDateModel.getValue().compareTo(startDateModel.getValue()) <= 0)) {
-					endTimeSlider.setValue(startvalue);
-//					endDateModel.setValue(startDateModel.getValue());
-//					endDateModel.setSelected(true);
-				}
-				startTimeTextField.setText(
-						String.format("%02d", startvalue / 60) + ":" + String.format("%02d", startvalue % 60) + " ");
-			}
-		});
-
-		startTimeSlider.setValue(480);
-		endTimeSlider.setValue(510);
-
-		endDateModel.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent event) {
-				if (endDateModel.getValue().compareTo(startDateModel.getValue()) < 0) {
-					endDateModel.setValue(startDateModel.getValue());
-					int endvalue = endTimeSlider.getValue();
-					int startvalue = startTimeSlider.getValue();
-					if (endvalue < startvalue) {
-						endTimeSlider.setValue(startvalue);
-					}
-				}
-			}
-		});
-		startDateModel.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent event) {
-				if (endDateModel.getValue().compareTo(startDateModel.getValue()) < 0) {
-					endDateModel.setValue(startDateModel.getValue());
-					int endvalue = endTimeSlider.getValue();
-					int startvalue = startTimeSlider.getValue();
-					if (endvalue < startvalue) {
-						endTimeSlider.setValue(startvalue);
-					}
-				}
-			}
-		});
-
 		descriptionTextArea = new JTextArea();
 		descriptionTextArea.setBackground(SystemColor.control);
 		descriptionTextArea.setLineWrap(true);
@@ -446,6 +325,28 @@ public class NewEventWindow extends JDialog {
 		contentPanel.add(locationTextField, gbc_locationTextField);
 
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		
+		JLabel publicLabel = new JLabel("public");
+		publicLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_publicLabel = new GridBagConstraints();
+		gbc_publicLabel.ipady = 8;
+		gbc_publicLabel.ipadx = 8;
+		gbc_publicLabel.insets = new Insets(5, 5, 5, 5);
+		gbc_publicLabel.gridx = 0;
+		gbc_publicLabel.gridy = 7;
+		contentPanel.add(publicLabel, gbc_publicLabel);
+		
+		JRadioButton publicRadioButton = new JRadioButton("");
+		publicRadioButton.setBackground(new Color(255, 255, 255));
+		publicRadioButton.setMargin(new Insets(5, 5, 5, 5));
+		publicRadioButton.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_publicRadioButton = new GridBagConstraints();
+		gbc_publicRadioButton.ipadx = 8;
+		gbc_publicRadioButton.anchor = GridBagConstraints.WEST;
+		gbc_publicRadioButton.insets = new Insets(5, 5, 5, 5);
+		gbc_publicRadioButton.gridx = 1;
+		gbc_publicRadioButton.gridy = 7;
+		contentPanel.add(publicRadioButton, gbc_publicRadioButton);
 
 		repeatLabel = new JLabel("repeat");
 		repeatLabel.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -456,7 +357,7 @@ public class NewEventWindow extends JDialog {
 		gbc_repeatLabel.ipadx = 8;
 		gbc_repeatLabel.insets = new Insets(5, 5, 0, 5);
 		gbc_repeatLabel.gridx = 0;
-		gbc_repeatLabel.gridy = 7;
+		gbc_repeatLabel.gridy = 8;
 		contentPanel.add(repeatLabel, gbc_repeatLabel);
 
 		JComboBox repeatComboBox = new JComboBox(new String[] { "Unique", "Daily", "Weekly", "Monthly" });
@@ -466,10 +367,147 @@ public class NewEventWindow extends JDialog {
 		gbc_repeatComboBox.insets = new Insets(5, 5, 0, 0);
 		gbc_repeatComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_repeatComboBox.gridx = 1;
-		gbc_repeatComboBox.gridy = 7;
+		gbc_repeatComboBox.gridy = 8;
 		contentPanel.add(repeatComboBox, gbc_repeatComboBox);
 		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+		// Event Listener
+
+		// EndTime Slider Changed
+		endTimeSlider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent event) {
+				int endvalue = endTimeSlider.getValue();
+				int startvalue = startTimeSlider.getValue();
+				if (endvalue < startvalue && (endDateModel.getValue().compareTo(startDateModel.getValue()) <= 0)) {
+					endTimeSlider.setValue(startvalue);
+					endvalue = startvalue;
+				}
+				endTimeTextField.setText(
+						String.format("%02d", endvalue / 60) + ":" + String.format("%02d", endvalue % 60) + " ");
+			}
+		});
+
+		// StartTime Slider Changed
+		startTimeSlider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent event) {
+				int startvalue = startTimeSlider.getValue();
+				int endvalue = endTimeSlider.getValue();
+				if (endvalue < startvalue && (endDateModel.getValue().compareTo(startDateModel.getValue()) <= 0)) {
+					endTimeSlider.setValue(startvalue);
+
+				}
+				startTimeTextField.setText(
+						String.format("%02d", startvalue / 60) + ":" + String.format("%02d", startvalue % 60) + " ");
+			}
+		});
+
+		endDateModel.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent event) {
+				if (endDateModel.getValue().compareTo(startDateModel.getValue()) < 0) {
+					endDateModel.setValue(startDateModel.getValue());
+					int endvalue = endTimeSlider.getValue();
+					int startvalue = startTimeSlider.getValue();
+					if (endvalue < startvalue) {
+						endTimeSlider.setValue(startvalue);
+					}
+				}
+			}
+		});
+		startDateModel.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent event) {
+				if (endDateModel.getValue().compareTo(startDateModel.getValue()) < 0) {
+					endDateModel.setValue(startDateModel.getValue());
+					int endvalue = endTimeSlider.getValue();
+					int startvalue = startTimeSlider.getValue();
+					if (endvalue < startvalue) {
+						endTimeSlider.setValue(startvalue);
+					}
+				}
+			}
+		});
+
+		// Set StandardValue of TimeSliders to ActualTime
+		if (today.getHour() < 20) {
+			// if actual hour is lower then 20:00, set the the Slider to next
+			// Hour
+			startTimeSlider.setValue((today.getHour() + 1) * 60);
+			endTimeSlider.setValue((today.getHour() + 1) * 60 + 30);
+		} else {
+			// else Set to next day 8:00
+			startTimeSlider.setValue(480);
+			endTimeSlider.setValue(510);
+			startDateModel.setValue(new Date((today.toEpochSecond() + 86400) * 1000));
+			startDateModel.setSelected(true);
+		}
+
+		// TextField Listeners for StartTime and EndTime
+		ActionListener startTimeTextFieldActionListener = new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				JFormattedTextField source = (JFormattedTextField) actionEvent.getSource();
+				Date time = (Date) source.getValue();
+				int diff = endTimeSlider.getValue() - startTimeSlider.getValue();
+				// Ensure that the input is lower than a day, to avoid parsing conflicts for later usage
+				if (time.getTime() < 86400000) {
+					startTimeSlider.setValue(time.getHours() * 60 + time.getMinutes());
+					endTimeSlider.setValue(time.getHours() * 60 + time.getMinutes() + diff);
+				} else {
+					startTimeSlider.setValue(endTimeSlider.getValue());
+				}
+			}
+
+		};
+		startTimeTextField.addActionListener(startTimeTextFieldActionListener);
+
+		ActionListener endTimeTextFieldActionListener = new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				JFormattedTextField source = (JFormattedTextField) actionEvent.getSource();
+				Date time = (Date) source.getValue();
+				// Ensure that the input is lower than a day, to avoid parsing conflicts for later usage
+				if (time.getTime() < 86400000) {
+					endTimeSlider.setValue(time.getHours() * 60 + time.getMinutes());
+				}
+				else {
+					endTimeSlider.setValue(startTimeSlider.getValue());
+				}
+			}
+
+		};
+		endTimeTextField.addActionListener(endTimeTextFieldActionListener);
+		// Create Button Events
+		btnCreate.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println(titleTextField.getText());
+				// if title is Empty, the title input field is highlighted
+				if (titleTextField.getText().isEmpty()) {
+					titleTextField.setBackground(new Color(255, 210, 220));
+				}
+				// else, the event is saved
+				else {
+					 String title = titleTextField.getText();
+					 String dateFrom = startDateModel.getValue().toString();
+					 String dateTo = endDateModel.getValue().toString();
+					 String timeFrom = startTimeTextField.getText();
+					 String timeTo = endTimeTextField.getText();
+					 String location = locationTextField.getText();
+					 String description = descriptionTextArea.getText();
+					 String repeat = (String) repeatComboBox.getSelectedItem();
+					 String repeatTo = (repeat.compareTo("Unique") != 0 ? "true" : "false");
+					 String visibility = (publicRadioButton.isSelected() ? "true" : "false");
+					event.changeMeeting(client, title, dateFrom, dateTo,
+							 timeFrom, timeTo, location,
+							 description, repeat, repeatTo, visibility);
+							 dispose();
+				}
+			}
+		});
+
+		// Exit Button
+		btnExit.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				dispose();
+			}
+		});
 
 	}
 }
