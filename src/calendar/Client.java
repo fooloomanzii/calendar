@@ -53,7 +53,7 @@ public class Client {
 
 	public static void insertNewPerson(String firstName, String surname, String password, String id, String securityQuestion, String answer){
 		try{
-			String pathDb = System.getProperty("user.dir") + "/src/calendar/clients.db";
+			String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
 			Statement stmt = conn.createStatement();
 			String sql = "INSERT INTO personTable VALUES ('"+firstName+"', '"+surname+"', '"+password+"', '"+id+"', '"+securityQuestion+"', '"+answer+"')";
@@ -70,7 +70,7 @@ public class Client {
 	}
 
 	public static void deletePerson(String id, String password){
-		String pathDb = System.getProperty("user.dir") + "/src/calendar/clients.db";
+		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
 		try{
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
 			Statement stmt = conn.createStatement();
@@ -85,7 +85,7 @@ public class Client {
 	}
 
 	public void changeDataPerson(String firstName, String surname, String password, String id, String securityQuestion, String answer) {
-		String pathDb = System.getProperty("user.dir") + "/src/calendar/clients.db";
+		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
 		try{
 		Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
 		if(!firstName.equals("")){
@@ -116,7 +116,7 @@ public class Client {
 	}
 
 	public static boolean checkDataPerson(String id, String password) {
-		String pathDb = System.getProperty("user.dir") + "/src/calendar/clients.db";
+		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			String sql = "select id, password from personTable where id = '" + id + "' and password='" + password+ "'";
@@ -140,7 +140,7 @@ public class Client {
 	}
 
 	public static String passwordData(String id, String answer, String securityQuestion) {
-		String pathDb = System.getProperty("user.dir") + "/src/calendar/clients.db";
+		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			String sql = "select id, password, securityQuestion, answer from personTable where id = '" + id + "' and securityQuestion='" + securityQuestion+ "' and answer = '"+answer+"'";
@@ -175,7 +175,7 @@ public class Client {
 	}
 
 	public static boolean idAlreadyExist(String id) {
-		String pathDb = System.getProperty("user.dir") + "/src/calendar/clients.db";
+		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			String sql = "select id from personTable where id = '"+id+"'";
@@ -207,7 +207,7 @@ public class Client {
 	
 	public static ArrayList<String> getPersonData(String id){
 		String sql = "select firstName, surname, password, id, securityQuestion, answer from personTable where id = '"+id+"'";
-		String pathDb = System.getProperty("user.dir") + "/src/calendar/clients.db";
+		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			Statement stmt = conn.createStatement();
