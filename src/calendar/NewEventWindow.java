@@ -3,32 +3,16 @@ package calendar;
 import javax.swing.*;
 import java.awt.*;
 
-import javax.swing.SwingUtilities;
-
 import net.sourceforge.jdatepicker.impl.*;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
-import java.beans.PropertyChangeListener;
-import java.text.Format;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Date;
-import java.beans.PropertyChangeEvent;
-import java.awt.Dialog.ModalityType;
-import java.awt.event.InputMethodListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputMethodEvent;
-import java.awt.Window.Type;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -58,7 +42,7 @@ public class NewEventWindow extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public NewEventWindow(final Client client, Event event) {
+	public NewEventWindow(final Client client, String date) {
 		setResizable(false);
 		setBackground(Color.WHITE);
 		setBounds(500, 0, 332, 476);
@@ -325,7 +309,7 @@ public class NewEventWindow extends JDialog {
 		contentPanel.add(locationTextField, gbc_locationTextField);
 
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		
+
 		JLabel publicLabel = new JLabel("public");
 		publicLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_publicLabel = new GridBagConstraints();
@@ -335,7 +319,7 @@ public class NewEventWindow extends JDialog {
 		gbc_publicLabel.gridx = 0;
 		gbc_publicLabel.gridy = 7;
 		contentPanel.add(publicLabel, gbc_publicLabel);
-		
+
 		JRadioButton publicRadioButton = new JRadioButton("");
 		publicRadioButton.setBackground(new Color(255, 255, 255));
 		publicRadioButton.setMargin(new Insets(5, 5, 5, 5));
@@ -447,7 +431,8 @@ public class NewEventWindow extends JDialog {
 				JFormattedTextField source = (JFormattedTextField) actionEvent.getSource();
 				Date time = (Date) source.getValue();
 				int diff = endTimeSlider.getValue() - startTimeSlider.getValue();
-				// Ensure that the input is lower than a day, to avoid parsing conflicts for later usage
+				// Ensure that the input is lower than a day, to avoid parsing
+				// conflicts for later usage
 				if (time.getTime() < 86400000) {
 					startTimeSlider.setValue(time.getHours() * 60 + time.getMinutes());
 					endTimeSlider.setValue(time.getHours() * 60 + time.getMinutes() + diff);
@@ -463,11 +448,11 @@ public class NewEventWindow extends JDialog {
 			public void actionPerformed(ActionEvent actionEvent) {
 				JFormattedTextField source = (JFormattedTextField) actionEvent.getSource();
 				Date time = (Date) source.getValue();
-				// Ensure that the input is lower than a day, to avoid parsing conflicts for later usage
+				// Ensure that the input is lower than a day, to avoid parsing
+				// conflicts for later usage
 				if (time.getTime() < 86400000) {
 					endTimeSlider.setValue(time.getHours() * 60 + time.getMinutes());
-				}
-				else {
+				} else {
 					endTimeSlider.setValue(startTimeSlider.getValue());
 				}
 			}
@@ -484,20 +469,22 @@ public class NewEventWindow extends JDialog {
 				}
 				// else, the event is saved
 				else {
-					 String title = titleTextField.getText();
-					 String dateFrom = startDateModel.getValue().toString();
-					 String dateTo = endDateModel.getValue().toString();
-					 String timeFrom = startTimeTextField.getText();
-					 String timeTo = endTimeTextField.getText();
-					 String location = locationTextField.getText();
-					 String description = descriptionTextArea.getText();
-					 String repeat = (String) repeatComboBox.getSelectedItem();
-					 String repeatTo = (repeat.compareTo("Unique") != 0 ? "true" : "false");
-					 String visibility = (publicRadioButton.isSelected() ? "true" : "false");
-//					event.changeMeeting(event, title, dateFrom, dateTo,
-//							 timeFrom, timeTo, location,
-//							 description, repeat, repeatTo, visibility);
-//							 dispose();
+					String title = titleTextField.getText();
+					String dateFrom = startDateModel.getValue().toString();
+					String dateTo = endDateModel.getValue().toString();
+					String timeFrom = startTimeTextField.getText();
+					String timeTo = endTimeTextField.getText();
+					String location = locationTextField.getText();
+					String description = descriptionTextArea.getText();
+					String repeat = (String) repeatComboBox.getSelectedItem();
+					String repeatTo = (repeat.compareTo("Unique") != 0 ? "true" : "false");
+					String visibility = (publicRadioButton.isSelected() ? "true" : "false");
+
+					String calendarName = "";
+					String id = client.getid();
+					DatabaseCalendar.createEvent(calendarName, id, title, dateFrom, dateTo, timeFrom, timeTo, location,
+							description, repeat, repeatTo, visibility);
+					dispose();
 				}
 			}
 		});
