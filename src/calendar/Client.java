@@ -69,12 +69,12 @@ public class Client {
 		}
 	}
 
-	public void deletePerson(String email, String password) throws Exception {
+	public static void deletePerson(String email, String password){
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/clients.db";
 		try{
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
 			Statement stmt = conn.createStatement();
-			String sql = "delete from anmeldung where email = '"+email+"'";
+			String sql = "delete from personTable where email = '"+email+"'";
 			stmt.executeUpdate(sql);
 			if ( conn != null )
 			    try { conn.close(); } catch ( SQLException e ) { e.printStackTrace(); }
@@ -99,6 +99,7 @@ public class Client {
 	    }
 		if(!email.equals("")){
 	    	this.email = email;
+	    	System.out.println(this.email);
 	    }
 		if(!securityQuestion.equals("")){
 	    	this.securityQuestion = securityQuestion;
@@ -108,13 +109,7 @@ public class Client {
 	    }
 	    String sql = "update personTable set email = '"+this.email+"', firstName = '"+this.firstName+"', surname = '"+this.surname+"', password = '"+this.password+"', securityQuestion ='"+this.securityQuestion+"', answer = '"+this.answer+"'";
 	    Statement stmt = conn.createStatement();
-	    ResultSet rs = stmt.executeQuery(sql);
-	    if ( conn != null )
-		    try { 
-		    	conn.close(); 
-		    }catch(SQLException e){ 
-		    	e.printStackTrace();
-		    }
+	    stmt.executeUpdate(sql);
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
@@ -128,11 +123,14 @@ public class Client {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			if (!rs.next()) {
+				conn.close();
 				return false;
 			} else {
 				if (rs.getString("password").equals(password) && rs.getString("email").equals(email)) {
+					conn.close();
 					return true;
 				} else {
+					conn.close();
 					return false;
 				}
 			}
@@ -144,9 +142,6 @@ public class Client {
 	public static String passwordData(String email, String answer, String securityQuestion) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/clients.db";
 		try {
-			System.out.println(email);
-			System.out.println(securityQuestion);
-			System.out.println(answer);
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			String sql = "select email, password, securityQuestion, answer from personTable where email = '" + email + "' and securityQuestion='" + securityQuestion+ "' and answer = '"+answer+"'";
 			Statement stmt = conn.createStatement();
@@ -211,7 +206,7 @@ public class Client {
 	}
 	
 	public static ArrayList<String> getPersonData(String email){
-		String sql = "select firstName, surname, email, password, securityQuestion, answer from personTable where email = '"+email+"'";
+		String sql = "select firstName, surname, password, email, securityQuestion, answer from personTable where email = '"+email+"'";
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/clients.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
@@ -220,8 +215,8 @@ public class Client {
 			ArrayList<String> personDataList = new ArrayList<>();
 			personDataList.add(rs.getString("firstName"));
 			personDataList.add(rs.getString("surname"));
-			personDataList.add(rs.getString("email"));
 			personDataList.add(rs.getString("password"));
+			personDataList.add(rs.getString("email"));
 			personDataList.add(rs.getString("securityQuestion"));
 			personDataList.add(rs.getString("answer"));
 			if(conn != null){

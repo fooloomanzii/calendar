@@ -76,7 +76,7 @@ public class LoginWindow extends JDialog {
 				String email = textEmail.getText();
 				String password = passwordField.getText();
 				if (!Client.checkDataPerson(email,password)){
-					JOptionPane.showMessageDialog(getContentPane(), "Wrong Password or Wrong Username!");
+					JOptionPane.showMessageDialog(getContentPane(), "Wrong Password or Wrong E-Mail!","",JOptionPane.ERROR_MESSAGE);
 				}else{
 					ArrayList<String> data = Client.getPersonData(email);
 					dispose();
@@ -88,8 +88,8 @@ public class LoginWindow extends JDialog {
 		});
 		getContentPane().add(btnOkay, "cell 0 7,growx");
 		
-		JButton btnExit = new JButton("Exit");
-		btnExit.addMouseListener(new MouseAdapter() {
+		JButton btnCancle = new JButton("Cancle");
+		btnCancle.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				dispose();
@@ -97,7 +97,7 @@ public class LoginWindow extends JDialog {
 				win.getFrame().setVisible(true);
 			}
 		});
-		getContentPane().add(btnExit, "cell 2 7,growx");
+		getContentPane().add(btnCancle, "cell 2 7,growx");
 		
 	}
 

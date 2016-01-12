@@ -1,19 +1,16 @@
 package calendar;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.Font;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -39,18 +36,18 @@ public class NewEventWindow extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public NewEventWindow(final Client loginPerson) {
+	public NewEventWindow(final Client loginPerson, String date) {
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("Create Meeting");
 		setModal(true);
 		setAlwaysOnTop(true);
-		setBounds(500, 0, 600, 400);
+		setBounds(500, 0, 540, 300);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
 		JLabel lblTitle = new JLabel("Title");
@@ -58,7 +55,7 @@ public class NewEventWindow extends JDialog {
 		lblTitle.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
 		gbc_lblTitle.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTitle.gridx = 2;
+		gbc_lblTitle.gridx = 1;
 		gbc_lblTitle.gridy = 1;
 		getContentPane().add(lblTitle, gbc_lblTitle);
 		
@@ -66,7 +63,7 @@ public class NewEventWindow extends JDialog {
 		GridBagConstraints gbc_titleText = new GridBagConstraints();
 		gbc_titleText.insets = new Insets(0, 0, 5, 0);
 		gbc_titleText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_titleText.gridx = 6;
+		gbc_titleText.gridx = 5;
 		gbc_titleText.gridy = 1;
 		getContentPane().add(titleText, gbc_titleText);
 		titleText.setColumns(10);
@@ -76,26 +73,45 @@ public class NewEventWindow extends JDialog {
 		lblDateFromText.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_DateFromText = new GridBagConstraints();
 		gbc_DateFromText.insets = new Insets(0, 0, 5, 5);
-		gbc_DateFromText.gridx = 2;
+		gbc_DateFromText.gridx = 1;
 		gbc_DateFromText.gridy = 2;
 		getContentPane().add(lblDateFromText, gbc_DateFromText);
 		
-		dateFromText = new JTextField();
-		dateFromText.setToolTipText("");
-		GridBagConstraints gbc_dateFromText = new GridBagConstraints();
-		gbc_dateFromText.insets = new Insets(0, 0, 5, 0);
-		gbc_dateFromText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_dateFromText.gridx = 6;
-		gbc_dateFromText.gridy = 2;
-		getContentPane().add(dateFromText, gbc_dateFromText);
-		dateFromText.setColumns(10);
+		JButton dateFrom = new JButton("Date");
+		dateFrom.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				GregorianCalendar gc = new GregorianCalendar();
+				try{
+					DateObject d = new DateObject(DateFormat.getDateInstance(DateFormat.MEDIUM)+"", DateFormat.getTimeInstance(DateFormat.SHORT)+"");
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		});
+		GridBagConstraints gbc_dateFrom = new GridBagConstraints();
+		gbc_dateFrom.insets = new Insets(0, 0, 5, 0);
+		gbc_dateFrom.gridx = 5;
+		gbc_dateFrom.gridy = 2;
+		getContentPane().add(dateFrom, gbc_dateFrom);
+			
+		
+	
+		JLabel lblDateFromText1 = new JLabel();
+		lblDateFromText1.setFont( new Font("ARIAL", Font.BOLD, 20));
+		lblDateFromText1.setForeground(Color.DARK_GRAY);
+		GridBagConstraints gbc_lblDateFromText1 = new GridBagConstraints();
+		gbc_lblDateFromText1.insets = new Insets(0, 0, 5, 0);
+		gbc_lblDateFromText1.gridx = 5;
+		gbc_lblDateFromText1.gridy = 2;
+		getContentPane().add(lblDateFromText1, gbc_lblDateFromText1);
 		
 		JLabel lbldateToText = new JLabel("Date (to)");
 		lbldateToText.setFont( new Font("ARIAL", Font.BOLD, 20));
 		lbldateToText.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lbldateToText = new GridBagConstraints();
 		gbc_lbldateToText.insets = new Insets(0, 0, 5, 5);
-		gbc_lbldateToText.gridx = 2;
+		gbc_lbldateToText.gridx = 1;
 		gbc_lbldateToText.gridy = 3;
 		getContentPane().add(lbldateToText, gbc_lbldateToText);
 		
@@ -103,7 +119,7 @@ public class NewEventWindow extends JDialog {
 		GridBagConstraints gbc_dateToText = new GridBagConstraints();
 		gbc_dateToText.insets = new Insets(0, 0, 5, 0);
 		gbc_dateToText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_dateToText.gridx = 6;
+		gbc_dateToText.gridx = 5;
 		gbc_dateToText.gridy = 3;
 		getContentPane().add(dateToText, gbc_dateToText);
 		dateToText.setColumns(10);
@@ -113,7 +129,7 @@ public class NewEventWindow extends JDialog {
 		lbltimeFromText.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lbltimeFromText = new GridBagConstraints();
 		gbc_lbltimeFromText.insets = new Insets(0, 0, 5, 5);
-		gbc_lbltimeFromText.gridx = 2;
+		gbc_lbltimeFromText.gridx = 1;
 		gbc_lbltimeFromText.gridy = 4;
 		getContentPane().add(lbltimeFromText, gbc_lbltimeFromText);
 		
@@ -121,7 +137,7 @@ public class NewEventWindow extends JDialog {
 		GridBagConstraints gbc_timeFromText = new GridBagConstraints();
 		gbc_timeFromText.insets = new Insets(0, 0, 5, 0);
 		gbc_timeFromText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_timeFromText.gridx = 6;
+		gbc_timeFromText.gridx = 5;
 		gbc_timeFromText.gridy = 4;
 		getContentPane().add(timeFromText, gbc_timeFromText);
 		timeFromText.setColumns(10);
@@ -131,7 +147,7 @@ public class NewEventWindow extends JDialog {
 		lbltimeToText.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lbltimeToText = new GridBagConstraints();
 		gbc_lbltimeToText.insets = new Insets(0, 0, 5, 5);
-		gbc_lbltimeToText.gridx = 2;
+		gbc_lbltimeToText.gridx = 1;
 		gbc_lbltimeToText.gridy = 5;
 		getContentPane().add(lbltimeToText, gbc_lbltimeToText);
 		
@@ -139,7 +155,7 @@ public class NewEventWindow extends JDialog {
 		GridBagConstraints gbc_timeToText = new GridBagConstraints();
 		gbc_timeToText.insets = new Insets(0, 0, 5, 0);
 		gbc_timeToText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_timeToText.gridx = 6;
+		gbc_timeToText.gridx = 5;
 		gbc_timeToText.gridy = 5;
 		getContentPane().add(timeToText, gbc_timeToText);
 		timeToText.setColumns(10);
@@ -149,7 +165,7 @@ public class NewEventWindow extends JDialog {
 		lbllocationText.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lbllocationText = new GridBagConstraints();
 		gbc_lbllocationText.insets = new Insets(0, 0, 5, 5);
-		gbc_lbllocationText.gridx = 2;
+		gbc_lbllocationText.gridx = 1;
 		gbc_lbllocationText.gridy = 6;
 		getContentPane().add(lbllocationText, gbc_lbllocationText);
 		
@@ -157,7 +173,7 @@ public class NewEventWindow extends JDialog {
 		GridBagConstraints gbc_locationText = new GridBagConstraints();
 		gbc_locationText.insets = new Insets(0, 0, 5, 0);
 		gbc_locationText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_locationText.gridx = 6;
+		gbc_locationText.gridx = 5;
 		gbc_locationText.gridy = 6;
 		getContentPane().add(locationText, gbc_locationText);
 		locationText.setColumns(10);
@@ -167,7 +183,7 @@ public class NewEventWindow extends JDialog {
 		lblrepeatTextBox.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lblrepeatTextBox = new GridBagConstraints();
 		gbc_lblrepeatTextBox.insets = new Insets(0, 0, 5, 5);
-		gbc_lblrepeatTextBox.gridx = 2;
+		gbc_lblrepeatTextBox.gridx = 1;
 		gbc_lblrepeatTextBox.gridy = 7;
 		getContentPane().add(lblrepeatTextBox, gbc_lblrepeatTextBox);
 		
@@ -176,7 +192,7 @@ public class NewEventWindow extends JDialog {
 		GridBagConstraints gbc_repeatTextBox = new GridBagConstraints();
 		gbc_repeatTextBox.insets = new Insets(0, 0, 5, 0);
 		gbc_repeatTextBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_repeatTextBox.gridx = 6;
+		gbc_repeatTextBox.gridx = 5;
 		gbc_repeatTextBox.gridy = 7;
 		getContentPane().add(repeatTextBox, gbc_repeatTextBox);
 		
@@ -185,7 +201,7 @@ public class NewEventWindow extends JDialog {
 		lblrepeatToText.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lblrepeatToText = new GridBagConstraints();
 		gbc_lblrepeatToText.insets = new Insets(0, 0, 5, 5);
-		gbc_lblrepeatToText.gridx = 2;
+		gbc_lblrepeatToText.gridx = 1;
 		gbc_lblrepeatToText.gridy = 8;
 		getContentPane().add(lblrepeatToText, gbc_lblrepeatToText);
 		
@@ -193,26 +209,45 @@ public class NewEventWindow extends JDialog {
 		GridBagConstraints gbc_repeatToText = new GridBagConstraints();
 		gbc_repeatToText.insets = new Insets(0, 0, 5, 0);
 		gbc_repeatToText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_repeatToText.gridx = 6;
+		gbc_repeatToText.gridx = 5;
 		gbc_repeatToText.gridy = 8;
 		getContentPane().add(repeatToText, gbc_repeatToText);
 		repeatToText.setColumns(10);
+		
+		JLabel lblCalendarName = new JLabel("Calendar name");
+		GridBagConstraints gbc_lblCalendarName = new GridBagConstraints();
+		gbc_lblCalendarName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCalendarName.gridx = 1;
+		gbc_lblCalendarName.gridy = 9;
+		getContentPane().add(lblCalendarName, gbc_lblCalendarName);
+		
+		final JComboBox <String> databaseBox = new JComboBox <String>();
+		ArrayList<String> names = DatabaseNames.getEntries(loginPerson.getEmail());
+		for(int i=0; i<names.size() ;i++){
+			databaseBox.addItem(names.get(i));
+		}
+		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
+		gbc_comboBox_1.insets = new Insets(0, 0, 5, 0);
+		gbc_comboBox_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox_1.gridx = 5;
+		gbc_comboBox_1.gridy = 9;
+		getContentPane().add(databaseBox, gbc_comboBox_1);
 		
 		JLabel lbldescriptionText = new JLabel("Description");
 		lbldescriptionText.setFont( new Font("ARIAL", Font.BOLD, 20));
 		lbldescriptionText.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lbldescriptionText = new GridBagConstraints();
 		gbc_lbldescriptionText.insets = new Insets(0, 0, 5, 5);
-		gbc_lbldescriptionText.gridx = 2;
-		gbc_lbldescriptionText.gridy = 9;
+		gbc_lbldescriptionText.gridx = 1;
+		gbc_lbldescriptionText.gridy = 10;
 		getContentPane().add(lbldescriptionText, gbc_lbldescriptionText);
 		
 		descriptionText = new JTextField();
 		GridBagConstraints gbc_descriptionText = new GridBagConstraints();
 		gbc_descriptionText.insets = new Insets(0, 0, 5, 0);
 		gbc_descriptionText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_descriptionText.gridx = 6;
-		gbc_descriptionText.gridy = 9;
+		gbc_descriptionText.gridx = 5;
+		gbc_descriptionText.gridy = 10;
 		getContentPane().add(descriptionText, gbc_descriptionText);
 		descriptionText.setColumns(10);
 		
@@ -221,8 +256,8 @@ public class NewEventWindow extends JDialog {
 		lblvisibilityBox.setForeground(Color.DARK_GRAY);
 		GridBagConstraints gbc_lblvisibilityBox = new GridBagConstraints();
 		gbc_lblvisibilityBox.insets = new Insets(0, 0, 5, 5);
-		gbc_lblvisibilityBox.gridx = 2;
-		gbc_lblvisibilityBox.gridy = 10;
+		gbc_lblvisibilityBox.gridx = 1;
+		gbc_lblvisibilityBox.gridy = 11;
 		getContentPane().add(lblvisibilityBox, gbc_lblvisibilityBox);
 		
 		final JComboBox visibilityBox = new JComboBox();
@@ -230,8 +265,8 @@ public class NewEventWindow extends JDialog {
 		GridBagConstraints gbc_visibilityBox = new GridBagConstraints();
 		gbc_visibilityBox.insets = new Insets(0, 0, 5, 0);
 		gbc_visibilityBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_visibilityBox.gridx = 6;
-		gbc_visibilityBox.gridy = 10;
+		gbc_visibilityBox.gridx = 5;
+		gbc_visibilityBox.gridy = 11;
 		getContentPane().add(visibilityBox, gbc_visibilityBox);
 
 		JButton btnCreate = new JButton("Create");
@@ -248,29 +283,30 @@ public class NewEventWindow extends JDialog {
 				String repeat= repeatTextBox.getSelectedItem().toString();
 				String repeatTo = repeatToText.getText();
 				String visibility = visibilityBox.getSelectedItem().toString();
+				String databasename = databaseBox.getSelectedItem().toString();
 				
 				if(title.equals("") || dateFrom.equals("") || dateTo.equals("") || timeFrom.equals("") || timeTo.equals("")){
 					new JFrame("Please fill out the necessary window!").setVisible(true);
 					JOptionPane.showMessageDialog(frame, "Please fill out the necessary window!");
 				}else{
 					if (repeat.equals("Unique")){
-						Event.createMeeting(loginPerson, title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
+						DatabaseCalendar.createEvent(databasename, loginPerson.getEmail(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
 						dispose();
 					}
 					if (repeat.equals("Daily")){
-						Event.createMeeting(loginPerson, title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
+						DatabaseCalendar.createEvent(databasename, loginPerson.getEmail(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
 						dispose();
 					}
 					if (repeat.equals("Weekly")){
-						Event.createMeeting(loginPerson, title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
+						DatabaseCalendar.createEvent(databasename, loginPerson.getEmail(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
 						dispose();
 					}
 					if (repeat.equals("Monthly")){
-						Event.createMeeting(loginPerson, title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
+						DatabaseCalendar.createEvent(databasename, loginPerson.getEmail(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
 						dispose();
 					}
 					if (repeat.equals("Yearly")){
-						Event.createMeeting(loginPerson, title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
+						DatabaseCalendar.createEvent(databasename, loginPerson.getEmail(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
 						dispose();
 					}
 				}
@@ -278,8 +314,8 @@ public class NewEventWindow extends JDialog {
 		});
 		GridBagConstraints gbc_btnCreate = new GridBagConstraints();
 		gbc_btnCreate.insets = new Insets(0, 0, 0, 5);
-		gbc_btnCreate.gridx = 4;
-		gbc_btnCreate.gridy = 11;
+		gbc_btnCreate.gridx = 3;
+		gbc_btnCreate.gridy = 12;
 		getContentPane().add(btnCreate, gbc_btnCreate);
 		
 		JButton btnExit = new JButton("Exit");
@@ -290,8 +326,8 @@ public class NewEventWindow extends JDialog {
 			}
 		});
 		GridBagConstraints gbc_btnExit = new GridBagConstraints();
-		gbc_btnExit.gridx = 6;
-		gbc_btnExit.gridy = 11;
+		gbc_btnExit.gridx = 5;
+		gbc_btnExit.gridy = 12;
 		getContentPane().add(btnExit, gbc_btnExit);
 	}
 	

@@ -20,8 +20,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
 import java.awt.Component;
-import java.awt.SystemColor;
-import javax.swing.UIManager;
 import javax.swing.SwingConstants;
 
 public class CalendarWindow {
@@ -35,10 +33,13 @@ public class CalendarWindow {
 	private final int currentYear = _calendar.get(Calendar.YEAR); //Indicates current year
 	
 	private ArrayList<JPanel> listJPanel = new ArrayList<JPanel>();
-	private ArrayList<Event> publicMeeting = Event.getMeetingList("public");
 	
 	private int start;
 
+	public static void main(String [] args ){
+		CalendarWindow win = new CalendarWindow();
+		win.getFrame().setVisible(true);
+	}
 	/**
 	 * Create the application
 	 */
@@ -104,24 +105,6 @@ public class CalendarWindow {
 		gbc_monthYear.gridx = 2;
 		gbc_monthYear.gridy = 0;
 		frame.getContentPane().add(monthYear, gbc_monthYear);
-		
-		/**
-		 * JButton actual
-		 */
-//		JButton actual = new JButton("Actual");
-//		actual.setBackground(Color.WHITE);
-//		actual.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent arg0) {
-//				dayInitializeMonth(0);
-//				frame.validate();
-//			}
-//		});
-//		GridBagConstraints gbc_actual = new GridBagConstraints();
-//		gbc_actual.insets = new Insets(4, 4, 6, 6);
-//		gbc_actual.gridx = 3;
-//		gbc_actual.gridy = 1;
-//		frame.getContentPane().add(actual, gbc_actual);
 		
 		/**
 		 * JButton after
@@ -645,7 +628,7 @@ public class CalendarWindow {
 		listJPanel.add(panel_37);
 		
 		/**
-		 * JMenuBar: Items Login + Exit
+		 * JMenuBar: Items Login + Exit + actuel
 		 */
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -692,7 +675,9 @@ public class CalendarWindow {
 		if(number == 0){
 			_calendar.set(currentYear, currentMonth, currentDay);
 		}
-
+		
+		_calendar.set(Calendar.DAY_OF_MONTH, 1);
+		
 		//Indicates Monday/Tuesday/Wednesday/Thursday/Friday/Saturday/Sunday
 		switch (_calendar.get(Calendar.DAY_OF_WEEK)){
 	    	case 1:  start = 6; break; //Saturday
@@ -723,7 +708,6 @@ public class CalendarWindow {
 					listJPanel.get(i).setBackground(new Color(245, 245, 245));
 					listJPanel.get(i).add(label);
 				}
-				showMeetingMonth(day, i);
 				day++;
 			}else{
 				listJPanel.get(i).setBackground(Color.WHITE);
@@ -745,7 +729,7 @@ public class CalendarWindow {
 	/**
 	 * Output Meeting
 	 */
-	private void showMeetingMonth(int day, int jpanelNumber){
+	/*private void showMeetingMonth(int day, int jpanelNumber){
 		String currentDate = day + "." + (_calendar.get(Calendar.MONTH)+1) + "." + _calendar.get(Calendar.YEAR);
 		for(int i=0; i<publicMeeting.size(); i++){
 			final Event meeting = publicMeeting.get(i);
@@ -762,7 +746,7 @@ public class CalendarWindow {
 				});
 			}
 		}
-	}
+	}*/
 	
 	public Window getFrame() {
 		return frame;

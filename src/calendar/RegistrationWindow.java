@@ -33,7 +33,7 @@ public class RegistrationWindow extends JDialog {
 		setModal(true);
 		setAlwaysOnTop(true);
 		setTitle("Registration");
-		setBounds(450, 0, 500, 300);
+		setBounds(450, 0, 540, 300);
 		getContentPane().setLayout(new MigLayout("", "[][grow]", "[][][][][][][][grow 10][bottom]"));
 
 		JLabel lblFirstName = new JLabel("First Name:");
@@ -102,24 +102,25 @@ public class RegistrationWindow extends JDialog {
 				String question = comboBox.getSelectedItem().toString();
 				String answer = textAnswer.getText();
 				if (firstName.equals("")) {
-					JOptionPane.showMessageDialog(getContentPane(), "No First Name!");
+					JOptionPane.showMessageDialog(getContentPane(), "No First Name!","",JOptionPane.ERROR_MESSAGE);
 				} else if (surname.equals("")) {
-					JOptionPane.showMessageDialog(getContentPane(), "No Surname!");
+					JOptionPane.showMessageDialog(getContentPane(), "No Surname!","",JOptionPane.ERROR_MESSAGE);
 				} else if (email.equals("")) {
-					JOptionPane.showMessageDialog(getContentPane(), "No E-Mail!");
+					JOptionPane.showMessageDialog(getContentPane(), "No E-Mail!","",JOptionPane.ERROR_MESSAGE);
 				} else if (password.equals("")) {
-					JOptionPane.showMessageDialog(getContentPane(), "No Passwort!");
+					JOptionPane.showMessageDialog(getContentPane(), "No Passwort!","",JOptionPane.ERROR_MESSAGE);
 				} else if (answer.equals("")) {
-					JOptionPane.showMessageDialog(getContentPane(), "No Answer");
+					JOptionPane.showMessageDialog(getContentPane(), "No Answer","",JOptionPane.ERROR_MESSAGE);
 				} else if (password.length() < 5) {
-					JOptionPane.showMessageDialog(getContentPane(), "The password must have five characters at least.");
+					JOptionPane.showMessageDialog(getContentPane(), "The password must have five characters at least.","",JOptionPane.ERROR_MESSAGE);
 				} else if (!password.equals(passwordRepeat)) {
-					JOptionPane.showMessageDialog(getContentPane(), "The entered passwords do not match");
+					JOptionPane.showMessageDialog(getContentPane(), "The entered passwords do not match","",JOptionPane.ERROR_MESSAGE);
 				} else if (Client.emailAlreadyExist(email)) {
-					JOptionPane.showMessageDialog(getContentPane(), "The E-Mail-Adress is already used!");
+					JOptionPane.showMessageDialog(getContentPane(), "The E-Mail-Adress is already used!","",JOptionPane.ERROR_MESSAGE);
 				} else {
 					Client.insertNewPerson(firstName, surname, password, email, question, answer);
 					JOptionPane.showMessageDialog(getContentPane(), "Account has been created successfully!");
+					DatabaseCalendar.createDatabase("random", email);
 					dispose();
 				}
 			}
