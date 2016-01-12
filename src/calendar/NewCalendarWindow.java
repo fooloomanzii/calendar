@@ -90,10 +90,10 @@ public class NewCalendarWindow extends JDialog {
 				if (calendarName.equals("")){
 					JOptionPane.showMessageDialog(getContentPane(), "Please, insert an name for your calendar!","",JOptionPane.ERROR_MESSAGE);
 				}else{
-					if (DatabaseCalendar.checkDatabase(calendarName,client.getEmail())){
+					if (DatabaseCalendar.checkDatabase(calendarName,client.getid())){
 						JOptionPane.showMessageDialog(getContentPane(), "Name allready used!","",JOptionPane.ERROR_MESSAGE);
 					}else{
-						DatabaseCalendar.createDatabase(calendarName,client.getEmail());
+						DatabaseCalendar.createDatabase(calendarName,client.getid());
 						dispose();
 					}
 				}

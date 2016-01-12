@@ -86,7 +86,7 @@ public class UserDataWindow extends JDialog {
 				else if (surname.equals("")){
 					System.out.println("Kein Nachname angegeben!");
 				}else{
-						personAngemeldet.changeDataPerson(firstname, surname, personAngemeldet.getPassword(), personAngemeldet.getEmail(), question, answer);
+						personAngemeldet.changeDataPerson(firstname, surname, personAngemeldet.getPassword(), personAngemeldet.getid(), question, answer);
 						System.out.println("Account wurde erfolgreich geaendert");
 						dispose();
 				}

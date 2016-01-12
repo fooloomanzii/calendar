@@ -20,7 +20,7 @@ public class RegistrationWindow extends JDialog {
 	
 	private JTextField textFirstName;
 	private JTextField textSurname;
-	private JTextField textEMail;
+	private JTextField textid;
 	private JPasswordField passwordField;
 	private JPasswordField repeatPasswordField;
 	private JTextField textAnswer;
@@ -52,13 +52,13 @@ public class RegistrationWindow extends JDialog {
 		getContentPane().add(textSurname, "cell 1 1,growx");
 		textSurname.setColumns(10);
 
-		JLabel lblEMail = new JLabel("E-Mail:");
-		lblEMail.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblEMail.setForeground(Color.DARK_GRAY);
-		getContentPane().add(lblEMail, "cell 0 2,alignx trailing");
-		textEMail = new JTextField();
-		getContentPane().add(textEMail, "cell 1 2,growx");
-		textEMail.setColumns(10);
+		JLabel lblid = new JLabel("E-Mail:");
+		lblid.setFont( new Font("ARIAL", Font.BOLD, 20));
+		lblid.setForeground(Color.DARK_GRAY);
+		getContentPane().add(lblid, "cell 0 2,alignx trailing");
+		textid = new JTextField();
+		getContentPane().add(textid, "cell 1 2,growx");
+		textid.setColumns(10);
 
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setFont( new Font("ARIAL", Font.BOLD, 20));
@@ -96,7 +96,7 @@ public class RegistrationWindow extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				String firstName = textFirstName.getText();
 				String surname = textSurname.getText();
-				String email = textEMail.getText();
+				String id = textid.getText();
 				String password = passwordField.getText();
 				String passwordRepeat = repeatPasswordField.getText();
 				String question = comboBox.getSelectedItem().toString();
@@ -105,7 +105,7 @@ public class RegistrationWindow extends JDialog {
 					JOptionPane.showMessageDialog(getContentPane(), "No First Name!","",JOptionPane.ERROR_MESSAGE);
 				} else if (surname.equals("")) {
 					JOptionPane.showMessageDialog(getContentPane(), "No Surname!","",JOptionPane.ERROR_MESSAGE);
-				} else if (email.equals("")) {
+				} else if (id.equals("")) {
 					JOptionPane.showMessageDialog(getContentPane(), "No E-Mail!","",JOptionPane.ERROR_MESSAGE);
 				} else if (password.equals("")) {
 					JOptionPane.showMessageDialog(getContentPane(), "No Passwort!","",JOptionPane.ERROR_MESSAGE);
@@ -115,12 +115,12 @@ public class RegistrationWindow extends JDialog {
 					JOptionPane.showMessageDialog(getContentPane(), "The password must have five characters at least.","",JOptionPane.ERROR_MESSAGE);
 				} else if (!password.equals(passwordRepeat)) {
 					JOptionPane.showMessageDialog(getContentPane(), "The entered passwords do not match","",JOptionPane.ERROR_MESSAGE);
-				} else if (Client.emailAlreadyExist(email)) {
+				} else if (Client.idAlreadyExist(id)) {
 					JOptionPane.showMessageDialog(getContentPane(), "The E-Mail-Adress is already used!","",JOptionPane.ERROR_MESSAGE);
 				} else {
-					Client.insertNewPerson(firstName, surname, password, email, question, answer);
+					Client.insertNewPerson(firstName, surname, password, id, question, answer);
 					JOptionPane.showMessageDialog(getContentPane(), "Account has been created successfully!");
-					DatabaseCalendar.createDatabase("random", email);
+					DatabaseCalendar.createDatabase("random", id);
 					dispose();
 				}
 			}

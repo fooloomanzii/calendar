@@ -62,7 +62,7 @@ public class DeleteUserWindow extends JDialog {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						setVisible(false);
-						Client.deletePerson(loginPerson.getEmail(), loginPerson.getPassword());
+						Client.deletePerson(loginPerson.getid(), loginPerson.getPassword());
 						JOptionPane.showMessageDialog(getContentPane(), "Account has been deleted successfully!");
 						CalendarWindow win = new CalendarWindow();
 						win.getFrame().setVisible(true);

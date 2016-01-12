@@ -5,11 +5,11 @@ import java.util.ArrayList;
 
 public class DatabaseCalendar{
 	
-	public static void createDatabase(String calendarName, String email){
+	public static void createDatabase(String calendarName, String id){
 		Connection c = null;
 	    Statement stmt = null;
 	    try {
-	    	  String databaseName = calendarName + email;
+	    	  String databaseName = calendarName + id;
 		      Class.forName("org.sqlite.JDBC");
 		      c = DriverManager.getConnection("jdbc:sqlite:./src/calendar/database/"+databaseName+".db");
 		      stmt = c.createStatement();
@@ -36,17 +36,17 @@ public class DatabaseCalendar{
 	   }
 	}
 	
-	public static boolean checkDatabase(String calendarName, String email){
+	public static boolean checkDatabase(String calendarName, String id){
 		String pathDb ="./src/calendar/database/databaseNames.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			String sql = "select CalendarName, EMail from COMPANY where calendarName = '" + calendarName + "' and email='" + email+ "'";
+			String sql = "select CalendarName, id from COMPANY where calendarName = '" + calendarName + "' and id='" + id+ "'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			if (!rs.next()) {
 				return false;
 			} else {
-				if (rs.getString("CalendarName").equals(calendarName) && rs.getString("email").equals(email)) {
+				if (rs.getString("CalendarName").equals(calendarName) && rs.getString("id").equals(id)) {
 					return true;
 				} else {
 					return false;
@@ -60,18 +60,18 @@ public class DatabaseCalendar{
     /**
      * create Event for the Person Owner
      */
-    public static void createEvent(String calendarName, String email, String title, String dateFrom, String dateTo, String timeFrom, 
+    public static void createEvent(String calendarName, String id, String title, String dateFrom, String dateTo, String timeFrom, 
     		String timeTo, String location, String description, String repeat, String repeatTo, 
     		String visibility){
-    	String database = calendarName + email;
+    	String database = calendarName + id;
     	String pathDb = System.getProperty("user.dir") + "/src/calendar/database/" + database + ".db";
 		try{
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
 			String sql;
 			if (visibility.equals("public")){
-				sql = "insert into company Values ('"+email+"', '"+title+"','"+dateFrom+"','"+dateTo+"','"+timeFrom+"','"+timeTo+"', '"+location+"', '"+description+"', '"+repeat+"', '"+repeatTo+"', '"+visibility+"')";
+				sql = "insert into company Values ('"+id+"', '"+title+"','"+dateFrom+"','"+dateTo+"','"+timeFrom+"','"+timeTo+"', '"+location+"', '"+description+"', '"+repeat+"', '"+repeatTo+"', '"+visibility+"')";
 			}else{
-				sql = "insert into company Values ('"+email+"', '"+title+"','"+dateFrom+"','"+dateTo+"','"+timeFrom+"','"+timeTo+"', '"+location+"', '"+description+"', '"+repeat+"', '"+repeatTo+"', '"+visibility+"')";
+				sql = "insert into company Values ('"+id+"', '"+title+"','"+dateFrom+"','"+dateTo+"','"+timeFrom+"','"+timeTo+"', '"+location+"', '"+description+"', '"+repeat+"', '"+repeatTo+"', '"+visibility+"')";
 			}
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
@@ -91,7 +91,7 @@ public class DatabaseCalendar{
     	String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
 		try{
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
-			String sql = "select CalendarName from COMPANY where EMail = '"+mail+"'";
+			String sql = "select CalendarName from COMPANY where id = '"+mail+"'";
 			Statement stmt = conn.createStatement();
 		    ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()){
