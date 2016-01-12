@@ -15,7 +15,6 @@ public class DatabaseCalendar{
 		      stmt = c.createStatement();
 		      String sql = "CREATE TABLE COMPANY " +
 		                   "(ID INT PRIMARY KEY     NOT NULL," +
-		                   " Color          TEXT    NOT NULL, " +
 		                   " User           TEXT    NOT NULL, " +
 		                   " title           TEXT    NOT NULL,"  +
 		                   " dateFrom           TEXT    NOT NULL, " +
@@ -86,12 +85,13 @@ public class DatabaseCalendar{
 		}
     }
 	
-	public ArrayList<String> getEntrie(String mail){
+	public ArrayList<String> getEntries(String calendarName, String id){
 		ArrayList<String> list = new ArrayList<>();
-    	String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
+		String database = calendarName + id;
+    	String pathDb = System.getProperty("user.dir") + "/src/calendar/database/" + database + ".db";
 		try{
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
-			String sql = "select CalendarName from COMPANY where id = '"+mail+"'";
+			String sql = "select CalendarName from COMPANY where id = '"+id+"'";
 			Statement stmt = conn.createStatement();
 		    ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()){
