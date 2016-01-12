@@ -13,10 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOError;
-import java.io.IOException;
-
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -24,8 +20,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
 import java.awt.Component;
-import java.awt.SystemColor;
-import javax.swing.UIManager;
 import javax.swing.SwingConstants;
 
 public class CalendarWindow {
@@ -111,24 +105,6 @@ public class CalendarWindow {
 		gbc_monthYear.gridx = 2;
 		gbc_monthYear.gridy = 0;
 		frame.getContentPane().add(monthYear, gbc_monthYear);
-		
-		/**
-		 * JButton actual
-		 */
-//		JButton actual = new JButton("Actual");
-//		actual.setBackground(Color.WHITE);
-//		actual.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent arg0) {
-//				dayInitializeMonth(0);
-//				frame.validate();
-//			}
-//		});
-//		GridBagConstraints gbc_actual = new GridBagConstraints();
-//		gbc_actual.insets = new Insets(4, 4, 6, 6);
-//		gbc_actual.gridx = 3;
-//		gbc_actual.gridy = 1;
-//		frame.getContentPane().add(actual, gbc_actual);
 		
 		/**
 		 * JButton after
@@ -652,7 +628,7 @@ public class CalendarWindow {
 		listJPanel.add(panel_37);
 		
 		/**
-		 * JMenuBar: Items Login + Exit
+		 * JMenuBar: Items Login + Exit + actuel
 		 */
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -699,7 +675,9 @@ public class CalendarWindow {
 		if(number == 0){
 			_calendar.set(currentYear, currentMonth, currentDay);
 		}
-
+		
+		_calendar.set(Calendar.DAY_OF_MONTH, 1);
+		
 		//Indicates Monday/Tuesday/Wednesday/Thursday/Friday/Saturday/Sunday
 		switch (_calendar.get(Calendar.DAY_OF_WEEK)){
 	    	case 1:  start = 6; break; //Saturday

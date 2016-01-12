@@ -1,59 +1,8 @@
 package calendar;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.sql.*;
-import java.util.ArrayList;
-import java.io.*;
 
-public class DatabaseCalendar extends JDialog {
-
-	private final JPanel contentPanel = new JPanel();
-	
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			DatabaseCalendar dialog = new DatabaseCalendar();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
-	public DatabaseCalendar() {
-		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
-		}
-	}
+public class DatabaseCalendar{
 	
 	public static void createDatabase(String calendarName, String email){
 		Connection c = null;
@@ -106,27 +55,34 @@ public class DatabaseCalendar extends JDialog {
 			return false;
 		}
 	}
-	public ArrayList<String> getEntrie(String mail){
-		ArrayList<String> list = new ArrayList<>();
-    	String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
+	
+    /**
+     * create Event for the Person Owner
+     */
+    public static void createEvent(String calendarName, String email, String title, String dateFrom, String dateTo, String timeFrom, 
+    		String timeTo, String location, String description, String repeat, String repeatTo, 
+    		String visibility){
+    	String database = calendarName + email;
+    	String pathDb = System.getProperty("user.dir") + "/src/calendar/database/" + database + ".db";
 		try{
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
-			String sql = "select CalendarName from COMPANY where EMail = '"+mail+"'";
-			Statement stmt = conn.createStatement();
-		    ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()){
-				list.add(rs.getString("CalendarName"));
+			String sql;
+			if (visibility.equals("public")){
+				sql = "insert into company Values ('"+email+"', '"+title+"','"+dateFrom+"','"+dateTo+"','"+timeFrom+"','"+timeTo+"', '"+location+"', '"+description+"', '"+repeat+"', '"+repeatTo+"', '"+visibility+"')";
+			}else{
+				sql = "insert into company Values ('"+email+"', '"+title+"','"+dateFrom+"','"+dateTo+"','"+timeFrom+"','"+timeTo+"', '"+location+"', '"+description+"', '"+repeat+"', '"+repeatTo+"', '"+visibility+"')";
 			}
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
 			if ( conn != null )
-			    try{ 
+			    try { 
 			    	conn.close(); 
 			    }catch(SQLException e){ 
 			    	e.printStackTrace(); 
 			    }
-		}catch (SQLException e){
+		}catch(SQLException e){
 			e.printStackTrace();
 		}
-		return list;
-	}
-}
+    }
 	
+}

@@ -24,16 +24,16 @@ public class ForgotPasswordWindow extends JDialog {
 	 * Create the dialog.
 	 */
 	public ForgotPasswordWindow() {
-		getContentPane().setBackground(new Color(0, 102, 0));
+		getContentPane().setBackground(Color.WHITE);
 		setTitle("Forgot Password");
 		setModal(true);
 		setAlwaysOnTop(true);
-		setBounds(450, 0, 500, 200);
+		setBounds(450, 0, 530, 200);
 		getContentPane().setLayout(new MigLayout("", "[153.00][grow]", "[25px][25px][25px][25px][25px]"));
 		
 		JLabel lblEmail = new JLabel("E-Mail:");
 		lblEmail.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblEmail.setForeground(Color.RED);
+		lblEmail.setForeground(Color.DARK_GRAY);
 		getContentPane().add(lblEmail, "cell 0 0,alignx trailing");
 		textEMail = new JTextField();
 		getContentPane().add(textEMail, "cell 1 0,grow");
@@ -41,7 +41,7 @@ public class ForgotPasswordWindow extends JDialog {
 		
 		JLabel lblSecurityQuestion = new JLabel("Security Question:");
 		lblSecurityQuestion.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblSecurityQuestion.setForeground(Color.RED);
+		lblSecurityQuestion.setForeground(Color.DARK_GRAY);
 		getContentPane().add(lblSecurityQuestion, "cell 0 1,alignx trailing");
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Where were you born?", "What is the name of your pet?", "What is your mother's maiden name?"}));
@@ -49,7 +49,7 @@ public class ForgotPasswordWindow extends JDialog {
 		
 		JLabel lblAnswer = new JLabel("Answer:");
 		lblAnswer.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblAnswer.setForeground(Color.RED);
+		lblAnswer.setForeground(Color.DARK_GRAY);
 		getContentPane().add(lblAnswer, "cell 0 2,alignx trailing");
 		textAnswer = new JTextField();
 		getContentPane().add(textAnswer, "cell 1 2,grow");
@@ -64,9 +64,9 @@ public class ForgotPasswordWindow extends JDialog {
 				String question=comboBox.getSelectedItem().toString();
 				String password = Client.passwordData(email,answer,question);
 				if (password.equals("")){
-					JOptionPane.showMessageDialog(getContentPane(), "Data not correct. Password could not be restored!");
+					JOptionPane.showMessageDialog(getContentPane(), "Data not correct. Password could not be restored!","",JOptionPane.ERROR_MESSAGE);
 				}else{
-					JOptionPane.showMessageDialog(getContentPane(), "Password:" + password);
+					JOptionPane.showMessageDialog(getContentPane(), "Password: " + password);
 					dispose();
 				}
 			}

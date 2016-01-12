@@ -69,7 +69,7 @@ public class Client {
 		}
 	}
 
-	public void deletePerson(String email, String password) throws Exception {
+/*	public void deletePerson(String email, String password) throws Exception {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/clients.db";
 		try{
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
@@ -82,9 +82,9 @@ public class Client {
 			e.printStackTrace();
 			return;
 		}
-	}
+	}*/
 
-	public void changeDataPerson(String firstName, String surname, String password, String email, String securityQuestion, String answer) {
+/*	public void changeDataPerson(String firstName, String surname, String password, String email, String securityQuestion, String answer) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/clients.db";
 		try{
 		Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
@@ -118,7 +118,7 @@ public class Client {
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	public static boolean checkDataPerson(String email, String password) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/clients.db";
@@ -144,9 +144,6 @@ public class Client {
 	public static String passwordData(String email, String answer, String securityQuestion) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/clients.db";
 		try {
-			System.out.println(email);
-			System.out.println(securityQuestion);
-			System.out.println(answer);
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			String sql = "select email, password, securityQuestion, answer from personTable where email = '" + email + "' and securityQuestion='" + securityQuestion+ "' and answer = '"+answer+"'";
 			Statement stmt = conn.createStatement();
@@ -211,7 +208,7 @@ public class Client {
 	}
 	
 	public static ArrayList<String> getPersonData(String email){
-		String sql = "select firstName, surname, email, password, securityQuestion, answer from personTable where email = '"+email+"'";
+		String sql = "select firstName, surname, password, email, securityQuestion, answer from personTable where email = '"+email+"'";
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/clients.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
@@ -220,8 +217,8 @@ public class Client {
 			ArrayList<String> personDataList = new ArrayList<>();
 			personDataList.add(rs.getString("firstName"));
 			personDataList.add(rs.getString("surname"));
-			personDataList.add(rs.getString("email"));
 			personDataList.add(rs.getString("password"));
+			personDataList.add(rs.getString("email"));
 			personDataList.add(rs.getString("securityQuestion"));
 			personDataList.add(rs.getString("answer"));
 			if(conn != null){

@@ -10,6 +10,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Window;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -33,9 +34,6 @@ public class LoginCalendarWindow {
 	private int currentYear = _calendar.get(Calendar.YEAR); //Indicates current year
 	
 	private ArrayList<JPanel> listJPanel = new ArrayList<JPanel>();
-	private ArrayList<Event> publicMeeting = Event.getMeetingList("public");
-	private ArrayList<Event> privatMeeting = Event.getMeetingList("privat");
-	
 	
 	private Client loginPerson;
 	
@@ -61,7 +59,7 @@ public class LoginCalendarWindow {
 		gridBagLayout.columnWidths = new int[]{200, 200, 200, 200, 200, 200, 200, 0};
 		gridBagLayout.rowHeights = new int[] {20, 0, 0, 30, 30, 30, 30, 30, 30, 30};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
 		initializeMonthView();
@@ -104,23 +102,6 @@ public class LoginCalendarWindow {
 		frame.getContentPane().add(monthYear, gbc_monthYear);
 		
 		/**
-		 * JButton actual
-		 */
-		JButton actual = new JButton("Actual");
-		actual.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				dayInitializeMonth(0);
-				frame.validate();
-			}
-		});
-		GridBagConstraints gbc_actual = new GridBagConstraints();
-		gbc_actual.insets = new Insets(0, 0, 5, 5);
-		gbc_actual.gridx = 3;
-		gbc_actual.gridy = 1;
-		frame.getContentPane().add(actual, gbc_actual);
-		
-		/**
 		 * JButton after
 		 */
 		JButton after = new JButton(">>");
@@ -142,63 +123,77 @@ public class LoginCalendarWindow {
 		 * JPanel days(name)
 		 */	
 		JLabel lblMonday = new JLabel("Monday");
-		lblMonday.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblMonday.setForeground(Color.RED);
+		lblMonday.setBackground(Color.WHITE);
+		lblMonday.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMonday.setFont( new Font("Fira Sans ExtraLight", Font.PLAIN, 18));
+		lblMonday.setForeground(new Color(53, 65, 98));
 		GridBagConstraints gbc_lblMonday = new GridBagConstraints();
-		gbc_lblMonday.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMonday.insets = new Insets(4, 4, 6, 6);
 		gbc_lblMonday.gridx = 0;
 		gbc_lblMonday.gridy = 2;
 		frame.getContentPane().add(lblMonday, gbc_lblMonday);
 		
 		JLabel lblTuesday = new JLabel("Tuesday");
-		lblTuesday.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblTuesday.setForeground(Color.RED);
+		lblTuesday.setBackground(Color.WHITE);
+		lblTuesday.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTuesday.setFont( new Font("Fira Sans ExtraLight", Font.PLAIN, 18));
+		lblTuesday.setForeground(new Color(53, 65, 98));
 		GridBagConstraints gbc_lblTuesday = new GridBagConstraints();
-		gbc_lblTuesday.insets = new Insets(0, 0, 5, 5);
+		gbc_lblTuesday.insets = new Insets(4, 4, 6, 6);
 		gbc_lblTuesday.gridx = 1;
 		gbc_lblTuesday.gridy = 2;
 		frame.getContentPane().add(lblTuesday, gbc_lblTuesday);
 		
 		JLabel lblWednesday = new JLabel("Wednesday");
-		lblWednesday.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblWednesday.setForeground(Color.RED);
+		lblWednesday.setBackground(Color.WHITE);
+		lblWednesday.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWednesday.setFont( new Font("Fira Sans ExtraLight", Font.PLAIN, 18));
+		lblWednesday.setForeground(new Color(53, 65, 98));
 		GridBagConstraints gbc_lblWednesday = new GridBagConstraints();
-		gbc_lblWednesday.insets = new Insets(0, 0, 5, 5);
+		gbc_lblWednesday.insets = new Insets(4, 4, 6, 6);
 		gbc_lblWednesday.gridx = 2;
 		gbc_lblWednesday.gridy = 2;
 		frame.getContentPane().add(lblWednesday, gbc_lblWednesday);
 		
 		JLabel lblThursday = new JLabel("Thursday");
-		lblThursday.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblThursday.setForeground(Color.RED);
+		lblThursday.setBackground(Color.WHITE);
+		lblThursday.setHorizontalAlignment(SwingConstants.CENTER);
+		lblThursday.setFont( new Font("Fira Sans ExtraLight", Font.PLAIN, 18));
+		lblThursday.setForeground(new Color(53, 65, 98));
 		GridBagConstraints gbc_lblThursday= new GridBagConstraints();
-		gbc_lblThursday.insets = new Insets(0, 0, 5, 5);
+		gbc_lblThursday.insets = new Insets(4, 4, 6, 6);
 		gbc_lblThursday.gridx = 3;
 		gbc_lblThursday.gridy = 2;
 		frame.getContentPane().add(lblThursday, gbc_lblThursday);
 		
 		JLabel lblFriday = new JLabel("Friday");
-		lblFriday.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblFriday.setForeground(Color.RED);
+		lblFriday.setBackground(Color.WHITE);
+		lblFriday.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFriday.setFont( new Font("Fira Sans ExtraLight", Font.PLAIN, 18));
+		lblFriday.setForeground(new Color(53, 65, 98));
 		GridBagConstraints gbc_lblFirday = new GridBagConstraints();
-		gbc_lblFirday.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFirday.insets = new Insets(4, 4, 6, 6);
 		gbc_lblFirday.gridx = 4;
 		gbc_lblFirday.gridy = 2;
 		frame.getContentPane().add(lblFriday, gbc_lblFirday);
 		
 		JLabel lblSaturday = new JLabel("Saturday");
-		lblSaturday.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblSaturday.setForeground(Color.RED);
+		lblSaturday.setBackground(Color.WHITE);
+		lblSaturday.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSaturday.setFont( new Font("Fira Sans ExtraLight", Font.PLAIN, 18));
+		lblSaturday.setForeground(new Color(53, 65, 98));
 		GridBagConstraints gbc_lblSaturday = new GridBagConstraints();
 		gbc_lblSaturday.anchor = GridBagConstraints.NORTH;
-		gbc_lblSaturday.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSaturday.insets = new Insets(4, 4, 6, 6);
 		gbc_lblSaturday.gridx = 5;
 		gbc_lblSaturday.gridy = 2;
 		frame.getContentPane().add(lblSaturday, gbc_lblSaturday);
 		
 		JLabel lblSunday = new JLabel("Sunday");
-		lblSunday.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblSunday.setForeground(Color.RED);
+		lblSunday.setBackground(Color.WHITE);
+		lblSunday.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSunday.setFont( new Font("Fira Sans ExtraLight", Font.PLAIN, 18));
+		lblSunday.setForeground(new Color(53, 65, 98));
 		GridBagConstraints gbc_lblSunday = new GridBagConstraints();
 		gbc_lblSunday.insets = new Insets(0, 0, 5, 0);
 		gbc_lblSunday.gridx = 6;
@@ -211,7 +206,7 @@ public class LoginCalendarWindow {
 		JPanel panel_0 = new JPanel();
 		panel_0.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_0 = new GridBagConstraints();
-		gbc_panel_0.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_0.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_0.fill = GridBagConstraints.BOTH;
 		gbc_panel_0.gridx = 0;
 		gbc_panel_0.gridy = 3;
@@ -222,7 +217,7 @@ public class LoginCalendarWindow {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_1.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 1;
 		gbc_panel_1.gridy = 3;
@@ -233,7 +228,7 @@ public class LoginCalendarWindow {
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_2.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_2.fill = GridBagConstraints.BOTH;
 		gbc_panel_2.gridx = 2;
 		gbc_panel_2.gridy = 3;
@@ -244,7 +239,7 @@ public class LoginCalendarWindow {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
-		gbc_panel_3.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_3.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_3.fill = GridBagConstraints.BOTH;
 		gbc_panel_3.gridx = 3;
 		gbc_panel_3.gridy = 3;
@@ -255,7 +250,7 @@ public class LoginCalendarWindow {
 		JPanel panel_4 = new JPanel();
 		panel_4.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_4 = new GridBagConstraints();
-		gbc_panel_4.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_4.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_4.fill = GridBagConstraints.BOTH;
 		gbc_panel_4.gridx = 4;
 		gbc_panel_4.gridy = 3;
@@ -266,7 +261,7 @@ public class LoginCalendarWindow {
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_5 = new GridBagConstraints();
-		gbc_panel_5.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_5.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_5.fill = GridBagConstraints.BOTH;
 		gbc_panel_5.gridx = 5;
 		gbc_panel_5.gridy = 3;
@@ -288,7 +283,7 @@ public class LoginCalendarWindow {
 		JPanel panel_7 = new JPanel();
 		panel_7.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_7 = new GridBagConstraints();
-		gbc_panel_7.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_7.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_7.fill = GridBagConstraints.BOTH;
 		gbc_panel_7.gridx = 0;
 		gbc_panel_7.gridy = 4;
@@ -299,7 +294,7 @@ public class LoginCalendarWindow {
 		JPanel panel_8 = new JPanel();
 		panel_8.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_8 = new GridBagConstraints();
-		gbc_panel_8.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_8.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_8.fill = GridBagConstraints.BOTH;
 		gbc_panel_8.gridx = 1;
 		gbc_panel_8.gridy = 4;
@@ -310,7 +305,7 @@ public class LoginCalendarWindow {
 		JPanel panel_9 = new JPanel();
 		panel_9.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_9 = new GridBagConstraints();
-		gbc_panel_9.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_9.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_9.fill = GridBagConstraints.BOTH;
 		gbc_panel_9.gridx = 2;
 		gbc_panel_9.gridy = 4;
@@ -321,7 +316,7 @@ public class LoginCalendarWindow {
 		JPanel panel_10 = new JPanel();
 		panel_10.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_10 = new GridBagConstraints();
-		gbc_panel_10.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_10.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_10.fill = GridBagConstraints.BOTH;
 		gbc_panel_10.gridx = 3;
 		gbc_panel_10.gridy = 4;
@@ -332,7 +327,7 @@ public class LoginCalendarWindow {
 		JPanel panel_11 = new JPanel();
 		panel_11.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_11 = new GridBagConstraints();
-		gbc_panel_11.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_11.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_11.fill = GridBagConstraints.BOTH;
 		gbc_panel_11.gridx = 4;
 		gbc_panel_11.gridy = 4;
@@ -343,7 +338,7 @@ public class LoginCalendarWindow {
 		JPanel panel_12 = new JPanel();
 		panel_12.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_12 = new GridBagConstraints();
-		gbc_panel_12.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_12.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_12.fill = GridBagConstraints.BOTH;
 		gbc_panel_12.gridx = 5;
 		gbc_panel_12.gridy = 4;
@@ -365,7 +360,7 @@ public class LoginCalendarWindow {
 		JPanel panel_14 = new JPanel();
 		panel_14.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_14 = new GridBagConstraints();
-		gbc_panel_14.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_14.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_14.fill = GridBagConstraints.BOTH;
 		gbc_panel_14.gridx = 0;
 		gbc_panel_14.gridy = 5;
@@ -376,7 +371,7 @@ public class LoginCalendarWindow {
 		JPanel panel_15 = new JPanel();
 		panel_15.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_15 = new GridBagConstraints();
-		gbc_panel_15.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_15.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_15.fill = GridBagConstraints.BOTH;
 		gbc_panel_15.gridx = 1;
 		gbc_panel_15.gridy = 5;
@@ -387,7 +382,7 @@ public class LoginCalendarWindow {
 		JPanel panel_16 = new JPanel();
 		panel_16.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_16 = new GridBagConstraints();
-		gbc_panel_16.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_16.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_16.fill = GridBagConstraints.BOTH;
 		gbc_panel_16.gridx = 2;
 		gbc_panel_16.gridy = 5;
@@ -398,7 +393,7 @@ public class LoginCalendarWindow {
 		JPanel panel_17 = new JPanel();
 		panel_17.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_17 = new GridBagConstraints();
-		gbc_panel_17.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_17.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_17.fill = GridBagConstraints.BOTH;
 		gbc_panel_17.gridx = 3;
 		gbc_panel_17.gridy = 5;
@@ -409,7 +404,7 @@ public class LoginCalendarWindow {
 		JPanel panel_18 = new JPanel();
 		panel_18.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_18 = new GridBagConstraints();
-		gbc_panel_18.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_18.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_18.fill = GridBagConstraints.BOTH;
 		gbc_panel_18.gridx = 4;
 		gbc_panel_18.gridy = 5;
@@ -420,7 +415,7 @@ public class LoginCalendarWindow {
 		JPanel panel_19 = new JPanel();
 		panel_19.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_19 = new GridBagConstraints();
-		gbc_panel_19.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_19.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_19.fill = GridBagConstraints.BOTH;
 		gbc_panel_19.gridx = 5;
 		gbc_panel_19.gridy = 5;
@@ -442,7 +437,7 @@ public class LoginCalendarWindow {
 		JPanel panel_21 = new JPanel();
 		panel_21.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_21 = new GridBagConstraints();
-		gbc_panel_21.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_21.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_21.fill = GridBagConstraints.BOTH;
 		gbc_panel_21.gridx = 0;
 		gbc_panel_21.gridy = 6;
@@ -453,7 +448,7 @@ public class LoginCalendarWindow {
 		JPanel panel_22 = new JPanel();
 		panel_22.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_22 = new GridBagConstraints();
-		gbc_panel_22.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_22.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_22.fill = GridBagConstraints.BOTH;
 		gbc_panel_22.gridx = 1;
 		gbc_panel_22.gridy = 6;
@@ -464,7 +459,7 @@ public class LoginCalendarWindow {
 		JPanel panel_23 = new JPanel();
 		panel_23.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_23 = new GridBagConstraints();
-		gbc_panel_23.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_23.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_23.fill = GridBagConstraints.BOTH;
 		gbc_panel_23.gridx = 2;
 		gbc_panel_23.gridy = 6;
@@ -475,7 +470,7 @@ public class LoginCalendarWindow {
 		JPanel panel_24 = new JPanel();
 		panel_24.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_24 = new GridBagConstraints();
-		gbc_panel_24.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_24.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_24.fill = GridBagConstraints.BOTH;
 		gbc_panel_24.gridx = 3;
 		gbc_panel_24.gridy = 6;
@@ -486,7 +481,7 @@ public class LoginCalendarWindow {
 		JPanel panel_25 = new JPanel();
 		panel_25.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_25 = new GridBagConstraints();
-		gbc_panel_25.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_25.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_25.fill = GridBagConstraints.BOTH;
 		gbc_panel_25.gridx = 4;
 		gbc_panel_25.gridy = 6;
@@ -497,7 +492,7 @@ public class LoginCalendarWindow {
 		JPanel panel_26 = new JPanel();
 		panel_26.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_26 = new GridBagConstraints();
-		gbc_panel_26.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_26.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_26.fill = GridBagConstraints.BOTH;
 		gbc_panel_26.gridx = 5;
 		gbc_panel_26.gridy = 6;
@@ -519,7 +514,7 @@ public class LoginCalendarWindow {
 		JPanel panel_28 = new JPanel();
 		panel_28.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_28 = new GridBagConstraints();
-		gbc_panel_28.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_28.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_28.fill = GridBagConstraints.BOTH;
 		gbc_panel_28.gridx = 0;
 		gbc_panel_28.gridy = 7;
@@ -530,7 +525,7 @@ public class LoginCalendarWindow {
 		JPanel panel_29 = new JPanel();
 		panel_29.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_29 = new GridBagConstraints();
-		gbc_panel_29.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_29.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_29.fill = GridBagConstraints.BOTH;
 		gbc_panel_29.gridx = 1;
 		gbc_panel_29.gridy = 7;
@@ -541,7 +536,7 @@ public class LoginCalendarWindow {
 		JPanel panel_30 = new JPanel();
 		panel_30.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_30 = new GridBagConstraints();
-		gbc_panel_30.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_30.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_30.fill = GridBagConstraints.BOTH;
 		gbc_panel_30.gridx = 2;
 		gbc_panel_30.gridy = 7;
@@ -552,7 +547,7 @@ public class LoginCalendarWindow {
 		JPanel panel_31 = new JPanel();
 		panel_31.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_31 = new GridBagConstraints();
-		gbc_panel_31.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_31.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_31.fill = GridBagConstraints.BOTH;
 		gbc_panel_31.gridx = 3;
 		gbc_panel_31.gridy = 7;
@@ -563,7 +558,7 @@ public class LoginCalendarWindow {
 		JPanel panel_32 = new JPanel();
 		panel_32.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_32 = new GridBagConstraints();
-		gbc_panel_32.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_32.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_32.fill = GridBagConstraints.BOTH;
 		gbc_panel_32.gridx = 4;
 		gbc_panel_32.gridy = 7;
@@ -574,7 +569,7 @@ public class LoginCalendarWindow {
 		JPanel panel_33 = new JPanel();
 		panel_33.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_33 = new GridBagConstraints();
-		gbc_panel_33.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_33.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_33.fill = GridBagConstraints.BOTH;
 		gbc_panel_33.gridx = 5;
 		gbc_panel_33.gridy = 7;
@@ -596,7 +591,7 @@ public class LoginCalendarWindow {
 		JPanel panel_35 = new JPanel();
 		panel_35.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_35 = new GridBagConstraints();
-		gbc_panel_35.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_35.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_35.fill = GridBagConstraints.BOTH;
 		gbc_panel_35.gridx = 0;
 		gbc_panel_35.gridy = 8;
@@ -607,7 +602,7 @@ public class LoginCalendarWindow {
 		JPanel panel_36 = new JPanel();
 		panel_36.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_36 = new GridBagConstraints();
-		gbc_panel_36.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_36.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_36.fill = GridBagConstraints.BOTH;
 		gbc_panel_36.gridx = 1;
 		gbc_panel_36.gridy = 8;
@@ -618,7 +613,7 @@ public class LoginCalendarWindow {
 		JPanel panel_37 = new JPanel();
 		panel_37.setBackground(new Color(255, 255, 255));
 		GridBagConstraints gbc_panel_37 = new GridBagConstraints();
-		gbc_panel_37.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_37.insets = new Insets(4, 4, 6, 6);
 		gbc_panel_37.fill = GridBagConstraints.BOTH;
 		gbc_panel_37.gridx = 2;
 		gbc_panel_37.gridy = 8;
@@ -644,13 +639,14 @@ public class LoginCalendarWindow {
 		});
 		mnMen.add(mntmLogout);
 		
-		JMenuItem mntmExit = new JMenuItem("Exit");
-		mntmExit.addActionListener(new ActionListener() {
+		JMenuItem mntmActualDate = new JMenuItem("Actual Date");
+		mntmActualDate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				dayInitializeMonth(0);
+				frame.validate();
 			}
 		});
-		mnMen.add(mntmExit);
+		mnMen.add(mntmActualDate);
 		
 		JMenuItem mntmManageUserData = new JMenuItem("Manage User Data");
 		mntmManageUserData.addActionListener(new ActionListener() {
@@ -660,24 +656,26 @@ public class LoginCalendarWindow {
 		});
 		mnMen.add(mntmManageUserData);
 		
-		JMenuItem mntmCreateMeeting = new JMenuItem("Create Meeting");
-		mntmCreateMeeting.addActionListener(new ActionListener() {
+		JMenuItem mntmCreateEvent = new JMenuItem("Create Event");
+		mntmCreateEvent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NewEventWindow win = new NewEventWindow(loginPerson);
+				String currentMonth = "" + _calendar.get(Calendar.MONTH)+1;
+				String date = currentDay + "." + currentMonth + "." + currentYear;
+				System.out.println(date);
+				NewEventWindow win = new NewEventWindow(loginPerson, date);
 				win.setVisible(true);
 			}
 		});
+		mnMen.add(mntmCreateEvent);
 		
 		JMenuItem mntmCreateCalendar = new JMenuItem("Create Calendar");
 		mntmCreateCalendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				NewCalendarWindow nCWindow = new NewCalendarWindow(loginPerson);
+				NewCalendar nCWindow = new NewCalendar(loginPerson);
 				nCWindow.setVisible(true);
 			}
 		});
 		mnMen.add(mntmCreateCalendar);
-		mnMen.add(mntmCreateMeeting);
-		
 		
 		JMenuItem mntmBackup = new JMenuItem("Backup");
 		mntmBackup.addActionListener(new ActionListener() {
@@ -695,11 +693,19 @@ public class LoginCalendarWindow {
 		});
 		mnMen.add(mntmOnlineSynchronization);
 		
+		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		mnMen.add(mntmExit);
+		
 		dayInitializeMonth(0);
 		
 	}
 	
-	private void dayInitializeMonth(int number){
+private void dayInitializeMonth(int number){
 		
 		for(int i = 0; i<listJPanel.size(); i++){
 			listJPanel.get(i).removeAll();
@@ -708,7 +714,9 @@ public class LoginCalendarWindow {
 		if(number == 0){
 			_calendar.set(currentYear, currentMonth, currentDay);
 		}
-
+		
+		_calendar.set(Calendar.DAY_OF_MONTH, 1);
+		
 		//Indicates Monday/Tuesday/Wednesday/Thursday/Friday/Saturday/Sunday
 		switch (_calendar.get(Calendar.DAY_OF_WEEK)){
 	    	case 1:  start = 6; break; //Saturday
@@ -728,21 +736,20 @@ public class LoginCalendarWindow {
 				if(day == currentDay && currentMonth == _calendar.get(Calendar.MONTH) && currentYear == _calendar.get(Calendar.YEAR)){
 					JLabel label = new JLabel(dayNumber);
 					label.setAlignmentX(Component.CENTER_ALIGNMENT);
-					label.setFont(new Font("Arial", Font.BOLD, 20));
+					label.setFont(new Font("FiraSans Book", Font.PLAIN, 16));
 					label.setForeground(Color.RED);
-					listJPanel.get(i).setBackground(new Color(255, 255, 255));
+					listJPanel.get(i).setBackground(new Color(240, 240, 240));
 					listJPanel.get(i).add(label);
 				}else{
 					JLabel label = new JLabel(dayNumber);
 					label.setAlignmentX(Component.CENTER_ALIGNMENT);
-					label.setFont(new Font("Arial", Font.BOLD, 20));
-					listJPanel.get(i).setBackground(new Color(255, 255, 255));
+					label.setFont(new Font("FiraSans Book", Font.PLAIN, 16));
+					listJPanel.get(i).setBackground(new Color(245, 245, 245));
 					listJPanel.get(i).add(label);
 				}
-				showMeetingMonth(day, i);
 				day++;
 			}else{
-				listJPanel.get(i).setBackground(new Color(0, 102, 0));
+				listJPanel.get(i).setBackground(Color.WHITE);
 			}
 		}
 		
@@ -750,7 +757,8 @@ public class LoginCalendarWindow {
 		 * Output current year + month
 		 */
 		JLabel label = new JLabel(_calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + " " + _calendar.get(Calendar.YEAR));
-		label.setFont(new Font("Arial", Font.BOLD, 20));
+		label.setBackground(Color.ORANGE);
+		label.setFont(new Font("Fira Sans Hair", Font.PLAIN, 24));
 		label.setForeground(Color.BLACK);
 		monthYear.removeAll();
 		monthYear.add(label);
@@ -760,7 +768,7 @@ public class LoginCalendarWindow {
 	/**
 	 * Output Meeting
 	 */
-	private void showMeetingMonth(int day, int jpanelNumber){
+/*	private void showMeetingMonth(int day, int jpanelNumber){
 		String currentDate = day + "." + (_calendar.get(Calendar.MONTH)+1) + "." + _calendar.get(Calendar.YEAR);
 		
 		for(int i=0; i<publicMeeting.size(); i++){
@@ -800,7 +808,7 @@ public class LoginCalendarWindow {
 				});
 			}
 		}
-	}
+	}*/
 	
 	public Window getFrame() {
 		return frame;
