@@ -1,5 +1,6 @@
 package calendar;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -56,11 +57,12 @@ public class Client {
 			String securityQuestion, String answer) {
 		try {
 			String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
-			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			if (conn == null) {
+			File file = new File(pathDb);
+			if (!file.exists()) {
 				DatabaseNames.createClientDatabase();
-				conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			}
+			
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			Statement stmt = conn.createStatement();
 			String sql = "INSERT INTO personTable VALUES ('" + firstName + "', '" + surname + "', '" + password + "', '"
 					+ id + "', '" + securityQuestion + "', '" + answer + "')";
@@ -78,12 +80,13 @@ public class Client {
 
 	public static void deletePerson(String id, String password) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
+		File file = new File(pathDb);
+		if (!file.exists()) {
+			DatabaseNames.createClientDatabase();
+		}
+		
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			if (conn == null) {
-				DatabaseNames.createClientDatabase();
-				conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			}
 			Statement stmt = conn.createStatement();
 			String sql = "delete from personTable where id = '" + id + "'";
 			stmt.executeUpdate(sql);
@@ -102,12 +105,13 @@ public class Client {
 	public void changeDataPerson(String firstName, String surname, String password, String id, String securityQuestion,
 			String answer) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
+		File file = new File(pathDb);
+		if (!file.exists()) {
+			DatabaseNames.createClientDatabase();
+		}
+		
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			if (conn == null) {
-				DatabaseNames.createClientDatabase();
-				conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			}
 			if (!firstName.equals("")) {
 				this.firstName = firstName;
 			}
@@ -139,12 +143,12 @@ public class Client {
 
 	public static boolean checkDataPerson(String id, String password) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
+		File file = new File(pathDb);
+		if (!file.exists()) {
+			DatabaseNames.createClientDatabase();
+		}
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			if (conn == null) {
-				DatabaseNames.createClientDatabase();
-				conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
-			}
 			String sql = "select id, password from personTable where id = '" + id + "' and password='" + password + "'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -167,12 +171,12 @@ public class Client {
 
 	public static String passwordData(String id, String answer, String securityQuestion) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
+		File file = new File(pathDb);
+		if (!file.exists()) {
+			DatabaseNames.createClientDatabase();
+		}
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			if (conn == null) {
-				DatabaseNames.createClientDatabase();
-				conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
-			}
 			String sql = "select id, password, securityQuestion, answer from personTable where id = '" + id
 					+ "' and securityQuestion='" + securityQuestion + "' and answer = '" + answer + "'";
 			Statement stmt = conn.createStatement();
@@ -208,12 +212,12 @@ public class Client {
 
 	public static boolean isRegistered(String id) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
+		File file = new File(pathDb);
+		if (!file.exists()) {
+			DatabaseNames.createClientDatabase();
+		}
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			if (conn == null) {
-				DatabaseNames.createClientDatabase();
-				conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
-			}
 			String sql = "select id from personTable where id = '" + id + "'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -245,12 +249,12 @@ public class Client {
 		String sql = "select firstName, surname, password, id, securityQuestion, answer from personTable where id = '"
 				+ id + "'";
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
+		File file = new File(pathDb);
+		if (!file.exists()) {
+			DatabaseNames.createClientDatabase();
+		}
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			if (conn == null) {
-				DatabaseNames.createClientDatabase();
-				conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
-			}
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			ArrayList<String> personDataList = new ArrayList<>();

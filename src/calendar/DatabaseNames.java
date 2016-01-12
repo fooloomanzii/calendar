@@ -1,5 +1,6 @@
 package calendar;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -30,7 +31,7 @@ public class DatabaseNames {
 		}
 	}
 
-	public static void createDatabase() {
+	public static void createCalendarNameDatabase() {
 		Connection c = null;
 		Statement stmt = null;
 		try {
@@ -49,13 +50,14 @@ public class DatabaseNames {
 
 	public static void setEntry(String database, String id, int r, int g, int b) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
+		File file = new File(pathDb);
+		if (!file.exists()) {
+			createCalendarNameDatabase();
+		}
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			if (conn == null)
-				createDatabase();
 
-			String sql;
-			sql = "insert into databaseNames Values ('" + database + "', '" + id + "', '" + r + "', '" + g + "', '" + b
+			String sql = "insert into databaseNames Values ('" + database + "', '" + id + "', '" + r + "', '" + g + "', '" + b
 					+ "')";
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
@@ -73,11 +75,12 @@ public class DatabaseNames {
 	public static ArrayList<String> getEntries(String id) {
 		ArrayList<String> list = new ArrayList<>();
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
+		File file = new File(pathDb);
+		if (!file.exists()) {
+			createCalendarNameDatabase();
+		}
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			if (conn == null)
-				createDatabase();
-			
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);			
 			Statement stmt = conn.createStatement();
 			String sql = "select calendarName from databaseNames where id = '" + id + "'";
 			ResultSet rs = stmt.executeQuery(sql);
