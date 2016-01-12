@@ -17,7 +17,7 @@ import java.awt.Font;
 public class RegistrationWindow extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private JTextField textFirstName;
 	private JTextField textSurname;
 	private JTextField textid;
@@ -31,7 +31,7 @@ public class RegistrationWindow extends JDialog {
 	public RegistrationWindow() {
 		getContentPane().setBackground(Color.WHITE);
 		setModal(true);
-		setAlwaysOnTop(true);
+
 		setTitle("Registration");
 		setBounds(450, 0, 540, 300);
 		getContentPane().setLayout(new MigLayout("", "[][grow]", "[][][][][][][][grow 10][bottom]"));
@@ -115,18 +115,18 @@ public class RegistrationWindow extends JDialog {
 					JOptionPane.showMessageDialog(getContentPane(), "The password must have five characters at least.","",JOptionPane.ERROR_MESSAGE);
 				} else if (!password.equals(passwordRepeat)) {
 					JOptionPane.showMessageDialog(getContentPane(), "The entered passwords do not match","",JOptionPane.ERROR_MESSAGE);
-				} else if (Client.idAlreadyExist(id)) {
-					JOptionPane.showMessageDialog(getContentPane(), "The Username is already used!","",JOptionPane.ERROR_MESSAGE);
+//				} else if (Client.isRegistered(id)) {
+//					JOptionPane.showMessageDialog(getContentPane(), "The Username is already used!","",JOptionPane.ERROR_MESSAGE);
 				} else {
 					Client.insertNewPerson(firstName, surname, password, id, question, answer);
 					JOptionPane.showMessageDialog(getContentPane(), "Account has been created successfully!");
-					DatabaseCalendar.createDatabase("random", id);
+					DatabaseCalendar.createDatabase("Private", id);
 					dispose();
 				}
 			}
 		});
 		getContentPane().add(btnOkay, "cell 0 8,alignx center,aligny bottom");
-		
+
 		JButton btnExit = new JButton("Exit");
 		btnExit.addMouseListener(new MouseAdapter() {
 			@Override
@@ -136,5 +136,5 @@ public class RegistrationWindow extends JDialog {
 		});
 		getContentPane().add(btnExit, "cell 1 8,alignx center,aligny bottom");
 	}
-	
+
 }

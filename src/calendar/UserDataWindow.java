@@ -28,7 +28,7 @@ public class UserDataWindow extends JDialog {
 	 */
 	public UserDataWindow(final Client personAngemeldet) {
 		setModal(true);
-		setAlwaysOnTop(true);
+		
 		setTitle("User Data");
 		//setDefaultCloseOperation(RegistrierungsFenster.EXIT_ON_CLOSE);
 		setBounds(100, 100, 571, 329);

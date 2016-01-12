@@ -18,7 +18,8 @@ public class Client {
 	/**
 	 * Konstruktor
 	 */
-	public Client(String firstName, String surname, String password, String id, String securityQuestion, String answer){
+	public Client(String firstName, String surname, String password, String id, String securityQuestion,
+			String answer) {
 		this.firstName = firstName;
 		this.surname = surname;
 		this.password = password;
@@ -26,7 +27,7 @@ public class Client {
 		this.securityQuestion = securityQuestion;
 		this.answer = answer;
 	}
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -38,7 +39,7 @@ public class Client {
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public String getid() {
 		return id;
 	}
@@ -51,66 +52,87 @@ public class Client {
 		return answer;
 	}
 
-	public static void insertNewPerson(String firstName, String surname, String password, String id, String securityQuestion, String answer){
-		try{
+	public static void insertNewPerson(String firstName, String surname, String password, String id,
+			String securityQuestion, String answer) {
+		try {
 			String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
-			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
+			if (conn == null) {
+				DatabaseNames.createClientDatabase();
+				conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
+			}
 			Statement stmt = conn.createStatement();
-			String sql = "INSERT INTO personTable VALUES ('"+firstName+"', '"+surname+"', '"+password+"', '"+id+"', '"+securityQuestion+"', '"+answer+"')";
+			String sql = "INSERT INTO personTable VALUES ('" + firstName + "', '" + surname + "', '" + password + "', '"
+					+ id + "', '" + securityQuestion + "', '" + answer + "')";
 			stmt.executeUpdate(sql);
-			if ( conn != null )
-			    try { 
-			    	conn.close(); 
-			    }catch(SQLException e){ 
-			    	e.printStackTrace();
-			    }
-		}catch(SQLException e){
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void deletePerson(String id, String password){
+	public static void deletePerson(String id, String password) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
-		try{
-			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
+			if (conn == null) {
+				DatabaseNames.createClientDatabase();
+				conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
+			}
 			Statement stmt = conn.createStatement();
-			String sql = "delete from personTable where id = '"+id+"'";
+			String sql = "delete from personTable where id = '" + id + "'";
 			stmt.executeUpdate(sql);
-			if ( conn != null )
-			    try { conn.close(); } catch ( SQLException e ) { e.printStackTrace(); }
-		}catch (SQLException e){
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return;
 		}
 	}
 
-	public void changeDataPerson(String firstName, String surname, String password, String id, String securityQuestion, String answer) {
+	public void changeDataPerson(String firstName, String surname, String password, String id, String securityQuestion,
+			String answer) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
-		try{
-		Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
-		if(!firstName.equals("")){
-	         this.firstName = firstName;
-	    }
-		if(!surname.equals("")){
-	    	this.surname = surname;
-	    }
-		if(!password.equals("")){
-	    	this.password = password;
-	    }
-		if(!id.equals("")){
-	    	this.id = id;
-	    	System.out.println(this.id);
-	    }
-		if(!securityQuestion.equals("")){
-	    	this.securityQuestion = securityQuestion;
-	    }
-		if(!answer.equals("")){
-	    	this.answer = answer;
-	    }
-	    String sql = "update personTable set id = '"+this.id+"', firstName = '"+this.firstName+"', surname = '"+this.surname+"', password = '"+this.password+"', securityQuestion ='"+this.securityQuestion+"', answer = '"+this.answer+"'";
-	    Statement stmt = conn.createStatement();
-	    stmt.executeUpdate(sql);
-		}catch (SQLException e){
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
+			if (conn == null) {
+				DatabaseNames.createClientDatabase();
+				conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
+			}
+			if (!firstName.equals("")) {
+				this.firstName = firstName;
+			}
+			if (!surname.equals("")) {
+				this.surname = surname;
+			}
+			if (!password.equals("")) {
+				this.password = password;
+			}
+			if (!id.equals("")) {
+				this.id = id;
+				System.out.println(this.id);
+			}
+			if (!securityQuestion.equals("")) {
+				this.securityQuestion = securityQuestion;
+			}
+			if (!answer.equals("")) {
+				this.answer = answer;
+			}
+			String sql = "update personTable set id = '" + this.id + "', firstName = '" + this.firstName
+					+ "', surname = '" + this.surname + "', password = '" + this.password + "', securityQuestion ='"
+					+ this.securityQuestion + "', answer = '" + this.answer + "'";
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
@@ -119,7 +141,11 @@ public class Client {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			String sql = "select id, password from personTable where id = '" + id + "' and password='" + password+ "'";
+			if (conn == null) {
+				DatabaseNames.createClientDatabase();
+				conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
+			}
+			String sql = "select id, password from personTable where id = '" + id + "' and password='" + password + "'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			if (!rs.next()) {
@@ -134,7 +160,7 @@ public class Client {
 					return false;
 				}
 			}
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			return false;
 		}
 	}
@@ -143,73 +169,88 @@ public class Client {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			String sql = "select id, password, securityQuestion, answer from personTable where id = '" + id + "' and securityQuestion='" + securityQuestion+ "' and answer = '"+answer+"'";
+			if (conn == null) {
+				DatabaseNames.createClientDatabase();
+				conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
+			}
+			String sql = "select id, password, securityQuestion, answer from personTable where id = '" + id
+					+ "' and securityQuestion='" + securityQuestion + "' and answer = '" + answer + "'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			if (!rs.next()) {
-				if ( conn != null )
-				    try { 
-				    	conn.close(); 
-				    }catch(SQLException e ){ 
-				    	e.printStackTrace(); 
-				    }
+				if (conn != null)
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				return "";
 			} else {
-				if (rs.getString("securityQuestion").equals(securityQuestion) && rs.getString("id").equals(id) && rs.getString("answer").equals(answer)) {
+				if (rs.getString("securityQuestion").equals(securityQuestion) && rs.getString("id").equals(id)
+						&& rs.getString("answer").equals(answer)) {
 					return rs.getString("password");
 				} else {
-					if(conn != null){
-						try { 
-							conn.close(); 
-						}catch(SQLException e){ 
-							e.printStackTrace(); 
+					if (conn != null) {
+						try {
+							conn.close();
+						} catch (SQLException e) {
+							e.printStackTrace();
 						}
 					}
 					return "";
 				}
 			}
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return "";
 		}
 	}
 
-	public static boolean idAlreadyExist(String id) {
+	public static boolean isRegistered(String id) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			String sql = "select id from personTable where id = '"+id+"'";
+			if (conn == null) {
+				DatabaseNames.createClientDatabase();
+				conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
+			}
+			String sql = "select id from personTable where id = '" + id + "'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			if (rs.next()){
-				if( conn != null)
-				    try{ 
-				    	conn.close(); 
-				    }catch(SQLException e){ 
-				    	e.printStackTrace(); 
-				    }
+			if (rs.next()) {
+				if (conn != null)
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				return true;
-			}else{
-				if(conn != null){
-				    try { 
-				    	conn.close(); 
-				    }catch(SQLException e){ 
-				    	e.printStackTrace();
-				    }
+			} else {
+				if (conn != null) {
+					try {
+						conn.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
 				}
 				return false;
 			}
-		}catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
-	
-	public static ArrayList<String> getPersonData(String id){
-		String sql = "select firstName, surname, password, id, securityQuestion, answer from personTable where id = '"+id+"'";
+
+	public static ArrayList<String> getPersonData(String id) {
+		String sql = "select firstName, surname, password, id, securityQuestion, answer from personTable where id = '"
+				+ id + "'";
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
+			if (conn == null) {
+				DatabaseNames.createClientDatabase();
+				conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
+			}
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			ArrayList<String> personDataList = new ArrayList<>();
@@ -219,18 +260,18 @@ public class Client {
 			personDataList.add(rs.getString("id"));
 			personDataList.add(rs.getString("securityQuestion"));
 			personDataList.add(rs.getString("answer"));
-			if(conn != null){
-				try { 
-					conn.close(); 	
-				}catch(SQLException e){ 
-					e.printStackTrace(); 
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
 				}
 			}
 			return personDataList;
-		}catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 }

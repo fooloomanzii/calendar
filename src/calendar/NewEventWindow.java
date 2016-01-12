@@ -45,6 +45,7 @@ public class NewEventWindow extends JDialog {
 	 */
 	public NewEventWindow(final Client client, String date) {
 		setResizable(false);
+		
 		setBackground(Color.WHITE);
 		setBounds(500, 0, 332, 476);
 
@@ -77,7 +78,7 @@ public class NewEventWindow extends JDialog {
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("New Event");
 		setModal(true);
-		setAlwaysOnTop(true);
+		
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		JPanel contentPanel = new JPanel();
@@ -126,7 +127,6 @@ public class NewEventWindow extends JDialog {
 
 		ArrayList<String> calendarNames = DatabaseNames.getEntries(client.getid());
 		System.out.println(calendarNames);
-		
 		
 		JComboBox calendarComboBox = new JComboBox(calendarNames.toArray());
 		GridBagConstraints gbc_calendarComboBox = new GridBagConstraints();

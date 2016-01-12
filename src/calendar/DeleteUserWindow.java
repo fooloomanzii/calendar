@@ -40,7 +40,7 @@ public class DeleteUserWindow extends JDialog {
 	 */
 	public DeleteUserWindow(final Client loginPerson) {
 		setModal(true);
-		setAlwaysOnTop(true);
+		
 		setBounds(100, 100, 516, 169);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

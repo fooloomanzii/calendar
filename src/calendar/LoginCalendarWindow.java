@@ -664,7 +664,8 @@ public class LoginCalendarWindow {
 			public void actionPerformed(ActionEvent e) {
 				String currentMonth = "" + _calendar.get(Calendar.MONTH)+1;
 				String date = currentDay + "." + currentMonth + "." + currentYear;
-				NewEventWindow win = new NewEventWindow(loginPerson, date);
+				NewEventWindow eventWindow = new NewEventWindow(loginPerson, date);
+				eventWindow.setVisible(true);				
 			}
 		});
 		mnMen.add(mntmCreateEvent);

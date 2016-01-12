@@ -10,11 +10,9 @@ import java.util.*;
 public class DatabaseNames {
 
 	public static void main(String args[]) {
-		createDatabase();
-		createDatabaseClient();
 	}
 
-	public static void createDatabaseClient() {
+	public static void createClientDatabase() {
 		Connection c = null;
 		Statement stmt = null;
 		try {
@@ -40,8 +38,7 @@ public class DatabaseNames {
 			c = DriverManager.getConnection("jdbc:sqlite:./src/calendar/database/databaseNames.db");
 			stmt = c.createStatement();
 			String sql = "CREATE TABLE databaseNames " + " (calendarName TEXT NOT NULL, "
-					+ " id TEXT PRIMARY KEY NOT NULL, Red Int NOT NULL, "
-					+ " Green Int NOT NULL, Blue Int NOT NULL)  ";
+					+ " id TEXT PRIMARY KEY NOT NULL, Red Int NOT NULL, " + " Green Int NOT NULL, Blue Int NOT NULL)  ";
 			stmt.executeUpdate(sql);
 			stmt.close();
 			c.close();
@@ -54,17 +51,20 @@ public class DatabaseNames {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
+			if (conn == null)
+				createDatabase();
+
 			String sql;
 			sql = "insert into databaseNames Values ('" + database + "', '" + id + "', '" + r + "', '" + g + "', '" + b
 					+ "')";
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
-			if (conn != null)
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+			
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -75,6 +75,9 @@ public class DatabaseNames {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
+			if (conn == null)
+				createDatabase();
+			
 			Statement stmt = conn.createStatement();
 			String sql = "select calendarName from databaseNames where id = '" + id + "'";
 			ResultSet rs = stmt.executeQuery(sql);

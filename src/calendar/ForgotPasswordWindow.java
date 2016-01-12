@@ -27,7 +27,7 @@ public class ForgotPasswordWindow extends JDialog {
 		getContentPane().setBackground(Color.WHITE);
 		setTitle("Forgot Password");
 		setModal(true);
-		setAlwaysOnTop(true);
+		
 		setBounds(450, 0, 530, 200);
 		getContentPane().setLayout(new MigLayout("", "[153.00][grow]", "[25px][25px][25px][25px][25px]"));
 		

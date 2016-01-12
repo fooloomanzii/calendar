@@ -47,7 +47,7 @@ public class NewCalendarWindow extends JDialog {
 	 */
 	public NewCalendarWindow(final Client client) {
 		setModal(true);
-		setAlwaysOnTop(true);
+		
 		setTitle("New Calendar");
 		setBounds(100, 100, 479, 300);
 		getContentPane().setLayout(new MigLayout("", "[134px:n][174.00][20px:n,grow][134px:n]", "[][20px:n][40px:n][]"));

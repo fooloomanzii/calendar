@@ -28,7 +28,7 @@ public class LoginWindow extends JDialog {
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setForeground(new Color(0, 0, 0));
 		setModal(true);
-		setAlwaysOnTop(true);
+
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(500, 0, 400, 250);
