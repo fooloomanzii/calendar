@@ -494,10 +494,10 @@ public class NewEventWindow extends JDialog {
 					 String repeat = (String) repeatComboBox.getSelectedItem();
 					 String repeatTo = (repeat.compareTo("Unique") != 0 ? "true" : "false");
 					 String visibility = (publicRadioButton.isSelected() ? "true" : "false");
-					event.changeMeeting(event, title, dateFrom, dateTo,
-							 timeFrom, timeTo, location,
-							 description, repeat, repeatTo, visibility);
-							 dispose();
+//					event.changeMeeting(event, title, dateFrom, dateTo,
+//							 timeFrom, timeTo, location,
+//							 description, repeat, repeatTo, visibility);
+//							 dispose();
 				}
 			}
 		});
