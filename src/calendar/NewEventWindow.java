@@ -222,7 +222,7 @@ public class NewEventWindow extends JDialog {
 		getContentPane().add(lblCalendarName, gbc_lblCalendarName);
 		
 		final JComboBox <String> databaseBox = new JComboBox <String>();
-		ArrayList<String> names = DatabaseNames.getEntries(loginPerson.getEmail());
+		ArrayList<String> names = DatabaseNames.getEntries(loginPerson.getid());
 		for(int i=0; i<names.size() ;i++){
 			databaseBox.addItem(names.get(i));
 		}
@@ -290,23 +290,23 @@ public class NewEventWindow extends JDialog {
 					JOptionPane.showMessageDialog(frame, "Please fill out the necessary window!");
 				}else{
 					if (repeat.equals("Unique")){
-						DatabaseCalendar.createEvent(databasename, loginPerson.getEmail(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
+						DatabaseCalendar.createEvent(databasename, loginPerson.getid(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
 						dispose();
 					}
 					if (repeat.equals("Daily")){
-						DatabaseCalendar.createEvent(databasename, loginPerson.getEmail(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
+						DatabaseCalendar.createEvent(databasename, loginPerson.getid(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
 						dispose();
 					}
 					if (repeat.equals("Weekly")){
-						DatabaseCalendar.createEvent(databasename, loginPerson.getEmail(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
+						DatabaseCalendar.createEvent(databasename, loginPerson.getid(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
 						dispose();
 					}
 					if (repeat.equals("Monthly")){
-						DatabaseCalendar.createEvent(databasename, loginPerson.getEmail(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
+						DatabaseCalendar.createEvent(databasename, loginPerson.getid(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
 						dispose();
 					}
 					if (repeat.equals("Yearly")){
-						DatabaseCalendar.createEvent(databasename, loginPerson.getEmail(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
+						DatabaseCalendar.createEvent(databasename, loginPerson.getid(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
 						dispose();
 					}
 				}

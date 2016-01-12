@@ -66,11 +66,11 @@ public class NewCalendar extends JDialog {
 				if (calendarName.equals("")){
 					JOptionPane.showMessageDialog(getContentPane(), "Please, insert an name for your calendar!","",JOptionPane.ERROR_MESSAGE);
 				}else{
-					if (DatabaseCalendar.checkDatabase(calendarName,client.getEmail())){
+					if (DatabaseCalendar.checkDatabase(calendarName,client.getid())){
 						JOptionPane.showMessageDialog(getContentPane(), "Name allready used!","",JOptionPane.ERROR_MESSAGE);
 					}else{
-						DatabaseNames.setEntries(textFieldName.getText(), client.getEmail(), color.getRed(), color.getGreen(), color.getBlue());
-						DatabaseCalendar.createDatabase(calendarName,client.getEmail());
+						DatabaseNames.setEntries(textFieldName.getText(), client.getid(), color.getRed(), color.getGreen(), color.getBlue());
+						DatabaseCalendar.createDatabase(calendarName,client.getid());
 						dispose();
 					}
 				}

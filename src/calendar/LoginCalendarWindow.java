@@ -773,7 +773,7 @@ private void dayInitializeMonth(int number){
 		
 		for(int i=0; i<publicMeeting.size(); i++){
 			final Event meeting = publicMeeting.get(i);
-			final String email = publicMeeting.get(i).getOwner();
+			final String id = publicMeeting.get(i).getOwner();
 			if(currentDate.equals(publicMeeting.get(i).getDateFrom())){
 				JLabel label = new JLabel(publicMeeting.get(i).getTitle());
 				label.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -781,7 +781,7 @@ private void dayInitializeMonth(int number){
 				listJPanel.get(jpanelNumber).add(label, "alignx center");
 				label.addMouseListener(new MouseAdapter(){
 					public void mouseClicked(MouseEvent e){
-						if(loginPerson.getEmail().equals(email)){
+						if(loginPerson.getid().equals(id)){
 							ChangeEventWindow win = new ChangeEventWindow(meeting);
 							win.setVisible(true);
 						}else{
@@ -795,7 +795,7 @@ private void dayInitializeMonth(int number){
 			
 		for(int i=0; i<privatMeeting.size(); i++){
 			final Event meeting = privatMeeting.get(i);
-			if(currentDate.equals(privatMeeting.get(i).getDateFrom()) && loginPerson.getEmail().equals(privatMeeting.get(i).getOwner())){
+			if(currentDate.equals(privatMeeting.get(i).getDateFrom()) && loginPerson.getid().equals(privatMeeting.get(i).getOwner())){
 				JLabel label = new JLabel(privatMeeting.get(i).getTitle());
 				label.setAlignmentX(Component.CENTER_ALIGNMENT);
 				label.setFont(new Font("Arial", Font.BOLD, 15));
