@@ -84,7 +84,6 @@ public class DatabaseNames {
 			Statement stmt = conn.createStatement();
 			String sql = "select calendarName from databaseNames where id = '" + id + "'";
 			ResultSet rs = stmt.executeQuery(sql);
-			list.add(rs.getString("calendarName"));
 			while (rs.next()) {
 				list.add(rs.getString("calendarName"));
 			}

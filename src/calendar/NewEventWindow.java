@@ -47,7 +47,7 @@ public class NewEventWindow extends JDialog {
 		setResizable(false);
 		
 		setBackground(Color.WHITE);
-		setBounds(500, 0, 332, 476);
+		setBounds(500, 0, 332, 600);
 
 		// Set Actual Date to DatePicker
 		ZonedDateTime today = ZonedDateTime.now();
