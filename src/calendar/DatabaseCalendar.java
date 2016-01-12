@@ -93,30 +93,26 @@ public class DatabaseCalendar {
 		}
 	}
 
-	public ArrayList<Event> getEntries(String calendarName, String id) {
+	public static ArrayList<Event> getEntries(String calendarName, String id) {
 		ArrayList<Event> list = new ArrayList<>();
 		String database = calendarName + id;
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/" + database + ".db";
 		try {
-			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			String sql = "select * from COMPANY where id = '" + id + "'";
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			Event e1 = new Event(rs.getString("title"), rs.getString("dateFrom"), rs.getString("dateTo"),
-					rs.getString("timeFrom"), rs.getString("timeTo"), rs.getString("location"),
-					rs.getString("description"), rs.getString("repeat"), rs.getString("repeatTo"),
-					rs.getString("visibility"));
-			list.add(e1);
-			while (rs.next()) {
-				Event e2 = new Event(rs.getString("title"), rs.getString("dateFrom"), rs.getString("dateTo"),
-						rs.getString("timeFrom"), rs.getString("timeTo"), rs.getString("location"),
-						rs.getString("description"), rs.getString("repeat"), rs.getString("repeatTo"),
-						rs.getString("visibility"));
+			Connection connn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
+			System.out.println(id);
+			String sql = "select title,dateFrom,dateTo,timeFrom,timeTo,location,description,repeat,repeatTo,visibility from COMPANY where user = '" + id + "'";
+			Statement stmmt = connn.createStatement();
+			ResultSet rss = stmmt.executeQuery(sql);
+			while (rss.next()) {
+				Event e2 = new Event(rss.getString("title"), rss.getString("dateFrom"), rss.getString("dateTo"),
+						rss.getString("timeFrom"), rss.getString("timeTo"), rss.getString("location"),
+						rss.getString("description"), rss.getString("repeat"), rss.getString("repeatTo"),
+						rss.getString("visibility"));
 				list.add(e2);
 			}
-			if (conn != null)
+			if (connn != null)
 				try {
-					conn.close();
+					connn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

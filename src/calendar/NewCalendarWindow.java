@@ -93,7 +93,7 @@ public class NewCalendarWindow extends JDialog {
 					if (DatabaseCalendar.checkDatabase(calendarName,client.getid())){
 						JOptionPane.showMessageDialog(getContentPane(), "Name allready used!","",JOptionPane.ERROR_MESSAGE);
 					}else{
-						DatabaseCalendar.createDatabase(calendarName,client.getid());
+						DatabaseCalendar.createDatabase(calendarName,client.getid(),color.getRed(),color.getGreen(),color.getBlue());
 						dispose();
 					}
 				}

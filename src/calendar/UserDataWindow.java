@@ -28,7 +28,7 @@ public class UserDataWindow extends JDialog {
 	 */
 	public UserDataWindow(final Client personAngemeldet) {
 		setModal(true);
-		
+		setAlwaysOnTop(true);
 		setTitle("User Data");
 		//setDefaultCloseOperation(RegistrierungsFenster.EXIT_ON_CLOSE);
 		setBounds(100, 100, 571, 329);
@@ -88,7 +88,9 @@ public class UserDataWindow extends JDialog {
 				}else{
 						personAngemeldet.changeDataPerson(firstname, surname, personAngemeldet.getPassword(), personAngemeldet.getid(), question, answer);
 						System.out.println("Account wurde erfolgreich geaendert");
-						dispose();
+						LoginCalendarWindow win = new LoginCalendarWindow(personAngemeldet);
+						win.getFrame().setVisible(true);
+						setVisible(false);
 				}
 			}
 		});
@@ -97,7 +99,9 @@ public class UserDataWindow extends JDialog {
 		btnCancle.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				dispose();
+				setVisible(false);
+				LoginCalendarWindow win = new LoginCalendarWindow(personAngemeldet);
+				win.getFrame().setVisible(true);
 			}
 		});
 		getContentPane().add(btnCancle, "cell 1 7,alignx center,aligny bottom");
@@ -115,6 +119,14 @@ public class UserDataWindow extends JDialog {
 		getContentPane().add(btnLoeschen, "cell 0 8,alignx center");
 		
 		JButton btnPasswortAendern = new JButton("change password");
+		btnPasswortAendern.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				ChangePasswordWindow pwin = new ChangePasswordWindow(personAngemeldet);
+				pwin.setVisible(true);
+			}
+		});
 		getContentPane().add(btnPasswortAendern, "cell 0 9,alignx center");
 	}
 

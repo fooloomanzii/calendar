@@ -726,28 +726,6 @@ public class CalendarWindow {
 		
 	}
 	
-	/**
-	 * Output Meeting
-	 */
-	/*private void showMeetingMonth(int day, int jpanelNumber){
-		String currentDate = day + "." + (_calendar.get(Calendar.MONTH)+1) + "." + _calendar.get(Calendar.YEAR);
-		for(int i=0; i<publicMeeting.size(); i++){
-			final Event meeting = publicMeeting.get(i);
-			if(currentDate.equals(publicMeeting.get(i).getDateFrom())){
-				JLabel label = new JLabel(publicMeeting.get(i).getTitle());
-				label.setAlignmentX(Component.CENTER_ALIGNMENT);
-				label.setFont(new Font("FiraSans Hair", Font.PLAIN, 12));
-				listJPanel.get(jpanelNumber).add(label, "alignx center");
-				label.addMouseListener(new MouseAdapter(){
-					public void mouseClicked(MouseEvent e){
-						ShowMeetingWindow win = new ShowMeetingWindow(meeting);
-						win.setVisible(true);
-					}
-				});
-			}
-		}
-	}*/
-	
 	public Window getFrame() {
 		return frame;
 	}
