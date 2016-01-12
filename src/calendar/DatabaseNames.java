@@ -11,6 +11,8 @@ import java.util.*;
 public class DatabaseNames {
 
 	public static void main(String args[]) {
+		createClientDatabase();
+		createCalendarNameDatabase();
 	}
 
 	public static void createClientDatabase() {
@@ -39,7 +41,7 @@ public class DatabaseNames {
 			c = DriverManager.getConnection("jdbc:sqlite:./src/calendar/database/databaseNames.db");
 			stmt = c.createStatement();
 			String sql = "CREATE TABLE databaseNames " + " (calendarName TEXT NOT NULL, "
-					+ " id TEXT PRIMARY KEY NOT NULL, Red Int NOT NULL, " + " Green Int NOT NULL, Blue Int NOT NULL)  ";
+					+ " id TEXT NOT NULL, Red Int NOT NULL, " + " Green Int NOT NULL, Blue Int NOT NULL)  ";
 			stmt.executeUpdate(sql);
 			stmt.close();
 			c.close();
