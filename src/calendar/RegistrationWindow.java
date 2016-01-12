@@ -52,7 +52,7 @@ public class RegistrationWindow extends JDialog {
 		getContentPane().add(textSurname, "cell 1 1,growx");
 		textSurname.setColumns(10);
 
-		JLabel lblid = new JLabel("E-Mail:");
+		JLabel lblid = new JLabel("Username:");
 		lblid.setFont( new Font("ARIAL", Font.BOLD, 20));
 		lblid.setForeground(Color.DARK_GRAY);
 		getContentPane().add(lblid, "cell 0 2,alignx trailing");
@@ -106,7 +106,7 @@ public class RegistrationWindow extends JDialog {
 				} else if (surname.equals("")) {
 					JOptionPane.showMessageDialog(getContentPane(), "No Surname!","",JOptionPane.ERROR_MESSAGE);
 				} else if (id.equals("")) {
-					JOptionPane.showMessageDialog(getContentPane(), "No E-Mail!","",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(getContentPane(), "No Username!","",JOptionPane.ERROR_MESSAGE);
 				} else if (password.equals("")) {
 					JOptionPane.showMessageDialog(getContentPane(), "No Passwort!","",JOptionPane.ERROR_MESSAGE);
 				} else if (answer.equals("")) {
@@ -116,7 +116,7 @@ public class RegistrationWindow extends JDialog {
 				} else if (!password.equals(passwordRepeat)) {
 					JOptionPane.showMessageDialog(getContentPane(), "The entered passwords do not match","",JOptionPane.ERROR_MESSAGE);
 				} else if (Client.idAlreadyExist(id)) {
-					JOptionPane.showMessageDialog(getContentPane(), "The E-Mail-Adress is already used!","",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(getContentPane(), "The Username is already used!","",JOptionPane.ERROR_MESSAGE);
 				} else {
 					Client.insertNewPerson(firstName, surname, password, id, question, answer);
 					JOptionPane.showMessageDialog(getContentPane(), "Account has been created successfully!");

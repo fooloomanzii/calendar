@@ -31,7 +31,7 @@ public class ForgotPasswordWindow extends JDialog {
 		setBounds(450, 0, 530, 200);
 		getContentPane().setLayout(new MigLayout("", "[153.00][grow]", "[25px][25px][25px][25px][25px]"));
 		
-		JLabel lblid = new JLabel("E-Mail:");
+		JLabel lblid = new JLabel("Username:");
 		lblid.setFont( new Font("ARIAL", Font.BOLD, 20));
 		lblid.setForeground(Color.DARK_GRAY);
 		getContentPane().add(lblid, "cell 0 0,alignx trailing");

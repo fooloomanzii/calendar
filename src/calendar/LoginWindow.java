@@ -17,7 +17,7 @@ import java.awt.Font;
 public class LoginWindow extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private JTextField textid;
 	private JPasswordField passwordField;
 
@@ -33,15 +33,15 @@ public class LoginWindow extends JDialog {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(500, 0, 400, 250);
 		getContentPane().setLayout(new MigLayout("", "[172.00px][28.00][172.00px]", "[19px][19px][19px][19px][19px][25px][19px][25px]"));
-		
-		JLabel lblid = new JLabel("E-Mail: ");
+
+		JLabel lblid = new JLabel("Username: ");
 		lblid.setFont( new Font("ARIAL", Font.BOLD, 20));
 		lblid.setForeground(Color.DARK_GRAY);
 		getContentPane().add(lblid, "cell 0 1,alignx left,aligny center");
 		textid = new JTextField();
 		getContentPane().add(textid, "cell 2 1,growx,alignx left,aligny top");
 		textid.setColumns(10);
-		
+
 		JLabel lblPassword = new JLabel("Password: ");
 		lblPassword.setFont( new Font("ARIAL", Font.BOLD, 20));
 		lblPassword.setForeground(Color.DARK_GRAY);
@@ -49,7 +49,7 @@ public class LoginWindow extends JDialog {
 		passwordField = new JPasswordField();
 		passwordField.setColumns(10);
 		getContentPane().add(passwordField, "cell 2 3,growx,aligny center");
-		
+
 		JButton btnForgotPassword = new JButton("Forgot Password ?");
 		btnForgotPassword.addMouseListener(new MouseAdapter() {
 			@Override
@@ -59,7 +59,7 @@ public class LoginWindow extends JDialog {
 			}
 		});
 		getContentPane().add(btnForgotPassword, "cell 0 5,growx,aligny center");
-		
+
 		JButton btnRegistration = new JButton("Registration");
 		btnRegistration.addMouseListener(new MouseAdapter() {
 			@Override
@@ -69,14 +69,14 @@ public class LoginWindow extends JDialog {
 			}
 		});
 		getContentPane().add(btnRegistration, "cell 2 5,growx");
-		
+
 		JButton btnOkay = new JButton("Okay");
 		btnOkay.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				String id = textid.getText();
 				String password = passwordField.getText();
 				if (!Client.checkDataPerson(id,password)){
-					JOptionPane.showMessageDialog(getContentPane(), "Wrong Password or Wrong E-Mail!","",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(getContentPane(), "Wrong Password or Wrong Username!","",JOptionPane.ERROR_MESSAGE);
 				}else{
 					ArrayList<String> data = Client.getPersonData(id);
 					dispose();
@@ -87,7 +87,7 @@ public class LoginWindow extends JDialog {
 			}
 		});
 		getContentPane().add(btnOkay, "cell 0 7,growx");
-		
+
 		JButton btnCancle = new JButton("Cancle");
 		btnCancle.addMouseListener(new MouseAdapter() {
 			@Override
@@ -98,7 +98,7 @@ public class LoginWindow extends JDialog {
 			}
 		});
 		getContentPane().add(btnCancle, "cell 2 7,growx");
-		
+
 	}
 
 }

@@ -6,6 +6,9 @@
 *.log
 *.gz
 
+# DataBases
+*.db
+
 # Build
 build/*
 !**/README.md

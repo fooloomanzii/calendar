@@ -10,6 +10,7 @@ import javax.swing.event.ChangeListener;
 
 import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -84,9 +85,9 @@ public class NewEventWindow extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(8, 8, 0, 8));
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
 		gbl_contentPanel.columnWidths = new int[] { 30 };
-		gbl_contentPanel.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 0, 30 };
+		gbl_contentPanel.rowHeights = new int[] { 30, 0, 30, 30, 30, 30, 30, 30, 0, 30 };
 		gbl_contentPanel.columnWeights = new double[] { 0.0, 1.0 };
-		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0 };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0 };
 		contentPanel.setLayout(gbl_contentPanel);
 
 		titleLabel = new JLabel("title");
@@ -110,6 +111,30 @@ public class NewEventWindow extends JDialog {
 		gbc_titleTextField.gridx = 1;
 		gbc_titleTextField.gridy = 0;
 		contentPanel.add(titleTextField, gbc_titleTextField);
+		
+		JLabel calendarLabel = new JLabel("calendar");
+		calendarLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+		calendarLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		calendarLabel.setBackground(Color.WHITE);
+		GridBagConstraints gbc_calendarLabel = new GridBagConstraints();
+		gbc_calendarLabel.ipady = 8;
+		gbc_calendarLabel.ipadx = 8;
+		gbc_calendarLabel.insets = new Insets(5, 5, 5, 5);
+		gbc_calendarLabel.gridx = 0;
+		gbc_calendarLabel.gridy = 1;
+		contentPanel.add(calendarLabel, gbc_calendarLabel);
+		
+		ArrayList<String> calendarNames = DatabaseNames.getEntries(client.getid());
+		
+		JComboBox calendarComboBox = new JComboBox(calendarNames.toArray());
+		GridBagConstraints gbc_calendarComboBox = new GridBagConstraints();
+		gbc_calendarComboBox.ipady = 8;
+		gbc_calendarComboBox.ipadx = 8;
+		gbc_calendarComboBox.insets = new Insets(5, 5, 5, 0);
+		gbc_calendarComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_calendarComboBox.gridx = 1;
+		gbc_calendarComboBox.gridy = 1;
+		contentPanel.add(calendarComboBox, gbc_calendarComboBox);
 
 		startDateLabel = new JLabel("start date");
 		startDateLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -119,7 +144,7 @@ public class NewEventWindow extends JDialog {
 		gbc_startDateLabel.fill = GridBagConstraints.BOTH;
 		gbc_startDateLabel.insets = new Insets(5, 5, 5, 5);
 		gbc_startDateLabel.gridx = 0;
-		gbc_startDateLabel.gridy = 1;
+		gbc_startDateLabel.gridy = 2;
 		contentPanel.add(startDateLabel, gbc_startDateLabel);
 		JDatePickerImpl startDatePicker = new JDatePickerImpl(startDatePanel);
 		startDatePicker.setMaximumSize(new Dimension(32813, 30));
@@ -135,7 +160,7 @@ public class NewEventWindow extends JDialog {
 		gbc_startDatePicker.fill = GridBagConstraints.BOTH;
 		gbc_startDatePicker.insets = new Insets(5, 5, 5, 0);
 		gbc_startDatePicker.gridx = 1;
-		gbc_startDatePicker.gridy = 1;
+		gbc_startDatePicker.gridy = 2;
 		contentPanel.add(startDatePicker, gbc_startDatePicker);
 
 		placeholder_1 = new JPanel();
@@ -144,7 +169,7 @@ public class NewEventWindow extends JDialog {
 		gbc_placeholder_1.fill = GridBagConstraints.BOTH;
 		gbc_placeholder_1.insets = new Insets(5, 5, 5, 5);
 		gbc_placeholder_1.gridx = 0;
-		gbc_placeholder_1.gridy = 2;
+		gbc_placeholder_1.gridy = 3;
 		contentPanel.add(placeholder_1, gbc_placeholder_1);
 
 		startTimePanel = new JPanel();
@@ -153,7 +178,7 @@ public class NewEventWindow extends JDialog {
 		gbc_startTimePanel.fill = GridBagConstraints.BOTH;
 		gbc_startTimePanel.insets = new Insets(5, 5, 5, 0);
 		gbc_startTimePanel.gridx = 1;
-		gbc_startTimePanel.gridy = 2;
+		gbc_startTimePanel.gridy = 3;
 		contentPanel.add(startTimePanel, gbc_startTimePanel);
 		GridBagLayout gbl_startTimePanel = new GridBagLayout();
 		gbl_startTimePanel.columnWidths = new int[] { 195, 70, 0 };
@@ -193,7 +218,7 @@ public class NewEventWindow extends JDialog {
 		gbc_endDateLabel.fill = GridBagConstraints.BOTH;
 		gbc_endDateLabel.insets = new Insets(5, 5, 5, 5);
 		gbc_endDateLabel.gridx = 0;
-		gbc_endDateLabel.gridy = 3;
+		gbc_endDateLabel.gridy = 4;
 		contentPanel.add(endDateLabel, gbc_endDateLabel);
 		JDatePickerImpl endDatePicker = new JDatePickerImpl(endDatePanel);
 		endDatePicker.setMinimumSize(new Dimension(52, 30));
@@ -208,7 +233,7 @@ public class NewEventWindow extends JDialog {
 		gbc_endDatePicker.fill = GridBagConstraints.BOTH;
 		gbc_endDatePicker.insets = new Insets(5, 5, 5, 0);
 		gbc_endDatePicker.gridx = 1;
-		gbc_endDatePicker.gridy = 3;
+		gbc_endDatePicker.gridy = 4;
 		contentPanel.add(endDatePicker, gbc_endDatePicker);
 
 		placeholder_2 = new JPanel();
@@ -217,7 +242,7 @@ public class NewEventWindow extends JDialog {
 		gbc_placeholder_2.fill = GridBagConstraints.BOTH;
 		gbc_placeholder_2.insets = new Insets(5, 5, 5, 5);
 		gbc_placeholder_2.gridx = 0;
-		gbc_placeholder_2.gridy = 4;
+		gbc_placeholder_2.gridy = 5;
 		contentPanel.add(placeholder_2, gbc_placeholder_2);
 
 		endTimePanel = new JPanel();
@@ -226,7 +251,7 @@ public class NewEventWindow extends JDialog {
 		gbc_endTimePanel.fill = GridBagConstraints.BOTH;
 		gbc_endTimePanel.insets = new Insets(5, 5, 5, 0);
 		gbc_endTimePanel.gridx = 1;
-		gbc_endTimePanel.gridy = 4;
+		gbc_endTimePanel.gridy = 5;
 		contentPanel.add(endTimePanel, gbc_endTimePanel);
 		GridBagLayout gbl_endTimePanel = new GridBagLayout();
 		gbl_endTimePanel.columnWidths = new int[] { 195, 70, 0 };
@@ -271,7 +296,7 @@ public class NewEventWindow extends JDialog {
 		gbc_scrollPane.insets = new Insets(5, 5, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 5;
+		gbc_scrollPane.gridy = 6;
 
 		contentPanel.add(scrollPane, gbc_scrollPane);
 
@@ -284,7 +309,7 @@ public class NewEventWindow extends JDialog {
 		gbc_descriptionLabel.fill = GridBagConstraints.HORIZONTAL;
 		gbc_descriptionLabel.insets = new Insets(5, 5, 5, 5);
 		gbc_descriptionLabel.gridx = 0;
-		gbc_descriptionLabel.gridy = 5;
+		gbc_descriptionLabel.gridy = 6;
 		contentPanel.add(descriptionLabel, gbc_descriptionLabel);
 
 		locationLabel = new JLabel("location");
@@ -295,7 +320,7 @@ public class NewEventWindow extends JDialog {
 		gbc_locationLabel.fill = GridBagConstraints.BOTH;
 		gbc_locationLabel.insets = new Insets(5, 5, 5, 5);
 		gbc_locationLabel.gridx = 0;
-		gbc_locationLabel.gridy = 6;
+		gbc_locationLabel.gridy = 7;
 		contentPanel.add(locationLabel, gbc_locationLabel);
 
 		locationTextField = new JTextField();
@@ -305,7 +330,7 @@ public class NewEventWindow extends JDialog {
 		gbc_locationTextField.insets = new Insets(5, 5, 5, 0);
 		gbc_locationTextField.fill = GridBagConstraints.BOTH;
 		gbc_locationTextField.gridx = 1;
-		gbc_locationTextField.gridy = 6;
+		gbc_locationTextField.gridy = 7;
 		contentPanel.add(locationTextField, gbc_locationTextField);
 
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -317,7 +342,7 @@ public class NewEventWindow extends JDialog {
 		gbc_publicLabel.ipadx = 8;
 		gbc_publicLabel.insets = new Insets(5, 5, 5, 5);
 		gbc_publicLabel.gridx = 0;
-		gbc_publicLabel.gridy = 7;
+		gbc_publicLabel.gridy = 8;
 		contentPanel.add(publicLabel, gbc_publicLabel);
 
 		JRadioButton publicRadioButton = new JRadioButton("");
@@ -327,9 +352,9 @@ public class NewEventWindow extends JDialog {
 		GridBagConstraints gbc_publicRadioButton = new GridBagConstraints();
 		gbc_publicRadioButton.ipadx = 8;
 		gbc_publicRadioButton.anchor = GridBagConstraints.WEST;
-		gbc_publicRadioButton.insets = new Insets(5, 5, 5, 5);
+		gbc_publicRadioButton.insets = new Insets(5, 5, 5, 0);
 		gbc_publicRadioButton.gridx = 1;
-		gbc_publicRadioButton.gridy = 7;
+		gbc_publicRadioButton.gridy = 8;
 		contentPanel.add(publicRadioButton, gbc_publicRadioButton);
 
 		repeatLabel = new JLabel("repeat");
@@ -341,7 +366,7 @@ public class NewEventWindow extends JDialog {
 		gbc_repeatLabel.ipadx = 8;
 		gbc_repeatLabel.insets = new Insets(5, 5, 0, 5);
 		gbc_repeatLabel.gridx = 0;
-		gbc_repeatLabel.gridy = 8;
+		gbc_repeatLabel.gridy = 9;
 		contentPanel.add(repeatLabel, gbc_repeatLabel);
 
 		JComboBox repeatComboBox = new JComboBox(new String[] { "Unique", "Daily", "Weekly", "Monthly" });
@@ -351,7 +376,7 @@ public class NewEventWindow extends JDialog {
 		gbc_repeatComboBox.insets = new Insets(5, 5, 0, 0);
 		gbc_repeatComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_repeatComboBox.gridx = 1;
-		gbc_repeatComboBox.gridy = 8;
+		gbc_repeatComboBox.gridy = 9;
 		contentPanel.add(repeatComboBox, gbc_repeatComboBox);
 		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
