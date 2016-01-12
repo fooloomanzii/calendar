@@ -19,6 +19,9 @@ import java.beans.PropertyChangeListener;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.beans.PropertyChangeEvent;
 import java.awt.Dialog.ModalityType;
 import java.awt.event.InputMethodListener;
@@ -57,20 +60,18 @@ public class NewEventWindow extends JDialog {
 				.getImage(NewEventWindow.class.getResource("/com/sun/java/swing/plaf/windows/icons/NewFolder.gif")));
 		setBackground(Color.WHITE);
 		setBounds(500, 0, 332, 476);
-
-		LocalDate now = LocalDate.now();
-		now.atStartOfDay();
-
-		UtilDateModel startDateModel = new UtilDateModel();
-		startDateModel.setDate(now.getYear(), now.getMonthValue() - 1, now.getDayOfMonth());
+		
+		ZonedDateTime today = ZonedDateTime.now();
+		Date day = new Date(today.toEpochSecond() * 1000);
+		
+		UtilDateModel startDateModel = new UtilDateModel(day);
 		startDateModel.setSelected(true);
 		JDatePanelImpl startDatePanel = new JDatePanelImpl(startDateModel);
 
-		UtilDateModel endDateModel = new UtilDateModel();
-		endDateModel.setDate(now.getYear(), now.getMonthValue() - 1, now.getDayOfMonth());
+		UtilDateModel endDateModel = new UtilDateModel(day);
 		endDateModel.setSelected(true);
 		JDatePanelImpl endDatePanel = new JDatePanelImpl(endDateModel);
-
+		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBackground(Color.WHITE);
 		FlowLayout flowLayout = (FlowLayout) buttonPanel.getLayout();
@@ -85,7 +86,6 @@ public class NewEventWindow extends JDialog {
 		buttonPanel.add(btnExit);
 
 		btnCreate.addMouseListener(new MouseAdapter() {
-			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// String title = titleText.getText();
 				// String dateFrom = dateFromText.getText();
@@ -346,8 +346,8 @@ public class NewEventWindow extends JDialog {
 				if (endvalue < startvalue && (endDateModel.getValue().compareTo(startDateModel.getValue()) <= 0)) {
 					endTimeSlider.setValue(startvalue);
 					endvalue = startvalue;
-					endDateModel.setValue(startDateModel.getValue());
-					endDateModel.setSelected(true);
+//					endDateModel.setValue(startDateModel.getValue());
+//					endDateModel.setSelected(true);
 				}
 				endTimeTextField.setText(
 						String.format("%02d", endvalue / 60) + ":" + String.format("%02d", endvalue % 60) + " ");
@@ -359,8 +359,8 @@ public class NewEventWindow extends JDialog {
 				int endvalue = endTimeSlider.getValue();
 				if (endvalue < startvalue && (endDateModel.getValue().compareTo(startDateModel.getValue()) <= 0)) {
 					endTimeSlider.setValue(startvalue);
-					endDateModel.setValue(startDateModel.getValue());
-					endDateModel.setSelected(true);
+//					endDateModel.setValue(startDateModel.getValue());
+//					endDateModel.setSelected(true);
 				}
 				startTimeTextField.setText(
 						String.format("%02d", startvalue / 60) + ":" + String.format("%02d", startvalue % 60) + " ");
@@ -372,32 +372,26 @@ public class NewEventWindow extends JDialog {
 
 		endDateModel.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent event) {
-				int endvalue = endTimeSlider.getValue();
-				int startvalue = startTimeSlider.getValue();
-				if (endvalue < startvalue && (endDateModel.getValue().compareTo(startDateModel.getValue()) <= 0)) {
-					endTimeSlider.setValue(startvalue);
-					endvalue = startvalue;
+				if (endDateModel.getValue().compareTo(startDateModel.getValue()) < 0) {
 					endDateModel.setValue(startDateModel.getValue());
-					endDateModel.setSelected(true);
+					int endvalue = endTimeSlider.getValue();
+					int startvalue = startTimeSlider.getValue();
+					if (endvalue < startvalue) {
+						endTimeSlider.setValue(startvalue);
+					}
 				}
-				endTimeTextField.setText(
-						String.format("%02d", endvalue / 60) + ":" + String.format("%02d", endvalue % 60) + " ");
 			}
 		});
 		startDateModel.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent event) {
-				System.out.println("prop");
-				int startvalue = startTimeSlider.getValue();
-				int endvalue = endTimeSlider.getValue();
-				if (endDateModel.getValue().compareTo(startDateModel.getValue()) <= 0) {
+				if (endDateModel.getValue().compareTo(startDateModel.getValue()) < 0) {
+					endDateModel.setValue(startDateModel.getValue());
+					int endvalue = endTimeSlider.getValue();
+					int startvalue = startTimeSlider.getValue();
 					if (endvalue < startvalue) {
 						endTimeSlider.setValue(startvalue);
 					}
-					endDateModel.setValue(startDateModel.getValue());
-					endDateModel.setSelected(true);
 				}
-				startTimeTextField.setText(
-						String.format("%02d", startvalue / 60) + ":" + String.format("%02d", startvalue % 60) + " ");
 			}
 		});
 
