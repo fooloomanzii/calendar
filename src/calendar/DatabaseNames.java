@@ -11,6 +11,30 @@ public class DatabaseNames {
 
 	public static void main(String args []){
 		createDatabase();
+		createDatabaseClient();
+	}
+	
+	public static void createDatabaseClient(){
+		Connection c = null;
+		Statement stmt = null;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:./src/calendar/database/Client.db");
+			stmt = c.createStatement();
+			String sql = "CREATE TABLE personTable " +
+			             " (firstName           TEXT    NOT NULL, " +
+			             " surName           TEXT     NULL," +
+			             " password          TEXT      NOT NULL, "+
+			             " email        TEXT     PRIMARY KEY NOT NOT NULL, "+
+			             " securityQuestion         TEXT      NOT NULL, "+
+			             " answer          TEXT      NOT NULL)  ";
+			stmt.executeUpdate(sql);
+			stmt.close();
+			c.close();
+		}catch ( Exception e ) {
+			System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+			System.exit(0);
+		}
 	}
 	
 	public static void createDatabase(){
@@ -54,13 +78,13 @@ public class DatabaseNames {
 		}
 	}
 	
-	public static ArrayList<String> getEntries(String mail){
+	public static ArrayList<String> getEntries(String id){
 		ArrayList<String> list = new ArrayList<>();
     	String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
 		try{
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
 			Statement stmt = conn.createStatement();
-			String sql = "select CalendarName from COMPANY where id = '"+mail+"'";
+			String sql = "select CalendarName from COMPANY where id = '"+id+"'";
 		    ResultSet rs = stmt.executeQuery(sql);
 		    list.add(rs.getString("CalendarName"));
 			while (rs.next()){
