@@ -1,334 +1,513 @@
 package calendar;
 
-import java.awt.Font;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import javax.swing.*;
+import java.awt.*;
+
+import javax.swing.SwingUtilities;
+
+import net.sourceforge.jdatepicker.impl.*;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import java.beans.PropertyChangeListener;
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.Date;
+import java.beans.PropertyChangeEvent;
+import java.awt.Dialog.ModalityType;
+import java.awt.event.InputMethodListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.Window.Type;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import java.awt.Color;
 
 public class NewEventWindow extends JDialog {
 
 	private static final long serialVersionUID = 1L;
-	
-	private JFrame frame;
-	private JTextField titleText;
-	private JTextField dateFromText;
-	private JTextField dateToText;
-	private JTextField timeFromText;
-	private JTextField timeToText;
-	private JTextField locationText;
-	private JTextField descriptionText;
-	private JTextField repeatToText;
+
+	private JLabel titleLabel;
+	private JTextField titleTextField;
+	private JLabel startDateLabel;
+	private JLabel endDateLabel;
+	private JLabel locationLabel;
+	private JTextField locationTextField;
+	private JLabel descriptionLabel;
+	private JSlider startTimeSlider;
+	private JPanel startTimePanel;
+	private JPanel placeholder_1;
+	private JPanel placeholder_2;
+	private JPanel endTimePanel;
+	private JSlider endTimeSlider;
+	private JTextArea descriptionTextArea;
+	private JLabel repeatLabel;
+
+	SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+	private JScrollPane scrollPane;
 
 	/**
 	 * Create the dialog.
 	 */
-	public NewEventWindow(final Client loginPerson, String date) {
-		getContentPane().setBackground(Color.WHITE);
-		setTitle("Create Meeting");
-		setModal(true);
-		setAlwaysOnTop(true);
-		setBounds(500, 0, 540, 300);
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		getContentPane().setLayout(gridBagLayout);
-		
-		JLabel lblTitle = new JLabel("Title");
-		lblTitle.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblTitle.setForeground(Color.DARK_GRAY);
-		GridBagConstraints gbc_lblTitle = new GridBagConstraints();
-		gbc_lblTitle.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTitle.gridx = 1;
-		gbc_lblTitle.gridy = 1;
-		getContentPane().add(lblTitle, gbc_lblTitle);
-		
-		titleText = new JTextField();
-		GridBagConstraints gbc_titleText = new GridBagConstraints();
-		gbc_titleText.insets = new Insets(0, 0, 5, 0);
-		gbc_titleText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_titleText.gridx = 5;
-		gbc_titleText.gridy = 1;
-		getContentPane().add(titleText, gbc_titleText);
-		titleText.setColumns(10);
-		
-		JLabel lblDateFromText = new JLabel("Date (from)");
-		lblDateFromText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblDateFromText.setForeground(Color.DARK_GRAY);
-		GridBagConstraints gbc_DateFromText = new GridBagConstraints();
-		gbc_DateFromText.insets = new Insets(0, 0, 5, 5);
-		gbc_DateFromText.gridx = 1;
-		gbc_DateFromText.gridy = 2;
-		getContentPane().add(lblDateFromText, gbc_DateFromText);
-		
-		JButton dateFrom = new JButton("Date");
-		dateFrom.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				GregorianCalendar gc = new GregorianCalendar();
-				try{
-					DateObject d = new DateObject(DateFormat.getDateInstance(DateFormat.MEDIUM)+"", DateFormat.getTimeInstance(DateFormat.SHORT)+"");
-				}catch(Exception e){
-					e.printStackTrace();
-				}
-			}
-		});
-		GridBagConstraints gbc_dateFrom = new GridBagConstraints();
-		gbc_dateFrom.insets = new Insets(0, 0, 5, 0);
-		gbc_dateFrom.gridx = 5;
-		gbc_dateFrom.gridy = 2;
-		getContentPane().add(dateFrom, gbc_dateFrom);
-			
-		
-	
-		JLabel lblDateFromText1 = new JLabel();
-		lblDateFromText1.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblDateFromText1.setForeground(Color.DARK_GRAY);
-		GridBagConstraints gbc_lblDateFromText1 = new GridBagConstraints();
-		gbc_lblDateFromText1.insets = new Insets(0, 0, 5, 0);
-		gbc_lblDateFromText1.gridx = 5;
-		gbc_lblDateFromText1.gridy = 2;
-		getContentPane().add(lblDateFromText1, gbc_lblDateFromText1);
-		
-		JLabel lbldateToText = new JLabel("Date (to)");
-		lbldateToText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lbldateToText.setForeground(Color.DARK_GRAY);
-		GridBagConstraints gbc_lbldateToText = new GridBagConstraints();
-		gbc_lbldateToText.insets = new Insets(0, 0, 5, 5);
-		gbc_lbldateToText.gridx = 1;
-		gbc_lbldateToText.gridy = 3;
-		getContentPane().add(lbldateToText, gbc_lbldateToText);
-		
-		dateToText = new JTextField();
-		GridBagConstraints gbc_dateToText = new GridBagConstraints();
-		gbc_dateToText.insets = new Insets(0, 0, 5, 0);
-		gbc_dateToText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_dateToText.gridx = 5;
-		gbc_dateToText.gridy = 3;
-		getContentPane().add(dateToText, gbc_dateToText);
-		dateToText.setColumns(10);
-		
-		JLabel lbltimeFromText = new JLabel("Time (from)");
-		lbltimeFromText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lbltimeFromText.setForeground(Color.DARK_GRAY);
-		GridBagConstraints gbc_lbltimeFromText = new GridBagConstraints();
-		gbc_lbltimeFromText.insets = new Insets(0, 0, 5, 5);
-		gbc_lbltimeFromText.gridx = 1;
-		gbc_lbltimeFromText.gridy = 4;
-		getContentPane().add(lbltimeFromText, gbc_lbltimeFromText);
-		
-		timeFromText = new JTextField();
-		GridBagConstraints gbc_timeFromText = new GridBagConstraints();
-		gbc_timeFromText.insets = new Insets(0, 0, 5, 0);
-		gbc_timeFromText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_timeFromText.gridx = 5;
-		gbc_timeFromText.gridy = 4;
-		getContentPane().add(timeFromText, gbc_timeFromText);
-		timeFromText.setColumns(10);
-		
-		JLabel lbltimeToText = new JLabel("Time (to)");
-		lbltimeToText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lbltimeToText.setForeground(Color.DARK_GRAY);
-		GridBagConstraints gbc_lbltimeToText = new GridBagConstraints();
-		gbc_lbltimeToText.insets = new Insets(0, 0, 5, 5);
-		gbc_lbltimeToText.gridx = 1;
-		gbc_lbltimeToText.gridy = 5;
-		getContentPane().add(lbltimeToText, gbc_lbltimeToText);
-		
-		timeToText = new JTextField();
-		GridBagConstraints gbc_timeToText = new GridBagConstraints();
-		gbc_timeToText.insets = new Insets(0, 0, 5, 0);
-		gbc_timeToText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_timeToText.gridx = 5;
-		gbc_timeToText.gridy = 5;
-		getContentPane().add(timeToText, gbc_timeToText);
-		timeToText.setColumns(10);
-		
-		JLabel lbllocationText = new JLabel("Location");
-		lbllocationText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lbllocationText.setForeground(Color.DARK_GRAY);
-		GridBagConstraints gbc_lbllocationText = new GridBagConstraints();
-		gbc_lbllocationText.insets = new Insets(0, 0, 5, 5);
-		gbc_lbllocationText.gridx = 1;
-		gbc_lbllocationText.gridy = 6;
-		getContentPane().add(lbllocationText, gbc_lbllocationText);
-		
-		locationText = new JTextField();
-		GridBagConstraints gbc_locationText = new GridBagConstraints();
-		gbc_locationText.insets = new Insets(0, 0, 5, 0);
-		gbc_locationText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_locationText.gridx = 5;
-		gbc_locationText.gridy = 6;
-		getContentPane().add(locationText, gbc_locationText);
-		locationText.setColumns(10);
-		
-		JLabel lblrepeatTextBox = new JLabel("Repeat");
-		lblrepeatTextBox.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblrepeatTextBox.setForeground(Color.DARK_GRAY);
-		GridBagConstraints gbc_lblrepeatTextBox = new GridBagConstraints();
-		gbc_lblrepeatTextBox.insets = new Insets(0, 0, 5, 5);
-		gbc_lblrepeatTextBox.gridx = 1;
-		gbc_lblrepeatTextBox.gridy = 7;
-		getContentPane().add(lblrepeatTextBox, gbc_lblrepeatTextBox);
-		
-		final JComboBox repeatTextBox = new JComboBox();
-		repeatTextBox.setModel(new DefaultComboBoxModel(new String[] {"Unique", "Daily", "Weekly", "Monthly", "Yearly"}));
-		GridBagConstraints gbc_repeatTextBox = new GridBagConstraints();
-		gbc_repeatTextBox.insets = new Insets(0, 0, 5, 0);
-		gbc_repeatTextBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_repeatTextBox.gridx = 5;
-		gbc_repeatTextBox.gridy = 7;
-		getContentPane().add(repeatTextBox, gbc_repeatTextBox);
-		
-		JLabel lblrepeatToText = new JLabel("Repeat (to)");
-		lblrepeatToText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblrepeatToText.setForeground(Color.DARK_GRAY);
-		GridBagConstraints gbc_lblrepeatToText = new GridBagConstraints();
-		gbc_lblrepeatToText.insets = new Insets(0, 0, 5, 5);
-		gbc_lblrepeatToText.gridx = 1;
-		gbc_lblrepeatToText.gridy = 8;
-		getContentPane().add(lblrepeatToText, gbc_lblrepeatToText);
-		
-		repeatToText = new JTextField();
-		GridBagConstraints gbc_repeatToText = new GridBagConstraints();
-		gbc_repeatToText.insets = new Insets(0, 0, 5, 0);
-		gbc_repeatToText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_repeatToText.gridx = 5;
-		gbc_repeatToText.gridy = 8;
-		getContentPane().add(repeatToText, gbc_repeatToText);
-		repeatToText.setColumns(10);
-		
-		JLabel lblCalendarName = new JLabel("Calendar name");
-		GridBagConstraints gbc_lblCalendarName = new GridBagConstraints();
-		gbc_lblCalendarName.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCalendarName.gridx = 1;
-		gbc_lblCalendarName.gridy = 9;
-		getContentPane().add(lblCalendarName, gbc_lblCalendarName);
-		
-		final JComboBox <String> databaseBox = new JComboBox <String>();
-		ArrayList<String> names = DatabaseNames.getEntries(loginPerson.getid());
-		for(int i=0; i<names.size() ;i++){
-			databaseBox.addItem(names.get(i));
-		}
-		GridBagConstraints gbc_comboBox_1 = new GridBagConstraints();
-		gbc_comboBox_1.insets = new Insets(0, 0, 5, 0);
-		gbc_comboBox_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox_1.gridx = 5;
-		gbc_comboBox_1.gridy = 9;
-		getContentPane().add(databaseBox, gbc_comboBox_1);
-		
-		JLabel lbldescriptionText = new JLabel("Description");
-		lbldescriptionText.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lbldescriptionText.setForeground(Color.DARK_GRAY);
-		GridBagConstraints gbc_lbldescriptionText = new GridBagConstraints();
-		gbc_lbldescriptionText.insets = new Insets(0, 0, 5, 5);
-		gbc_lbldescriptionText.gridx = 1;
-		gbc_lbldescriptionText.gridy = 10;
-		getContentPane().add(lbldescriptionText, gbc_lbldescriptionText);
-		
-		descriptionText = new JTextField();
-		GridBagConstraints gbc_descriptionText = new GridBagConstraints();
-		gbc_descriptionText.insets = new Insets(0, 0, 5, 0);
-		gbc_descriptionText.fill = GridBagConstraints.HORIZONTAL;
-		gbc_descriptionText.gridx = 5;
-		gbc_descriptionText.gridy = 10;
-		getContentPane().add(descriptionText, gbc_descriptionText);
-		descriptionText.setColumns(10);
-		
-		JLabel lblvisibilityBox = new JLabel("Visibility");
-		lblvisibilityBox.setFont( new Font("ARIAL", Font.BOLD, 20));
-		lblvisibilityBox.setForeground(Color.DARK_GRAY);
-		GridBagConstraints gbc_lblvisibilityBox = new GridBagConstraints();
-		gbc_lblvisibilityBox.insets = new Insets(0, 0, 5, 5);
-		gbc_lblvisibilityBox.gridx = 1;
-		gbc_lblvisibilityBox.gridy = 11;
-		getContentPane().add(lblvisibilityBox, gbc_lblvisibilityBox);
-		
-		final JComboBox visibilityBox = new JComboBox();
-		visibilityBox.setModel(new DefaultComboBoxModel(new String[] {"public", "privat"}));
-		GridBagConstraints gbc_visibilityBox = new GridBagConstraints();
-		gbc_visibilityBox.insets = new Insets(0, 0, 5, 0);
-		gbc_visibilityBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_visibilityBox.gridx = 5;
-		gbc_visibilityBox.gridy = 11;
-		getContentPane().add(visibilityBox, gbc_visibilityBox);
+	public NewEventWindow(final Client client, Event event) {
+		setResizable(false);
+		setBackground(Color.WHITE);
+		setBounds(500, 0, 332, 476);
+
+		// Set Actual Date to DatePicker
+		ZonedDateTime today = ZonedDateTime.now();
+		Date day = new Date(today.toEpochSecond() * 1000);
+
+		UtilDateModel startDateModel = new UtilDateModel(day);
+		startDateModel.setSelected(true);
+		JDatePanelImpl startDatePanel = new JDatePanelImpl(startDateModel);
+
+		UtilDateModel endDateModel = new UtilDateModel(day);
+		endDateModel.setSelected(true);
+		JDatePanelImpl endDatePanel = new JDatePanelImpl(endDateModel);
+
+		// GUI
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(Color.WHITE);
+		FlowLayout flowLayout = (FlowLayout) buttonPanel.getLayout();
+		flowLayout.setAlignment(FlowLayout.TRAILING);
+		flowLayout.setVgap(12);
+		flowLayout.setHgap(12);
 
 		JButton btnCreate = new JButton("Create");
-		btnCreate.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				String title = titleText.getText();
-				String dateFrom = dateFromText.getText();
-				String dateTo = dateToText.getText();
-				String timeFrom = timeFromText.getText();
-				String timeTo = timeToText.getText();
-				String location = locationText.getText();
-				String description = descriptionText.getText();
-				String repeat= repeatTextBox.getSelectedItem().toString();
-				String repeatTo = repeatToText.getText();
-				String visibility = visibilityBox.getSelectedItem().toString();
-				String databasename = databaseBox.getSelectedItem().toString();
-				
-				if(title.equals("") || dateFrom.equals("") || dateTo.equals("") || timeFrom.equals("") || timeTo.equals("")){
-					new JFrame("Please fill out the necessary window!").setVisible(true);
-					JOptionPane.showMessageDialog(frame, "Please fill out the necessary window!");
-				}else{
-					if (repeat.equals("Unique")){
-						DatabaseCalendar.createEvent(databasename, loginPerson.getid(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
-						dispose();
-					}
-					if (repeat.equals("Daily")){
-						DatabaseCalendar.createEvent(databasename, loginPerson.getid(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
-						dispose();
-					}
-					if (repeat.equals("Weekly")){
-						DatabaseCalendar.createEvent(databasename, loginPerson.getid(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
-						dispose();
-					}
-					if (repeat.equals("Monthly")){
-						DatabaseCalendar.createEvent(databasename, loginPerson.getid(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
-						dispose();
-					}
-					if (repeat.equals("Yearly")){
-						DatabaseCalendar.createEvent(databasename, loginPerson.getid(), title, dateFrom, dateTo, timeFrom, timeTo, location, description, repeat, repeatTo, visibility);
-						dispose();
+		buttonPanel.add(btnCreate);
+
+		JButton btnExit = new JButton("Exit");
+		buttonPanel.add(btnExit);
+
+		getContentPane().setBackground(Color.WHITE);
+		setTitle("New Event");
+		setModal(true);
+		setAlwaysOnTop(true);
+		getContentPane().setLayout(new BorderLayout(0, 0));
+
+		JPanel contentPanel = new JPanel();
+		contentPanel.setBackground(UIManager.getColor("window"));
+		contentPanel.setBorder(new EmptyBorder(8, 8, 0, 8));
+		GridBagLayout gbl_contentPanel = new GridBagLayout();
+		gbl_contentPanel.columnWidths = new int[] { 30 };
+		gbl_contentPanel.rowHeights = new int[] { 30, 30, 30, 30, 30, 30, 30, 0, 30 };
+		gbl_contentPanel.columnWeights = new double[] { 0.0, 1.0 };
+		gbl_contentPanel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0 };
+		contentPanel.setLayout(gbl_contentPanel);
+
+		titleLabel = new JLabel("title");
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_titleLabel = new GridBagConstraints();
+		gbc_titleLabel.ipady = 8;
+		gbc_titleLabel.ipadx = 8;
+		gbc_titleLabel.fill = GridBagConstraints.BOTH;
+		gbc_titleLabel.insets = new Insets(5, 5, 5, 5);
+		gbc_titleLabel.gridx = 0;
+		gbc_titleLabel.gridy = 0;
+		contentPanel.add(titleLabel, gbc_titleLabel);
+		titleTextField = new JTextField();
+		titleTextField.setText("unknown");
+		titleTextField.setBackground(SystemColor.control);
+		titleTextField.setMargin(new Insets(5, 5, 5, 5));
+		GridBagConstraints gbc_titleTextField = new GridBagConstraints();
+		gbc_titleTextField.weightx = 0.5;
+		gbc_titleTextField.fill = GridBagConstraints.BOTH;
+		gbc_titleTextField.insets = new Insets(5, 5, 5, 0);
+		gbc_titleTextField.gridx = 1;
+		gbc_titleTextField.gridy = 0;
+		contentPanel.add(titleTextField, gbc_titleTextField);
+
+		startDateLabel = new JLabel("start date");
+		startDateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_startDateLabel = new GridBagConstraints();
+		gbc_startDateLabel.ipady = 8;
+		gbc_startDateLabel.ipadx = 8;
+		gbc_startDateLabel.fill = GridBagConstraints.BOTH;
+		gbc_startDateLabel.insets = new Insets(5, 5, 5, 5);
+		gbc_startDateLabel.gridx = 0;
+		gbc_startDateLabel.gridy = 1;
+		contentPanel.add(startDateLabel, gbc_startDateLabel);
+		JDatePickerImpl startDatePicker = new JDatePickerImpl(startDatePanel);
+		startDatePicker.setMaximumSize(new Dimension(32813, 30));
+		startDatePicker.setMinimumSize(new Dimension(52, 30));
+		startDatePicker.setPreferredSize(new Dimension(202, 30));
+		startDatePicker.getJFormattedTextField().setPreferredSize(new Dimension(178, 30));
+		startDatePicker.setShowYearButtons(true);
+		startDatePicker.getJFormattedTextField().setBackground(SystemColor.control);
+		startDatePicker.getJFormattedTextField().setMargin(new Insets(5, 12, 5, 5));
+		startDatePicker.setBackground(Color.WHITE);
+		startDatePicker.getJFormattedTextField().setEditable(true);
+		GridBagConstraints gbc_startDatePicker = new GridBagConstraints();
+		gbc_startDatePicker.fill = GridBagConstraints.BOTH;
+		gbc_startDatePicker.insets = new Insets(5, 5, 5, 0);
+		gbc_startDatePicker.gridx = 1;
+		gbc_startDatePicker.gridy = 1;
+		contentPanel.add(startDatePicker, gbc_startDatePicker);
+
+		placeholder_1 = new JPanel();
+		placeholder_1.setBackground(Color.WHITE);
+		GridBagConstraints gbc_placeholder_1 = new GridBagConstraints();
+		gbc_placeholder_1.fill = GridBagConstraints.BOTH;
+		gbc_placeholder_1.insets = new Insets(5, 5, 5, 5);
+		gbc_placeholder_1.gridx = 0;
+		gbc_placeholder_1.gridy = 2;
+		contentPanel.add(placeholder_1, gbc_placeholder_1);
+
+		startTimePanel = new JPanel();
+		startTimePanel.setBackground(Color.WHITE);
+		GridBagConstraints gbc_startTimePanel = new GridBagConstraints();
+		gbc_startTimePanel.fill = GridBagConstraints.BOTH;
+		gbc_startTimePanel.insets = new Insets(5, 5, 5, 0);
+		gbc_startTimePanel.gridx = 1;
+		gbc_startTimePanel.gridy = 2;
+		contentPanel.add(startTimePanel, gbc_startTimePanel);
+		GridBagLayout gbl_startTimePanel = new GridBagLayout();
+		gbl_startTimePanel.columnWidths = new int[] { 195, 70, 0 };
+		gbl_startTimePanel.rowHeights = new int[] { 23, 0 };
+		gbl_startTimePanel.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
+		gbl_startTimePanel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+		startTimePanel.setLayout(gbl_startTimePanel);
+
+		startTimeSlider = new JSlider();
+		startTimeSlider.setMaximum(1439);
+		startTimeSlider.setForeground(Color.WHITE);
+		startTimeSlider.setBackground(SystemColor.window);
+		GridBagConstraints gbc_startTimeSlider = new GridBagConstraints();
+		gbc_startTimeSlider.weightx = 0.5;
+		gbc_startTimeSlider.fill = GridBagConstraints.HORIZONTAL;
+		gbc_startTimeSlider.gridx = 0;
+		gbc_startTimeSlider.gridy = 0;
+		startTimePanel.add(startTimeSlider, gbc_startTimeSlider);
+
+		JFormattedTextField startTimeTextField = new JFormattedTextField(timeFormat);
+		startTimeTextField.setBackground(SystemColor.control);
+		startTimeTextField.setMargin(new Insets(4, 4, 4, 4));
+		startTimeTextField.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_startTimeTextField = new GridBagConstraints();
+		gbc_startTimeTextField.ipady = 8;
+		gbc_startTimeTextField.ipadx = 8;
+		gbc_startTimeTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_startTimeTextField.gridx = 1;
+		gbc_startTimeTextField.gridy = 0;
+		startTimePanel.add(startTimeTextField, gbc_startTimeTextField);
+
+		endDateLabel = new JLabel("end date");
+		endDateLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_endDateLabel = new GridBagConstraints();
+		gbc_endDateLabel.ipady = 8;
+		gbc_endDateLabel.ipadx = 8;
+		gbc_endDateLabel.fill = GridBagConstraints.BOTH;
+		gbc_endDateLabel.insets = new Insets(5, 5, 5, 5);
+		gbc_endDateLabel.gridx = 0;
+		gbc_endDateLabel.gridy = 3;
+		contentPanel.add(endDateLabel, gbc_endDateLabel);
+		JDatePickerImpl endDatePicker = new JDatePickerImpl(endDatePanel);
+		endDatePicker.setMinimumSize(new Dimension(52, 30));
+		endDatePicker.setMaximumSize(new Dimension(32813, 30));
+		endDatePicker.setPreferredSize(new Dimension(202, 30));
+		endDatePicker.getJFormattedTextField().setPreferredSize(new Dimension(178, 30));
+		endDatePicker.getJFormattedTextField().setBackground(SystemColor.control);
+		endDatePicker.setBackground(Color.WHITE);
+		endDatePicker.getJFormattedTextField().setEditable(true);
+		endDatePicker.getJFormattedTextField().setMargin(new Insets(5, 12, 5, 5));
+		GridBagConstraints gbc_endDatePicker = new GridBagConstraints();
+		gbc_endDatePicker.fill = GridBagConstraints.BOTH;
+		gbc_endDatePicker.insets = new Insets(5, 5, 5, 0);
+		gbc_endDatePicker.gridx = 1;
+		gbc_endDatePicker.gridy = 3;
+		contentPanel.add(endDatePicker, gbc_endDatePicker);
+
+		placeholder_2 = new JPanel();
+		placeholder_2.setBackground(Color.WHITE);
+		GridBagConstraints gbc_placeholder_2 = new GridBagConstraints();
+		gbc_placeholder_2.fill = GridBagConstraints.BOTH;
+		gbc_placeholder_2.insets = new Insets(5, 5, 5, 5);
+		gbc_placeholder_2.gridx = 0;
+		gbc_placeholder_2.gridy = 4;
+		contentPanel.add(placeholder_2, gbc_placeholder_2);
+
+		endTimePanel = new JPanel();
+		endTimePanel.setBackground(Color.WHITE);
+		GridBagConstraints gbc_endTimePanel = new GridBagConstraints();
+		gbc_endTimePanel.fill = GridBagConstraints.BOTH;
+		gbc_endTimePanel.insets = new Insets(5, 5, 5, 0);
+		gbc_endTimePanel.gridx = 1;
+		gbc_endTimePanel.gridy = 4;
+		contentPanel.add(endTimePanel, gbc_endTimePanel);
+		GridBagLayout gbl_endTimePanel = new GridBagLayout();
+		gbl_endTimePanel.columnWidths = new int[] { 195, 70, 0 };
+		gbl_endTimePanel.rowHeights = new int[] { 23, 0 };
+		gbl_endTimePanel.columnWeights = new double[] { 1.0, 1.0, Double.MIN_VALUE };
+		gbl_endTimePanel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
+		endTimePanel.setLayout(gbl_endTimePanel);
+
+		endTimeSlider = new JSlider();
+		endTimeSlider.setForeground(Color.WHITE);
+		endTimeSlider.setMaximum(1439);
+		endTimeSlider.setBackground(SystemColor.window);
+		GridBagConstraints gbc_endTimeSlider = new GridBagConstraints();
+		gbc_endTimeSlider.weightx = 0.5;
+		gbc_endTimeSlider.fill = GridBagConstraints.HORIZONTAL;
+		gbc_endTimeSlider.gridx = 0;
+		gbc_endTimeSlider.gridy = 0;
+		endTimePanel.add(endTimeSlider, gbc_endTimeSlider);
+
+		JFormattedTextField endTimeTextField = new JFormattedTextField(timeFormat);
+		endTimeTextField.setBackground(SystemColor.control);
+		endTimeTextField.setMargin(new Insets(4, 4, 4, 4));
+		endTimeTextField.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_endTimeTextField = new GridBagConstraints();
+		gbc_endTimeTextField.ipadx = 8;
+		gbc_endTimeTextField.ipady = 8;
+		gbc_endTimeTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_endTimeTextField.gridx = 1;
+		gbc_endTimeTextField.gridy = 0;
+		endTimePanel.add(endTimeTextField, gbc_endTimeTextField);
+
+		descriptionTextArea = new JTextArea();
+		descriptionTextArea.setBackground(SystemColor.control);
+		descriptionTextArea.setLineWrap(true);
+		descriptionTextArea.setMargin(new Insets(8, 8, 8, 8));
+
+		scrollPane = new JScrollPane(descriptionTextArea);
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.weighty = 0.5;
+		gbc_scrollPane.ipady = 8;
+		gbc_scrollPane.ipadx = 8;
+		gbc_scrollPane.insets = new Insets(5, 5, 5, 0);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 5;
+
+		contentPanel.add(scrollPane, gbc_scrollPane);
+
+		descriptionLabel = new JLabel("description");
+		descriptionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_descriptionLabel = new GridBagConstraints();
+		gbc_descriptionLabel.anchor = GridBagConstraints.NORTH;
+		gbc_descriptionLabel.ipady = 8;
+		gbc_descriptionLabel.ipadx = 8;
+		gbc_descriptionLabel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_descriptionLabel.insets = new Insets(5, 5, 5, 5);
+		gbc_descriptionLabel.gridx = 0;
+		gbc_descriptionLabel.gridy = 5;
+		contentPanel.add(descriptionLabel, gbc_descriptionLabel);
+
+		locationLabel = new JLabel("location");
+		locationLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_locationLabel = new GridBagConstraints();
+		gbc_locationLabel.ipadx = 8;
+		gbc_locationLabel.ipady = 8;
+		gbc_locationLabel.fill = GridBagConstraints.BOTH;
+		gbc_locationLabel.insets = new Insets(5, 5, 5, 5);
+		gbc_locationLabel.gridx = 0;
+		gbc_locationLabel.gridy = 6;
+		contentPanel.add(locationLabel, gbc_locationLabel);
+
+		locationTextField = new JTextField();
+		locationTextField.setBackground(SystemColor.control);
+		locationTextField.setMargin(new Insets(5, 5, 5, 5));
+		GridBagConstraints gbc_locationTextField = new GridBagConstraints();
+		gbc_locationTextField.insets = new Insets(5, 5, 5, 0);
+		gbc_locationTextField.fill = GridBagConstraints.BOTH;
+		gbc_locationTextField.gridx = 1;
+		gbc_locationTextField.gridy = 6;
+		contentPanel.add(locationTextField, gbc_locationTextField);
+
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		
+		JLabel publicLabel = new JLabel("public");
+		publicLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_publicLabel = new GridBagConstraints();
+		gbc_publicLabel.ipady = 8;
+		gbc_publicLabel.ipadx = 8;
+		gbc_publicLabel.insets = new Insets(5, 5, 5, 5);
+		gbc_publicLabel.gridx = 0;
+		gbc_publicLabel.gridy = 7;
+		contentPanel.add(publicLabel, gbc_publicLabel);
+		
+		JRadioButton publicRadioButton = new JRadioButton("");
+		publicRadioButton.setBackground(new Color(255, 255, 255));
+		publicRadioButton.setMargin(new Insets(5, 5, 5, 5));
+		publicRadioButton.setHorizontalAlignment(SwingConstants.CENTER);
+		GridBagConstraints gbc_publicRadioButton = new GridBagConstraints();
+		gbc_publicRadioButton.ipadx = 8;
+		gbc_publicRadioButton.anchor = GridBagConstraints.WEST;
+		gbc_publicRadioButton.insets = new Insets(5, 5, 5, 5);
+		gbc_publicRadioButton.gridx = 1;
+		gbc_publicRadioButton.gridy = 7;
+		contentPanel.add(publicRadioButton, gbc_publicRadioButton);
+
+		repeatLabel = new JLabel("repeat");
+		repeatLabel.setHorizontalTextPosition(SwingConstants.CENTER);
+		repeatLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		repeatLabel.setBackground(Color.WHITE);
+		GridBagConstraints gbc_repeatLabel = new GridBagConstraints();
+		gbc_repeatLabel.ipady = 8;
+		gbc_repeatLabel.ipadx = 8;
+		gbc_repeatLabel.insets = new Insets(5, 5, 0, 5);
+		gbc_repeatLabel.gridx = 0;
+		gbc_repeatLabel.gridy = 8;
+		contentPanel.add(repeatLabel, gbc_repeatLabel);
+
+		JComboBox repeatComboBox = new JComboBox(new String[] { "Unique", "Daily", "Weekly", "Monthly" });
+		GridBagConstraints gbc_repeatComboBox = new GridBagConstraints();
+		gbc_repeatComboBox.ipady = 8;
+		gbc_repeatComboBox.ipadx = 8;
+		gbc_repeatComboBox.insets = new Insets(5, 5, 0, 0);
+		gbc_repeatComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_repeatComboBox.gridx = 1;
+		gbc_repeatComboBox.gridy = 8;
+		contentPanel.add(repeatComboBox, gbc_repeatComboBox);
+		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+		// Event Listener
+
+		// EndTime Slider Changed
+		endTimeSlider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent event) {
+				int endvalue = endTimeSlider.getValue();
+				int startvalue = startTimeSlider.getValue();
+				if (endvalue < startvalue && (endDateModel.getValue().compareTo(startDateModel.getValue()) <= 0)) {
+					endTimeSlider.setValue(startvalue);
+					endvalue = startvalue;
+				}
+				endTimeTextField.setText(
+						String.format("%02d", endvalue / 60) + ":" + String.format("%02d", endvalue % 60) + " ");
+			}
+		});
+
+		// StartTime Slider Changed
+		startTimeSlider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent event) {
+				int startvalue = startTimeSlider.getValue();
+				int endvalue = endTimeSlider.getValue();
+				if (endvalue < startvalue && (endDateModel.getValue().compareTo(startDateModel.getValue()) <= 0)) {
+					endTimeSlider.setValue(startvalue);
+
+				}
+				startTimeTextField.setText(
+						String.format("%02d", startvalue / 60) + ":" + String.format("%02d", startvalue % 60) + " ");
+			}
+		});
+
+		endDateModel.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent event) {
+				if (endDateModel.getValue().compareTo(startDateModel.getValue()) < 0) {
+					endDateModel.setValue(startDateModel.getValue());
+					int endvalue = endTimeSlider.getValue();
+					int startvalue = startTimeSlider.getValue();
+					if (endvalue < startvalue) {
+						endTimeSlider.setValue(startvalue);
 					}
 				}
 			}
 		});
-		GridBagConstraints gbc_btnCreate = new GridBagConstraints();
-		gbc_btnCreate.insets = new Insets(0, 0, 0, 5);
-		gbc_btnCreate.gridx = 3;
-		gbc_btnCreate.gridy = 12;
-		getContentPane().add(btnCreate, gbc_btnCreate);
-		
-		JButton btnExit = new JButton("Exit");
+		startDateModel.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent event) {
+				if (endDateModel.getValue().compareTo(startDateModel.getValue()) < 0) {
+					endDateModel.setValue(startDateModel.getValue());
+					int endvalue = endTimeSlider.getValue();
+					int startvalue = startTimeSlider.getValue();
+					if (endvalue < startvalue) {
+						endTimeSlider.setValue(startvalue);
+					}
+				}
+			}
+		});
+
+		// Set StandardValue of TimeSliders to ActualTime
+		if (today.getHour() < 20) {
+			// if actual hour is lower then 20:00, set the the Slider to next
+			// Hour
+			startTimeSlider.setValue((today.getHour() + 1) * 60);
+			endTimeSlider.setValue((today.getHour() + 1) * 60 + 30);
+		} else {
+			// else Set to next day 8:00
+			startTimeSlider.setValue(480);
+			endTimeSlider.setValue(510);
+			startDateModel.setValue(new Date((today.toEpochSecond() + 86400) * 1000));
+			startDateModel.setSelected(true);
+		}
+
+		// TextField Listeners for StartTime and EndTime
+		ActionListener startTimeTextFieldActionListener = new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				JFormattedTextField source = (JFormattedTextField) actionEvent.getSource();
+				Date time = (Date) source.getValue();
+				int diff = endTimeSlider.getValue() - startTimeSlider.getValue();
+				// Ensure that the input is lower than a day, to avoid parsing conflicts for later usage
+				if (time.getTime() < 86400000) {
+					startTimeSlider.setValue(time.getHours() * 60 + time.getMinutes());
+					endTimeSlider.setValue(time.getHours() * 60 + time.getMinutes() + diff);
+				} else {
+					startTimeSlider.setValue(endTimeSlider.getValue());
+				}
+			}
+
+		};
+		startTimeTextField.addActionListener(startTimeTextFieldActionListener);
+
+		ActionListener endTimeTextFieldActionListener = new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				JFormattedTextField source = (JFormattedTextField) actionEvent.getSource();
+				Date time = (Date) source.getValue();
+				// Ensure that the input is lower than a day, to avoid parsing conflicts for later usage
+				if (time.getTime() < 86400000) {
+					endTimeSlider.setValue(time.getHours() * 60 + time.getMinutes());
+				}
+				else {
+					endTimeSlider.setValue(startTimeSlider.getValue());
+				}
+			}
+
+		};
+		endTimeTextField.addActionListener(endTimeTextFieldActionListener);
+		// Create Button Events
+		btnCreate.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println(titleTextField.getText());
+				// if title is Empty, the title input field is highlighted
+				if (titleTextField.getText().isEmpty()) {
+					titleTextField.setBackground(new Color(255, 210, 220));
+				}
+				// else, the event is saved
+				else {
+					 String title = titleTextField.getText();
+					 String dateFrom = startDateModel.getValue().toString();
+					 String dateTo = endDateModel.getValue().toString();
+					 String timeFrom = startTimeTextField.getText();
+					 String timeTo = endTimeTextField.getText();
+					 String location = locationTextField.getText();
+					 String description = descriptionTextArea.getText();
+					 String repeat = (String) repeatComboBox.getSelectedItem();
+					 String repeatTo = (repeat.compareTo("Unique") != 0 ? "true" : "false");
+					 String visibility = (publicRadioButton.isSelected() ? "true" : "false");
+					event.changeMeeting(event, title, dateFrom, dateTo,
+							 timeFrom, timeTo, location,
+							 description, repeat, repeatTo, visibility);
+							 dispose();
+				}
+			}
+		});
+
+		// Exit Button
 		btnExit.addMouseListener(new MouseAdapter() {
-			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				dispose();
 			}
 		});
-		GridBagConstraints gbc_btnExit = new GridBagConstraints();
-		gbc_btnExit.gridx = 5;
-		gbc_btnExit.gridy = 12;
-		getContentPane().add(btnExit, gbc_btnExit);
+
 	}
-	
 }

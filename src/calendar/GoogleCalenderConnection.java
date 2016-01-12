@@ -1,6 +1,7 @@
 package calendar;
 
 import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
@@ -81,7 +82,7 @@ public class GoogleCalenderConnection {
         Collections.singleton(CalendarScopes.CALENDAR)).setDataStoreFactory(dataStoreFactory)
         .build();
     // authorize
-    return new GoogleAuthorizationInOwnBrowser(flow, new LocalServerReceiver()).authorize("user");
+    return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
   }
 
   public static void main(String[] args) {
@@ -108,13 +109,11 @@ public class GoogleCalenderConnection {
       addCalendarsUsingBatch();
       
       // Test: new Calender
-      Calendar calendar = new Calendar();
-      calendar.setSummary("Calendar for Testing 3");
+      Calendar calendar = new Calendar().setSummary("Calendar for Testing 3");
       addCalendar(calendar);
       
       // Test: update Calender
-      Calendar entry = new Calendar();
-      entry.setSummary("Updated Calendar for Testing");
+      Calendar entry = new Calendar().setSummary("Updated Calendar for Testing");
       updateCalendar(calendar, entry);
       
       // Test: add Event
