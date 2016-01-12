@@ -125,7 +125,7 @@ public class NewEventWindow extends JDialog {
 		gbc_calendarLabel.gridy = 1;
 		contentPanel.add(calendarLabel, gbc_calendarLabel);
 
-		ArrayList<String> calendarNames = DatabaseNames.getEntries(client.getid());
+		ArrayList<String> calendarNames = DatabaseNames.getCalenderNames(client.getid());
 		System.out.println(calendarNames);
 		
 		JComboBox calendarComboBox = new JComboBox(calendarNames.toArray());

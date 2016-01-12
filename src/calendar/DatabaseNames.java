@@ -74,7 +74,7 @@ public class DatabaseNames {
 		}
 	}
 
-	public static ArrayList<String> getEntries(String id) {
+	public static ArrayList<String> getCalenderNames(String id) {
 		ArrayList<String> list = new ArrayList<>();
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
 		File file = new File(pathDb);
@@ -88,6 +88,33 @@ public class DatabaseNames {
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				list.add(rs.getString("calendarName"));
+			}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public static ArrayList<String> getUserIds() {
+		ArrayList<String> list = new ArrayList<>();
+		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/clients.db";
+		File file = new File(pathDb);
+		if (!file.exists()) {
+			createClientDatabase();
+		}
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);			
+			Statement stmt = conn.createStatement();
+			String sql = "select * from personTable";
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				list.add(rs.getString("id"));
 			}
 			if (conn != null)
 				try {
