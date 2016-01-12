@@ -371,7 +371,7 @@ public class NewEventWindow extends JDialog {
 		gbc_repeatLabel.gridy = 9;
 		contentPanel.add(repeatLabel, gbc_repeatLabel);
 
-		JComboBox repeatComboBox = new JComboBox(new String[] { "Unique", "Daily", "Weekly", "Monthly" });
+		JComboBox repeatComboBox = new JComboBox(new String[] { "Unique", "Daily", "Weekly", "Monthly" , "Yearly"});
 		GridBagConstraints gbc_repeatComboBox = new GridBagConstraints();
 		gbc_repeatComboBox.ipady = 8;
 		gbc_repeatComboBox.ipadx = 8;
@@ -489,7 +489,6 @@ public class NewEventWindow extends JDialog {
 		// Create Button Events
 		btnCreate.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				System.out.println(titleTextField.getText());
 				// if title is Empty, the title input field is highlighted
 				if (titleTextField.getText().isEmpty()) {
 					titleTextField.setBackground(new Color(255, 210, 220));
@@ -507,7 +506,7 @@ public class NewEventWindow extends JDialog {
 					String repeatTo = (repeat.compareTo("Unique") != 0 ? "true" : "false");
 					String visibility = (publicRadioButton.isSelected() ? "true" : "false");
 
-					String calendarName = "";
+					String calendarName = calendarComboBox.getSelectedItem().toString();
 					String id = client.getid();
 					DatabaseCalendar.createEvent(calendarName, id, title, dateFrom, dateTo, timeFrom, timeTo, location,
 							description, repeat, repeatTo, visibility);

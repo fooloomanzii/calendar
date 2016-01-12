@@ -13,8 +13,8 @@ public class DatabaseCalendar {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:./src/calendar/database/" + databaseName + ".db");
 			stmt = c.createStatement();
-			String sql = "CREATE TABLE COMPANY " + "(ID INT PRIMARY KEY     NOT NULL,"
-					+ " User           TEXT    NOT NULL, " + " title          TEXT    NOT NULL,"
+			String sql = "CREATE TABLE COMPANY " + " (User           TEXT    NOT NULL, " 
+					+ " title          TEXT    NOT NULL,"
 					+ " dateFrom       TEXT    NOT NULL, " + " dateTo         TEXT    NOT NULL,"
 					+ " timeFrom       TEXT    NOT NULL, " + " timeTo         TEXT    NOT NULL,"
 					+ " location       TEXT    NOT NULL, " + " description    TEXT    NOT NULL, "
@@ -65,16 +65,18 @@ public class DatabaseCalendar {
 			String timeFrom, String timeTo, String location, String description, String repeat, String repeatTo,
 			String visibility) {
 		String database = calendarName + id;
+		System.out.println(database);
+		System.out.println(visibility);
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/" + database + ".db";
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			String sql;
 			if (visibility.equals("public")) {
-				sql = "insert into company Values ('" + id + "', '" + title + "','" + dateFrom + "','" + dateTo + "','"
+				sql = "insert into COMPANY Values ('" + id + "', '" + title + "','" + dateFrom + "','" + dateTo + "','"
 						+ timeFrom + "','" + timeTo + "', '" + location + "', '" + description + "', '" + repeat
 						+ "', '" + repeatTo + "', '" + visibility + "')";
 			} else {
-				sql = "insert into company Values ('" + id + "', '" + title + "','" + dateFrom + "','" + dateTo + "','"
+				sql = "insert into COMPANY Values ('" + id + "', '" + title + "','" + dateFrom + "','" + dateTo + "','"
 						+ timeFrom + "','" + timeTo + "', '" + location + "', '" + description + "', '" + repeat
 						+ "', '" + repeatTo + "', '" + visibility + "')";
 			}
