@@ -85,17 +85,24 @@ public class DatabaseCalendar{
 		}
     }
 	
-	public ArrayList<String> getEntries(String calendarName, String id){
-		ArrayList<String> list = new ArrayList<>();
+	public ArrayList<Event> getEntries(String calendarName, String id){
+		ArrayList<Event> list = new ArrayList<>();
 		String database = calendarName + id;
     	String pathDb = System.getProperty("user.dir") + "/src/calendar/database/" + database + ".db";
 		try{
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
-			String sql = "select CalendarName from COMPANY where id = '"+id+"'";
+			String sql = "select * from COMPANY where id = '"+id+"'";
 			Statement stmt = conn.createStatement();
 		    ResultSet rs = stmt.executeQuery(sql);
+		    Event e1 = new Event(rs.getString("title"), rs.getString("dateFrom"), rs.getString("dateTo"), rs.getString("timeFrom"),
+		    	rs.getString("timeTo"), rs.getString("location"), rs.getString("description"), rs.getString("repeat"),
+		    	rs.getString("repeatTo"), rs.getString("visibility"));
+		    list.add(e1);
 			while (rs.next()){
-				list.add(rs.getString("CalendarName"));
+				Event e2  = new Event(rs.getString("title"), rs.getString("dateFrom"), rs.getString("dateTo"), rs.getString("timeFrom"),
+				    	rs.getString("timeTo"), rs.getString("location"), rs.getString("description"), rs.getString("repeat"),
+				    	rs.getString("repeatTo"), rs.getString("visibility"));
+				list.add(e2);
 			}
 			if ( conn != null )
 			    try{ 

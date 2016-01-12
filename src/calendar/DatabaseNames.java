@@ -22,7 +22,7 @@ public class DatabaseNames {
 			stmt = c.createStatement();
 			String sql = "CREATE TABLE COMPANY " +
 			             " (CalendarName          TEXT    NOT NULL, " +
-			             " EMail           TEXT    PRIMARY KEY NOT NULL," +
+			             " id           TEXT    PRIMARY KEY NOT NULL," +
 			             " Red         Int      NOT NULL, "+
 			             " Green       Int      NOT NULL, "+
 			             " Blue        Int      NOT NULL)  ";
@@ -35,12 +35,12 @@ public class DatabaseNames {
 		}
 	}
 	
-	public static void setEntries(String databaseName, String email, int r, int g, int b){
+	public static void setEntries(String databaseName, String id, int r, int g, int b){
     	String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
 		try{
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
 			String sql;
-			sql = "insert into company Values ('"+databaseName+"', '"+email+"', '"+r+"', '"+g+"', '"+b+"')";
+			sql = "insert into company Values ('"+databaseName+"', '"+id+"', '"+r+"', '"+g+"', '"+b+"')";
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate(sql);
 			if ( conn != null )
@@ -60,7 +60,7 @@ public class DatabaseNames {
 		try{
 			Connection conn = DriverManager.getConnection( "jdbc:sqlite:" + pathDb);
 			Statement stmt = conn.createStatement();
-			String sql = "select CalendarName from COMPANY where EMail = '"+mail+"'";
+			String sql = "select CalendarName from COMPANY where id = '"+mail+"'";
 		    ResultSet rs = stmt.executeQuery(sql);
 		    list.add(rs.getString("CalendarName"));
 			while (rs.next()){
