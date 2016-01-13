@@ -679,7 +679,7 @@ public class LoginCalendarWindow {
 		JMenuItem mntmCreateCalendar = new JMenuItem("Create Calendar");
 		mntmCreateCalendar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CalendarWindow nCWindow = new CalendarWindow(loginPerson);
+				NewCalendarWindow nCWindow = new NewCalendarWindow(loginPerson);
 				nCWindow.setVisible(true);
 			}
 		});

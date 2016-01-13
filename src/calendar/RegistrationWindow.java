@@ -131,7 +131,7 @@ public class RegistrationWindow extends JDialog {
 				} else {
 					Client.insertNewPerson(firstName, surname, password, id, question, answer);
 					JOptionPane.showMessageDialog(getContentPane(), "Account has been created successfully!");
-					DatabaseCalendar.createDatabase("Private", id);
+					DatabaseCalendar.createDatabase("Private", id, (int) Math.random() * 256,(int) Math.random() * 256,(int) Math.random() * 256);
 					dispose();
 					MainWindow.updateAllUserButtons();
 					MainWindow.MainFrame.setVisible(true);

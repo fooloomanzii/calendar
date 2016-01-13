@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class DatabaseCalendar {
 
-	public static void createDatabase(String calendarName, String id) {
+	public static void createDatabase(String calendarName, String id, int r, int g, int b) {
 		Connection c = null;
 		Statement stmt = null;
 		try {
@@ -25,9 +25,6 @@ public class DatabaseCalendar {
 			c.close();
 			
 			// Register Name in DatabaseNames
-			int r = (int) Math.random() * 256;
-			int g = (int) Math.random() * 256;
-			int b = (int) Math.random() * 256;
 			DatabaseNames.setEntry(calendarName, id, r, g, b);
 			
 		} catch (Exception e) {

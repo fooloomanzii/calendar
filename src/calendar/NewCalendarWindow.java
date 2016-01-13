@@ -71,7 +71,8 @@ public class NewCalendarWindow extends JDialog {
 		btnChooseColor.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e){
-				color = JColorChooser.showDialog(getContentPane(), "Colors", Color.WHITE);
+				color = JColorChooser.showDialog(getContentPane(), "Colors", 
+						new Color((int) Math.random() * 256,(int) Math.random() * 256,(int) Math.random() * 256));
 				System.out.println(color.toString());
 				System.out.println(color.getRed());
 				panel.setBackground(new Color(color.getRed(),color.getGreen(),color.getBlue()));
