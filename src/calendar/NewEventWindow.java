@@ -125,7 +125,7 @@ public class NewEventWindow extends JDialog {
 		gbc_calendarLabel.gridy = 1;
 		contentPanel.add(calendarLabel, gbc_calendarLabel);
 
-		ArrayList<String> calendarNames = DatabaseNames.getCalenderNames(client.getid());
+		ArrayList<String> calendarNames = DatabaseNames.getCalendarNames(client.getid());
 		System.out.println(calendarNames);
 		
 		JComboBox calendarComboBox = new JComboBox(calendarNames.toArray());
@@ -496,8 +496,8 @@ public class NewEventWindow extends JDialog {
 				// else, the event is saved
 				else {
 					String title = titleTextField.getText();
-					String dateFrom = startDateModel.getValue().toString();
-					String dateTo = endDateModel.getValue().toString();
+					String dateFrom = "" + startDateModel.getDay() +"."+startDateModel.getMonth() +"."+startDateModel.getYear();
+					String dateTo = "" + endDateModel.getDay() +"."+endDateModel.getMonth() +"."+endDateModel.getYear();
 					String timeFrom = startTimeTextField.getText();
 					String timeTo = endTimeTextField.getText();
 					String location = locationTextField.getText();

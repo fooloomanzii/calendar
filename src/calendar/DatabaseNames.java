@@ -74,7 +74,7 @@ public class DatabaseNames {
 		}
 	}
 
-	public static ArrayList<String> getCalenderNames(String id) {
+	public static ArrayList<String> getCalendarNames(String id) {
 		ArrayList<String> list = new ArrayList<>();
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
 		File file = new File(pathDb);
@@ -91,6 +91,7 @@ public class DatabaseNames {
 			}
 			if (conn != null)
 				try {
+					stmt.close();
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -126,6 +127,81 @@ public class DatabaseNames {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public static int getRed(String id) {
+		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
+		File file = new File(pathDb);
+		int red = 0;
+		if (!file.exists()) {
+			createCalendarNameDatabase();
+		}
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);			
+			Statement stmt = conn.createStatement();
+			String sql = "select Red from databaseNames where id = '" + id + "'";
+			ResultSet rs = stmt.executeQuery(sql);
+			red = rs.getInt("Red");
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return red;
+	}
+	
+	public static int getGreen(String id) {
+		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
+		File file = new File(pathDb);
+		int red = 0;
+		if (!file.exists()) {
+			createCalendarNameDatabase();
+		}
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);			
+			Statement stmt = conn.createStatement();
+			String sql = "select Green from databaseNames where id = '" + id + "'";
+			ResultSet rs = stmt.executeQuery(sql);
+			red = rs.getInt("Green");
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return red;
+	}
+	
+	public static int getBlue(String id) {
+		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
+		File file = new File(pathDb);
+		int red = 0;
+		if (!file.exists()) {
+			createCalendarNameDatabase();
+		}
+		try {
+			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);			
+			Statement stmt = conn.createStatement();
+			String sql = "select Blue from databaseNames where id = '" + id + "'";
+			ResultSet rs = stmt.executeQuery(sql);
+			red = rs.getInt("Blue");
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return red;
 	}
 
 }

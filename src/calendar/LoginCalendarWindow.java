@@ -61,7 +61,7 @@ public class LoginCalendarWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 200, 200, 200, 200, 200, 200, 200, 0 };
-		gridBagLayout.rowHeights = new int[] {20, 0, 0, 30, 30, 30, 30, 30, 30, 30};
+		gridBagLayout.rowHeights = new int[] { 20, 0, 0, 30, 30, 30, 30, 30, 30, 30 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0 };
 		frame.getContentPane().setLayout(gridBagLayout);
@@ -759,17 +759,18 @@ public class LoginCalendarWindow {
 						&& currentYear == _calendar.get(Calendar.YEAR)) {
 					JLabel label = new JLabel(dayNumber);
 					label.setAlignmentX(Component.CENTER_ALIGNMENT);
-					label.setFont(new Font("FiraSans Book", Font.PLAIN, 16));
+					label.setFont(new Font("Tahoma", Font.PLAIN, 16));
 					label.setForeground(Color.RED);
 					listJPanel.get(i).setBackground(new Color(240, 240, 240));
 					listJPanel.get(i).add(label);
 				} else {
 					JLabel label = new JLabel(dayNumber);
 					label.setAlignmentX(Component.CENTER_ALIGNMENT);
-					label.setFont(new Font("FiraSans Book", Font.PLAIN, 16));
+					label.setFont(new Font("Tahoma", Font.PLAIN, 16));
 					listJPanel.get(i).setBackground(new Color(245, 245, 245));
 					listJPanel.get(i).add(label);
 				}
+				EventMonth(day, i);
 				day++;
 			} else {
 				listJPanel.get(i).setBackground(Color.WHITE);
@@ -781,7 +782,6 @@ public class LoginCalendarWindow {
 		 */
 		JLabel label = new JLabel(_calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US) + " "
 				+ _calendar.get(Calendar.YEAR));
-		label.setBackground(Color.ORANGE);
 		label.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		label.setForeground(Color.BLACK);
 		monthYear.removeAll();
@@ -790,36 +790,31 @@ public class LoginCalendarWindow {
 	}
 
 	/**
-	 * Output Meeting
+	 * Output Event
 	 */
-	/*
-	 * private void showMeetingMonth(int day, int jpanelNumber){ String
-	 * currentDate = day + "." + (_calendar.get(Calendar.MONTH)+1) + "." +
-	 * _calendar.get(Calendar.YEAR);
-	 * 
-	 * for(int i=0; i<publicMeeting.size(); i++){ final Event meeting =
-	 * publicMeeting.get(i); final String id = publicMeeting.get(i).getOwner();
-	 * if(currentDate.equals(publicMeeting.get(i).getDateFrom())){ JLabel label
-	 * = new JLabel(publicMeeting.get(i).getTitle());
-	 * label.setAlignmentX(Component.CENTER_ALIGNMENT); label.setFont(new
-	 * Font("Arial", Font.BOLD, 15)); listJPanel.get(jpanelNumber).add(label,
-	 * "alignx center"); label.addMouseListener(new MouseAdapter(){ public void
-	 * mouseClicked(MouseEvent e){ if(loginPerson.getid().equals(id)){
-	 * ChangeEventWindow win = new ChangeEventWindow(meeting);
-	 * win.setVisible(true); }else{ ShowMeetingWindow win = new
-	 * ShowMeetingWindow(meeting); win.setVisible(true); } } }); } }
-	 * 
-	 * for(int i=0; i<privatMeeting.size(); i++){ final Event meeting =
-	 * privatMeeting.get(i);
-	 * if(currentDate.equals(privatMeeting.get(i).getDateFrom()) &&
-	 * loginPerson.getid().equals(privatMeeting.get(i).getOwner())){ JLabel
-	 * label = new JLabel(privatMeeting.get(i).getTitle());
-	 * label.setAlignmentX(Component.CENTER_ALIGNMENT); label.setFont(new
-	 * Font("Arial", Font.BOLD, 15)); listJPanel.get(jpanelNumber).add(label,
-	 * "alignx center"); label.addMouseListener(new MouseAdapter(){ public void
-	 * mouseClicked(MouseEvent e){ ChangeEventWindow win = new
-	 * ChangeEventWindow(meeting); win.setVisible(true); } }); } } }
-	 */
+	private void EventMonth(int day, int jpanelNumber) {
+		String currentDate = day + "." + (_calendar.get(Calendar.MONTH)) + "." + _calendar.get(Calendar.YEAR);
+		ArrayList<String> listDatabaseNames = DatabaseNames.getCalendarNames(loginPerson.getid());
+		System.out.println("GroesseDatabaseNames:" + listDatabaseNames.size());
+		for (int i = 0; i < listDatabaseNames.size(); i++) {
+			System.out.println("i: " + i);
+			ArrayList<Event> listEvent = DatabaseCalendar.getEntries(listDatabaseNames.get(i), loginPerson.getid());
+			System.out.println("GroesseEvent:" + listEvent.size());
+			for (int j = 0; j < listEvent.size(); j++) {
+				if (currentDate.equals(listEvent.get(j).getDateFrom())) {
+					System.out.println("hhaalloo");
+					JLabel label = new JLabel(listEvent.get(j).getTitle());
+					System.out.println(DatabaseNames.getRed(listDatabaseNames.get(i)));
+					label.setBackground(new Color(DatabaseNames.getRed(listDatabaseNames.get(i)),
+							DatabaseNames.getGreen(listDatabaseNames.get(i)),
+							DatabaseNames.getBlue(listDatabaseNames.get(i))));
+					label.setAlignmentX(Component.CENTER_ALIGNMENT);
+					label.setFont(new Font("Arial", Font.BOLD, 15));
+					listJPanel.get(jpanelNumber).add(label, "alignx center");
+				}
+			}
+		}
+	}
 
 	public Window getFrame() {
 		return frame;
