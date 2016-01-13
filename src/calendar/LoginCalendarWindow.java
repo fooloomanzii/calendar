@@ -637,13 +637,9 @@ public class LoginCalendarWindow {
 				String currentMonth = "" + _calendar.get(Calendar.MONTH) + 1;
 				String date = currentDay + "." + currentMonth + "." + currentYear;
 				NewEventWindow eventWindow = new NewEventWindow(loginPerson, date);
-				eventWindow.addWindowListener(new WindowAdapter() {
-				    @Override
-				    public void windowClosed(WindowEvent e) {
-				    	dayInitializeMonth(0);
-				    }
-				});
 				eventWindow.setVisible(true);
+				initializeMonthView();
+				frame.validate();
 			}
 		});
 		mnMen.add(mntmCreateEvent);
