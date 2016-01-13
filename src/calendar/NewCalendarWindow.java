@@ -78,7 +78,7 @@ public class NewCalendarWindow extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent e){
 				color = JColorChooser.showDialog(getContentPane(), "Colors",
-						new Color((int) Math.random() * 100 + 156,(int) Math.random() * 100 + 156,(int) Math.random() * 100 + 156));
+						new Color(((int) (Math.random() * 100)) + 156,((int) (Math.random() * 100)) + 156,((int) (Math.random() * 100)) + 156));
 				panel.setBackground(new Color(color.getRed(),color.getGreen(),color.getBlue()));
 				setVisible(false);
 				setVisible(true);
