@@ -17,6 +17,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
 import java.awt.Component;
@@ -74,8 +76,18 @@ public class CalendarWindow {
 		 * JButton before
 		 */
 		JButton before = new JButton("<<");
-		before.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		before.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode()==KeyEvent.VK_LEFT){
+					_calendar.set(_calendar.get(Calendar.YEAR), _calendar.get(Calendar.MONTH)-1, _calendar.get(Calendar.DATE));
+					dayInitializeMonth(1);
+					frame.validate();
+				}if(arg0.getKeyCode()==KeyEvent.VK_RIGHT){
+					_calendar.set(_calendar.get(Calendar.YEAR), _calendar.get(Calendar.MONTH)+1, _calendar.get(Calendar.DATE));
+					dayInitializeMonth(1);
+					frame.validate();
+				}
 			}
 		});
 		before.setBackground(Color.WHITE);

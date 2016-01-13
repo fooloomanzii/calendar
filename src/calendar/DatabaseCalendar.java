@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class DatabaseCalendar {
 
-	public static void createDatabase(String calendarName, String id) {
+	public static void createDatabase(String calendarName, String id,int r,int g,int b) {
 		Connection c = null;
 		Statement stmt = null;
 		try {
@@ -25,9 +25,6 @@ public class DatabaseCalendar {
 			c.close();
 			
 			// Register Name in DatabaseNames
-			int r = (int) Math.random() * 256;
-			int g = (int) Math.random() * 256;
-			int b = (int) Math.random() * 256;
 			DatabaseNames.setEntry(calendarName, id, r, g, b);
 			
 		} catch (Exception e) {
@@ -99,7 +96,7 @@ public class DatabaseCalendar {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/" + database + ".db";
 		try {
 			Connection connn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
-			System.out.println(id);
+			//System.out.println(id);
 			String sql = "select title,dateFrom,dateTo,timeFrom,timeTo,location,description,repeat,repeatTo,visibility from COMPANY where user = '" + id + "'";
 			Statement stmmt = connn.createStatement();
 			ResultSet rss = stmmt.executeQuery(sql);

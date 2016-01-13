@@ -115,12 +115,12 @@ public class RegistrationWindow extends JDialog {
 					JOptionPane.showMessageDialog(getContentPane(), "The password must have five characters at least.","",JOptionPane.ERROR_MESSAGE);
 				} else if (!password.equals(passwordRepeat)) {
 					JOptionPane.showMessageDialog(getContentPane(), "The entered passwords do not match","",JOptionPane.ERROR_MESSAGE);
-//				} else if (Client.isRegistered(id)) {
-//					JOptionPane.showMessageDialog(getContentPane(), "The Username is already used!","",JOptionPane.ERROR_MESSAGE);
+				} else if (Client.isRegistered(id)) {
+					JOptionPane.showMessageDialog(getContentPane(), "The Username is already used!","",JOptionPane.ERROR_MESSAGE);
 				} else {
 					Client.insertNewPerson(firstName, surname, password, id, question, answer);
 					JOptionPane.showMessageDialog(getContentPane(), "Account has been created successfully!");
-					DatabaseCalendar.createDatabase("Private", id);
+					DatabaseCalendar.createDatabase("Private", id,56,56,56);
 					dispose();
 				}
 			}

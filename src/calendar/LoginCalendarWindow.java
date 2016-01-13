@@ -22,6 +22,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
 import java.awt.Component;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class LoginCalendarWindow {
 
@@ -74,6 +76,20 @@ public class LoginCalendarWindow {
 		 * JButton before
 		 */
 		JButton before = new JButton("<<");
+		before.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode()==KeyEvent.VK_LEFT){
+					_calendar.set(_calendar.get(Calendar.YEAR), _calendar.get(Calendar.MONTH)-1, _calendar.get(Calendar.DATE));
+					dayInitializeMonth(1);
+					frame.validate();
+				}if(arg0.getKeyCode()==KeyEvent.VK_RIGHT){
+					_calendar.set(_calendar.get(Calendar.YEAR), _calendar.get(Calendar.MONTH)+1, _calendar.get(Calendar.DATE));
+					dayInitializeMonth(1);
+					frame.validate();
+				}
+			}
+		});
 		before.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -665,7 +681,9 @@ public class LoginCalendarWindow {
 				String currentMonth = "" + _calendar.get(Calendar.MONTH)+1;
 				String date = currentDay + "." + currentMonth + "." + currentYear;
 				NewEventWindow eventWindow = new NewEventWindow(loginPerson, date);
-				eventWindow.setVisible(true);				
+				eventWindow.setVisible(true);
+				initializeMonthView();
+				frame.validate();
 			}
 		});
 		mnMen.add(mntmCreateEvent);
@@ -772,20 +790,26 @@ private void dayInitializeMonth(int number){
 	 */
 private void EventMonth(int day, int jpanelNumber){
 		String currentDate = day + "." + (_calendar.get(Calendar.MONTH)) + "." + _calendar.get(Calendar.YEAR);
-		ArrayList<String> listDatabaseNames = DatabaseNames.getEntries(loginPerson.getid());
-		System.out.println("GroesseDatabaseNames:" + listDatabaseNames.size());
+		ArrayList<String> listDatabaseNames = DatabaseNames.getCalenderNames(loginPerson.getid());
+		//System.out.println("GroesseDatabaseNames:" + listDatabaseNames.size());
 		for(int i=0; i<listDatabaseNames.size(); i++){
-			System.out.println("i: " +i);
+			//System.out.println("i: " +i);
 			ArrayList<Event> listEvent = DatabaseCalendar.getEntries(listDatabaseNames.get(i), loginPerson.getid());
-			System.out.println("GroesseEvent:" + listEvent.size());
+			//System.out.println("GroesseEvent:" + listEvent.size());
 			for(int j=0; j<listEvent.size(); j++){
 				if(currentDate.equals(listEvent.get(j).getDateFrom())){
-					System.out.println("hhaalloo");
+					System.out.println("Termin malen");
 					JLabel label = new JLabel(listEvent.get(j).getTitle());
-					System.out.println(DatabaseNames.getRed(listDatabaseNames.get(i)));
-					label.setBackground(new Color(DatabaseNames.getRed(listDatabaseNames.get(i)), DatabaseNames.getGreen(listDatabaseNames.get(i)), DatabaseNames.getBlue(listDatabaseNames.get(i))));
+					System.out.println(DatabaseNames.getRed(loginPerson.getid(),listDatabaseNames.get(i)));
+					label.setForeground(new Color(DatabaseNames.getRed(loginPerson.getid(),listDatabaseNames.get(i)), DatabaseNames.getGreen(loginPerson.getid(),listDatabaseNames.get(i)), DatabaseNames.getBlue(loginPerson.getid(),listDatabaseNames.get(i))));
 					label.setAlignmentX(Component.CENTER_ALIGNMENT);
 					label.setFont(new Font("Arial", Font.BOLD, 15));
+			        label.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							//Todo changeTermin Window
+						}
+					});
 					listJPanel.get(jpanelNumber).add(label, "alignx center");
 				}
 			}
