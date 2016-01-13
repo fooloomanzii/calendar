@@ -22,6 +22,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
 import java.awt.Component;
@@ -81,6 +83,20 @@ public class LoginCalendarWindow {
 		 * JButton before
 		 */
 		JButton before = new JButton("<<");
+		before.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode()==KeyEvent.VK_LEFT){
+					_calendar.set(_calendar.get(Calendar.YEAR), _calendar.get(Calendar.MONTH)-1, _calendar.get(Calendar.DATE));
+					dayInitializeMonth(1);
+					frame.validate();
+				}if(arg0.getKeyCode()==KeyEvent.VK_RIGHT){
+					_calendar.set(_calendar.get(Calendar.YEAR), _calendar.get(Calendar.MONTH)+1, _calendar.get(Calendar.DATE));
+					dayInitializeMonth(1);
+					frame.validate();
+				}
+			}
+		});
 		before.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -120,6 +136,20 @@ public class LoginCalendarWindow {
 						_calendar.get(Calendar.DATE));
 				dayInitializeMonth(1);
 				frame.validate();
+			}
+		});
+		after.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode()==KeyEvent.VK_LEFT){
+					_calendar.set(_calendar.get(Calendar.YEAR), _calendar.get(Calendar.MONTH)-1, _calendar.get(Calendar.DATE));
+					dayInitializeMonth(1);
+					frame.validate();
+				}if(arg0.getKeyCode()==KeyEvent.VK_RIGHT){
+					_calendar.set(_calendar.get(Calendar.YEAR), _calendar.get(Calendar.MONTH)+1, _calendar.get(Calendar.DATE));
+					dayInitializeMonth(1);
+					frame.validate();
+				}
 			}
 		});
 		GridBagConstraints gbc_after = new GridBagConstraints();
