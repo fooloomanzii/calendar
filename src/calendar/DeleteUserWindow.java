@@ -24,68 +24,62 @@ public class DeleteUserWindow extends JDialog {
 
 	/**
 	 * Launch the application.
-	 
-	public static void main(String[] args) {
-		try {
-			DeleteUserWindow dialog = new DeleteUserWindow();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	*/
+	 * 
+	 * public static void main(String[] args) { try { DeleteUserWindow dialog =
+	 * new DeleteUserWindow();
+	 * dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	 * dialog.setVisible(true); } catch (Exception e) { e.printStackTrace(); } }
+	 */
 	/**
 	 * Create the dialog.
 	 */
 	public DeleteUserWindow(final Client loginPerson) {
 		setModal(true);
-		
-		setBounds(100, 100, 516, 169);
+
+		setBounds(100, 100, 415, 169);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new MigLayout("", "[307px]", "[20px:n,center]"));
+		contentPanel.setLayout(new MigLayout("", "[grow]", "[20px:n,grow,center]"));
 		{
 			JLabel lblDoYouReally = new JLabel("Do you really want to delete your account !");
-			lblDoYouReally.setFont(new Font("Dialog", Font.BOLD, 20));
+			lblDoYouReally.setFont(new Font("Tahoma", Font.BOLD, 15));
 			lblDoYouReally.setHorizontalAlignment(SwingConstants.CENTER);
-			contentPanel.add(lblDoYouReally, "cell 0 0,grow");
+			contentPanel.add(lblDoYouReally, "cell 0 0,alignx center");
 		}
 		{
 			JPanel buttonPane = new JPanel();
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			buttonPane.setLayout(new MigLayout("", "[148.00px][167.00][141.00px]", "[25px]"));
+			buttonPane.setLayout(new MigLayout("", "[grow]", "[25px]"));
 			{
-				JButton okButton = new JButton("OK");
-				okButton.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						setVisible(false);
-						Client.deletePerson(loginPerson.getid(), loginPerson.getPassword());
-						JOptionPane.showMessageDialog(getContentPane(), "Account has been deleted successfully!");
-						CalendarWindow win = new CalendarWindow();
-						win.getFrame().setVisible(true);
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton, "cell 0 0,alignx left,aligny top");
-				getRootPane().setDefaultButton(okButton);
+				{
+					JButton okButton = new JButton("Yes");
+					okButton.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							setVisible(false);
+							Client.deletePerson(loginPerson.getid(), loginPerson.getPassword());
+							JOptionPane.showMessageDialog(getContentPane(), "Account has been deleted successfully!");
+							MainWindow.MainFrame.setVisible(true);
+						}
+					});
+					okButton.setActionCommand("OK");
+					buttonPane.add(okButton, "flowx,cell 0 0,alignx center,aligny top");
+					getRootPane().setDefaultButton(okButton);
+				}
 			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.addMouseListener(new MouseAdapter() {
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						setVisible(false);
-						LoginCalendarWindow win = new LoginCalendarWindow(loginPerson);
-						win.getFrame().setVisible(true);
-						
-					}
-				});
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton, "cell 2 0,alignx right,aligny top");
-			}
+			JButton cancelButton = new JButton("Cancel");
+			cancelButton.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					setVisible(false);
+					LoginCalendarWindow win = new LoginCalendarWindow(loginPerson);
+					win.getFrame().setVisible(true);
+
+				}
+			});
+			cancelButton.setActionCommand("Cancel");
+			buttonPane.add(cancelButton, "cell 0 0,alignx right,aligny top");
 		}
 	}
 

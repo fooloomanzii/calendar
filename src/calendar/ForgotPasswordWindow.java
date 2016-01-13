@@ -31,29 +31,37 @@ public class ForgotPasswordWindow extends JDialog {
 		setBounds(450, 0, 530, 200);
 		getContentPane().setLayout(new MigLayout("", "[153.00][grow]", "[25px][25px][25px][25px][25px]"));
 		
-		JLabel lblid = new JLabel("Username:");
-		lblid.setFont( new Font("ARIAL", Font.BOLD, 20));
+		JLabel lblid = new JLabel("Username");
+		lblid.setFont( new Font("Tahoma", Font.PLAIN, 11));
 		lblid.setForeground(Color.DARK_GRAY);
-		getContentPane().add(lblid, "cell 0 0,alignx trailing");
+		getContentPane().add(lblid, "cell 0 0,alignx center");
 		textid = new JTextField();
 		getContentPane().add(textid, "cell 1 0,grow");
 		textid.setColumns(10);
 		
-		JLabel lblSecurityQuestion = new JLabel("Security Question:");
-		lblSecurityQuestion.setFont( new Font("ARIAL", Font.BOLD, 20));
+		JLabel lblSecurityQuestion = new JLabel("Security Question");
+		lblSecurityQuestion.setFont( new Font("Tahoma", Font.PLAIN, 11));
 		lblSecurityQuestion.setForeground(Color.DARK_GRAY);
-		getContentPane().add(lblSecurityQuestion, "cell 0 1,alignx trailing");
+		getContentPane().add(lblSecurityQuestion, "cell 0 1,alignx center");
 		final JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Where were you born?", "What is the name of your pet?", "What is your mother's maiden name?"}));
 		getContentPane().add(comboBox, "cell 1 1,growx");
 		
-		JLabel lblAnswer = new JLabel("Answer:");
-		lblAnswer.setFont( new Font("ARIAL", Font.BOLD, 20));
+		JLabel lblAnswer = new JLabel("Answer");
+		lblAnswer.setFont( new Font("Tahoma", Font.PLAIN, 11));
 		lblAnswer.setForeground(Color.DARK_GRAY);
-		getContentPane().add(lblAnswer, "cell 0 2,alignx trailing");
+		getContentPane().add(lblAnswer, "cell 0 2,alignx center");
 		textAnswer = new JTextField();
 		getContentPane().add(textAnswer, "cell 1 2,grow");
 		textAnswer.setColumns(10);
+		
+		JButton btnExit = new JButton("Exit");
+		btnExit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+			}
+		});
 		
 		JButton btnOkay = new JButton("Okay");
 		btnOkay.addMouseListener(new MouseAdapter() {
@@ -71,15 +79,7 @@ public class ForgotPasswordWindow extends JDialog {
 				}
 			}
 		});
-		getContentPane().add(btnOkay, "cell 0 4,alignx center");
-		
-		JButton btnExit = new JButton("Exit");
-		btnExit.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				dispose();
-			}
-		});
+		getContentPane().add(btnOkay, "flowx,cell 1 4,alignx center");
 		getContentPane().add(btnExit, "cell 1 4,alignx center");
 		
 	}

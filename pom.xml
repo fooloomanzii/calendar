@@ -13,6 +13,7 @@
 	</properties>
 
 	<build>
+	
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
 			<resource>
@@ -32,7 +33,7 @@
 					<target>1.8</target>
 					<archive>
 						<manifest>
-							<mainClass>calendar.CalendarWindow</mainClass>
+							<mainClass>calendar.MainWindow</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
