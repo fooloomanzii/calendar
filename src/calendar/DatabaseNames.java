@@ -10,11 +10,6 @@ import java.util.*;
 
 public class DatabaseNames {
 
-	public static void main(String args[]) {
-		createClientDatabase();
-		createCalendarNameDatabase();
-	}
-
 	public static void createClientDatabase() {
 		Connection c = null;
 		Statement stmt = null;
@@ -41,7 +36,7 @@ public class DatabaseNames {
 			c = DriverManager.getConnection("jdbc:sqlite:./src/calendar/database/databaseNames.db");
 			stmt = c.createStatement();
 			String sql = "CREATE TABLE databaseNames " + " (calendarName TEXT NOT NULL, "
-					+ " id TEXT NOT NULL, Red Int NOT NULL, " + " Green Int NOT NULL, Blue Int NOT NULL)  ";
+					+ " id TEXT NOT NULL, Red Int NOT NULL, Green Int NOT NULL, Blue Int NOT NULL)  ";
 			stmt.executeUpdate(sql);
 			stmt.close();
 			c.close();
@@ -119,6 +114,7 @@ public class DatabaseNames {
 			}
 			if (conn != null)
 				try {
+					stmt.close();
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -129,7 +125,7 @@ public class DatabaseNames {
 		return list;
 	}
 	
-	public static int getRed(String id) {
+	public static int getRed(String id, String calname) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
 		File file = new File(pathDb);
 		int red = 0;
@@ -139,11 +135,12 @@ public class DatabaseNames {
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);			
 			Statement stmt = conn.createStatement();
-			String sql = "select Red from databaseNames where id = '" + id + "'";
+			String sql = "select Red from databaseNames where id = '" + id + "' and calendarName = '" + calname + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			red = rs.getInt("Red");
 			if (conn != null)
 				try {
+					stmt.close();
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -154,7 +151,7 @@ public class DatabaseNames {
 		return red;
 	}
 	
-	public static int getGreen(String id) {
+	public static int getGreen(String id, String calname) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
 		File file = new File(pathDb);
 		int red = 0;
@@ -164,11 +161,12 @@ public class DatabaseNames {
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);			
 			Statement stmt = conn.createStatement();
-			String sql = "select Green from databaseNames where id = '" + id + "'";
+			String sql = "select Green from databaseNames where id = '" + id + "' and calendarName = '" + calname + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			red = rs.getInt("Green");
 			if (conn != null)
 				try {
+					stmt.close();
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -179,7 +177,7 @@ public class DatabaseNames {
 		return red;
 	}
 	
-	public static int getBlue(String id) {
+	public static int getBlue(String id, String calname) {
 		String pathDb = System.getProperty("user.dir") + "/src/calendar/database/databaseNames.db";
 		File file = new File(pathDb);
 		int red = 0;
@@ -189,11 +187,12 @@ public class DatabaseNames {
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);			
 			Statement stmt = conn.createStatement();
-			String sql = "select Blue from databaseNames where id = '" + id + "'";
+			String sql = "select Blue from databaseNames where id = '" + id + "' and calendarName = '" + calname + "'";
 			ResultSet rs = stmt.executeQuery(sql);
 			red = rs.getInt("Blue");
 			if (conn != null)
 				try {
+					stmt.close();
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();

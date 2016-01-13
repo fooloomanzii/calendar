@@ -19,6 +19,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.SystemColor;
+import javax.swing.SwingConstants;
 
 public class NewCalendarWindow extends JDialog {
 	private JTextField textField;
@@ -46,23 +48,27 @@ public class NewCalendarWindow extends JDialog {
 	 * Create the dialog.
 	 */
 	public NewCalendarWindow(final Client client) {
+		getContentPane().setBackground(SystemColor.window);
 		setModal(true);
-		
+
 		setTitle("New Calendar");
-		setBounds(100, 100, 479, 300);
-		getContentPane().setLayout(new MigLayout("", "[134px:n][174.00][20px:n,grow][134px:n]", "[][20px:n][40px:n][]"));
-		
-		JLabel lblNewLabel = new JLabel("Calendar name:");
+		setBounds(100, 100, 331, 171);
+		getContentPane().setLayout(new MigLayout("", "[fill][fill][30px:n,fill]", "[30px:n][30px:n][30px:n]"));
+
+		JLabel lblNewLabel = new JLabel("Calendar name");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lblNewLabel, "cell 0 0,alignx center");
-		
+
 		textField = new JTextField();
-		getContentPane().add(textField, "cell 1 0 3 1,growx");
+		textField.setBackground(SystemColor.control);
+		getContentPane().add(textField, "cell 1 0 2 1,growx");
 		textField.setColumns(10);
-		
+
 		final JLabel lblActaulSelectedColor = new JLabel("actual selected Color:");
+		lblActaulSelectedColor.setHorizontalAlignment(SwingConstants.CENTER);
 		getContentPane().add(lblActaulSelectedColor, "cell 1 1,alignx center");
-		
-		
+
+
 		final JPanel panel = new JPanel();
 		getContentPane().add(panel, "cell 2 1,grow");
 		panel.setLayout(new MigLayout("", "[]", "[]"));
@@ -71,18 +77,15 @@ public class NewCalendarWindow extends JDialog {
 		btnChooseColor.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e){
-				color = JColorChooser.showDialog(getContentPane(), "Colors", 
-						new Color((int) Math.random() * 256,(int) Math.random() * 256,(int) Math.random() * 256));
-				System.out.println(color.toString());
-				System.out.println(color.getRed());
+				color = JColorChooser.showDialog(getContentPane(), "Colors",
+						new Color((int) Math.random() * 100 + 156,(int) Math.random() * 100 + 156,(int) Math.random() * 100 + 156));
 				panel.setBackground(new Color(color.getRed(),color.getGreen(),color.getBlue()));
 				setVisible(false);
 				setVisible(true);
-				
 			}
 		});
 		getContentPane().add(btnChooseColor, "cell 0 1,growx");
-		
+
 		JButton btnOkay = new JButton("Okay");
 		btnOkay.addMouseListener(new MouseAdapter() {
 			@Override
@@ -100,17 +103,17 @@ public class NewCalendarWindow extends JDialog {
 				}
 			}
 		});
-		getContentPane().add(btnOkay, "cell 0 3,growx");
-		
+		getContentPane().add(btnOkay, "flowx,cell 1 2");
+
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
 			}
 		});
-		getContentPane().add(btnCancel, "cell 3 3,growx");
-		
-		
-		
+		getContentPane().add(btnCancel, "cell 1 2,growx");
+
+
+
 	}
 }

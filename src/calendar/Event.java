@@ -7,6 +7,7 @@ public class Event {
 	private String dateTo;
 	private String timeFrom; 
 	private String timeTo;
+	private String calendarName;
 	private String location; 
 	private String description; 
 	private String repeat;
@@ -15,7 +16,7 @@ public class Event {
 	
 	public Event(String title, String dateFrom, String dateTo, String timeFrom, 
     		String timeTo, String location, String description, String repeat, String repeatTo, 
-    		String visibility){
+    		String visibility, String calendarName){
 			this.title = title;
 			this.dateFrom = dateFrom;
 			this.dateTo = dateTo;
@@ -67,5 +68,7 @@ public class Event {
 	public String getVisibility() {
 		return visibility;
 	}
-	
+	public String getCalendarName() {
+		return calendarName;
+	}
 }

@@ -36,7 +36,8 @@ public class NewEventWindow extends JDialog {
 	private JSlider endTimeSlider;
 	private JTextArea descriptionTextArea;
 	private JLabel repeatLabel;
-
+	private JLabel repeatToLabel;
+	
 	SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 	private JScrollPane scrollPane;
 
@@ -126,7 +127,6 @@ public class NewEventWindow extends JDialog {
 		contentPanel.add(calendarLabel, gbc_calendarLabel);
 
 		ArrayList<String> calendarNames = DatabaseNames.getCalendarNames(client.getid());
-		System.out.println(calendarNames);
 		
 		JComboBox calendarComboBox = new JComboBox(calendarNames.toArray());
 		GridBagConstraints gbc_calendarComboBox = new GridBagConstraints();
@@ -382,6 +382,10 @@ public class NewEventWindow extends JDialog {
 		contentPanel.add(repeatComboBox, gbc_repeatComboBox);
 		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		
+		UtilDateModel repeatToModel = new UtilDateModel(endDateModel.getValue());
+		repeatToModel.setSelected(true);
+		JDatePanelImpl repeatToPanel = new JDatePanelImpl(endDateModel);
 
 		// Event Listener
 

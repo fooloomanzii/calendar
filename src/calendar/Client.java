@@ -61,7 +61,7 @@ public class Client {
 			if (!file.exists()) {
 				DatabaseNames.createClientDatabase();
 			}
-			
+
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			Statement stmt = conn.createStatement();
 			String sql = "INSERT INTO personTable VALUES ('" + firstName + "', '" + surname + "', '" + password + "', '"
@@ -84,7 +84,7 @@ public class Client {
 		if (!file.exists()) {
 			DatabaseNames.createClientDatabase();
 		}
-		
+
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			Statement stmt = conn.createStatement();
@@ -109,7 +109,7 @@ public class Client {
 		if (!file.exists()) {
 			DatabaseNames.createClientDatabase();
 		}
-		
+
 		try {
 			Connection conn = DriverManager.getConnection("jdbc:sqlite:" + pathDb);
 			if (!firstName.equals("")) {
@@ -123,7 +123,7 @@ public class Client {
 			}
 			if (!id.equals("")) {
 				this.id = id;
-				System.out.println(this.id);
+				// System.out.println(this.id);
 			}
 			if (!securityQuestion.equals("")) {
 				this.securityQuestion = securityQuestion;
